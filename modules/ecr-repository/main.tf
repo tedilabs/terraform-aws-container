@@ -8,11 +8,11 @@ resource "aws_ecr_repository" "this" {
   }
 
   dynamic "encryption_configuration" {
-    for_each = var.encryption_enalbed ? ["go"] : []
+    for_each = var.encryption_enabled ? ["go"] : []
 
     content {
       encryption_type = var.encryption_type
-      kms_key         = var.encryptoin_kms_key
+      kms_key         = var.encryption_kms_key
     }
   }
 
