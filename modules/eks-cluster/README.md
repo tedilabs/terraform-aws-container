@@ -1,4 +1,4 @@
-# eks-control-plane
+# eks-cluster
 
 This module creates following resources.
 
