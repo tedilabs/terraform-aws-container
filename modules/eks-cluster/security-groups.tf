@@ -69,7 +69,7 @@ module "security_group__control_plane" {
 
   tags = merge(
     {
-      "Name" = "eks-${var.cluster_name}-master"
+      "Name"                                      = "eks-${var.cluster_name}-master"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     },
     var.tags,
@@ -132,7 +132,7 @@ module "security_group__node" {
 
   tags = merge(
     {
-      "Name" = "eks-${var.cluster_name}-node"
+      "Name"                                      = "eks-${var.cluster_name}-node"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     },
     var.tags,

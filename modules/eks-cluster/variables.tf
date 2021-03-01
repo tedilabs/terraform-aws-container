@@ -89,7 +89,7 @@ variable "encryption_resources" {
 variable "timeouts" {
   description = "How long to wait for the EKS Cluster to be created/updated/deleted."
   type        = map(string)
-  default     = {
+  default = {
     create = "30m"
     update = "60m"
     delete = "15m"

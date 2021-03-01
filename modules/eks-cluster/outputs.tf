@@ -50,7 +50,7 @@ output "service_cidr" {
 
 output "security_group_ids" {
   description = "Security groups that were created for the EKS cluster."
-  value       = {
+  value = {
     cluster       = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
     control_plane = module.security_group__control_plane.id
     node          = module.security_group__node.id
@@ -59,7 +59,7 @@ output "security_group_ids" {
 
 output "iam_roles" {
   description = "IAM Roles for the EKS cluster."
-  value       = {
+  value = {
     control_plane = module.role__control_plane
     node          = module.role__node
   }
