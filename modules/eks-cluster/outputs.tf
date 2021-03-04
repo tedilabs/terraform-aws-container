@@ -65,9 +65,19 @@ output "iam_roles" {
   }
 }
 
-output "oidc_issuer" {
-  description = "IAM Roles for the EKS cluster."
+output "oidc_provider_arn" {
+  description = "The Amazon Resource Name (ARN) for the OpenID Connect identity provider."
+  value       = aws_iam_openid_connect_provider.this.arn
+}
+
+output "oidc_provider_url" {
+  description = "Issuer URL for the OpenID Connect identity provider."
   value       = aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
+
+output "oidc_provider_urn" {
+  description = "Issuer URN for the OpenID Connect identity provider."
+  value       = aws_iam_openid_connect_provider.this.url
 }
 
 output "log_group_name" {

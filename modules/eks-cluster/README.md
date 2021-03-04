@@ -8,6 +8,7 @@ This module creates following resources.
 - `aws_iam_role_policy`
 - `aws_iam_role_policy_attachment`
 - `aws_iam_instance_profile`
+- `aws_iam_openid_connect_provider`
 - `aws_security_group`
 - `aws_security_group_rule`
 
@@ -17,13 +18,15 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.27 |
+| aws | >= 3.30 |
+| tls | >= 3.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.27 |
+| aws | >= 3.30 |
+| tls | >= 3.1 |
 
 ## Inputs
 
@@ -59,7 +62,9 @@ This module creates following resources.
 | log\_group\_name | The Name of the log group. |
 | log\_types | A list of the enabled control plane logging. |
 | name | The name of the cluster. |
-| oidc\_issuer | IAM Roles for the EKS cluster. |
+| oidc\_provider\_arn | The Amazon Resource Name (ARN) for the OpenID Connect identity provider. |
+| oidc\_provider\_url | Issuer URL for the OpenID Connect identity provider. |
+| oidc\_provider\_urn | Issuer URN for the OpenID Connect identity provider. |
 | platform\_version | The platform version for the cluster. |
 | security\_group\_ids | Security groups that were created for the EKS cluster. |
 | service\_cidr | The CIDR block which is assigned to Kubernetes service IP addresses. |

@@ -1,10 +1,26 @@
 ###################################################
+# IAM OIDC Provider
+###################################################
+
+data "tls_certificate" "this" {
+  url = aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
+
+resource "aws_iam_openid_connect_provider" "this" {
+  url = aws_eks_cluster.this.identity[0].oidc[0].issuer
+
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [data.tls_certificate.this.certificates[0].sha1_fingerprint]
+}
+
+
+###################################################
 # IAM Role for Control Plane
 ###################################################
 
 module "role__control_plane" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.6.0"
+  version = "0.8.0"
 
   name        = "eks-${var.cluster_name}-control-plane"
   path        = "/"
@@ -32,7 +48,7 @@ module "role__control_plane" {
 
 module "role__node" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.6.0"
+  version = "0.8.0"
 
   name        = "eks-${var.cluster_name}-node"
   path        = "/"
