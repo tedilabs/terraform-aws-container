@@ -13,9 +13,9 @@ locals {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.12.1"
+  version = "0.16.1"
 
-  name        = "eks-${var.cluster_name}-control-plane"
+  name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
   vpc_id      = local.vpc_id
 
@@ -67,11 +67,14 @@ module "security_group__control_plane" {
     },
   ]
 
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
   tags = merge(
     {
-      "Name"                                      = "eks-${var.cluster_name}-master"
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+      "kubernetes.io/cluster/${local.metadata.name}" = "owned"
     },
+    local.module_tags,
     var.tags,
   )
 }
@@ -83,9 +86,9 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.12.1"
+  version = "0.16.1"
 
-  name        = "eks-${var.cluster_name}-node"
+  name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
   vpc_id      = local.vpc_id
 
@@ -130,11 +133,14 @@ module "security_group__node" {
     },
   ]
 
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
   tags = merge(
     {
-      "Name"                                      = "eks-${var.cluster_name}-node"
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+      "kubernetes.io/cluster/${local.metadata.name}" = "owned"
     },
+    local.module_tags,
     var.tags,
   )
 }

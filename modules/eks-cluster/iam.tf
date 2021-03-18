@@ -20,11 +20,11 @@ resource "aws_iam_openid_connect_provider" "this" {
 
 module "role__control_plane" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.8.0"
+  version = "0.11.0"
 
-  name        = "eks-${var.cluster_name}-control-plane"
+  name        = "eks-${local.metadata.name}-control-plane"
   path        = "/"
-  description = "Role for the EKS cluster(${var.cluster_name}) control plane"
+  description = "Role for the EKS cluster(${local.metadata.name}) control plane"
 
   trusted_services = ["eks.amazonaws.com"]
 
@@ -33,10 +33,11 @@ module "role__control_plane" {
     "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController",
   ]
 
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
   tags = merge(
-    {
-      "Name" = "eks-${var.cluster_name}-control-plane"
-    },
+    local.module_tags,
     var.tags,
   )
 }
@@ -48,11 +49,11 @@ module "role__control_plane" {
 
 module "role__node" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.8.0"
+  version = "0.11.0"
 
-  name        = "eks-${var.cluster_name}-node"
+  name        = "eks-${local.metadata.name}-node"
   path        = "/"
-  description = "Role for the EKS cluster(${var.cluster_name}) nodes"
+  description = "Role for the EKS cluster(${local.metadata.name}) nodes"
 
   trusted_services = ["ec2.amazonaws.com"]
 
@@ -65,10 +66,11 @@ module "role__node" {
 
   instance_profile_enabled = true
 
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
   tags = merge(
-    {
-      "Name" = "eks-${var.cluster_name}-node"
-    },
+    local.module_tags,
     var.tags,
   )
 }

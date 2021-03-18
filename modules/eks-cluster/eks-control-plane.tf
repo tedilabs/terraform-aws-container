@@ -1,3 +1,20 @@
+locals {
+  metadata = {
+    package = "terraform-aws-container"
+    version = trimspace(file("${path.module}/../../VERSION"))
+    module  = basename(path.module)
+    name    = var.name
+  }
+  module_tags = var.module_tags_enabled ? {
+    "module.terraform.io/package"   = local.metadata.package
+    "module.terraform.io/version"   = local.metadata.version
+    "module.terraform.io/name"      = local.metadata.module
+    "module.terraform.io/full-name" = "${local.metadata.package}/${local.metadata.module}"
+    "module.terraform.io/instance"  = local.metadata.name
+  } : {}
+}
+
+
 ###################################################
 # EKS Control Plane
 ###################################################
@@ -14,8 +31,8 @@ locals {
 }
 
 resource "aws_eks_cluster" "this" {
-  name     = var.cluster_name
-  version  = var.cluster_version
+  name     = var.name
+  version  = var.kubernetes_version
   role_arn = module.role__control_plane.arn
 
   enabled_cluster_log_types = var.log_types
@@ -46,8 +63,9 @@ resource "aws_eks_cluster" "this" {
 
   tags = merge(
     {
-      "Name" = var.cluster_name
+      "Name" = local.metadata.name
     },
+    local.module_tags,
     var.tags,
   )
 

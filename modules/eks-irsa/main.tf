@@ -1,4 +1,20 @@
 locals {
+  metadata = {
+    package = "terraform-aws-container"
+    version = trimspace(file("${path.module}/../../VERSION"))
+    module  = basename(path.module)
+    name    = var.name
+  }
+  module_tags = var.module_tags_enabled ? {
+    "module.terraform.io/package"   = local.metadata.package
+    "module.terraform.io/version"   = local.metadata.version
+    "module.terraform.io/name"      = local.metadata.module
+    "module.terraform.io/full-name" = "${local.metadata.package}/${local.metadata.module}"
+    "module.terraform.io/instance"  = local.metadata.name
+  } : {}
+}
+
+locals {
   trusted_oidc_providers = [
     for url in var.oidc_provider_urls : {
       type = "aws-iam"
@@ -27,9 +43,9 @@ locals {
 
 module "this" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.8.0"
+  version = "0.11.0"
 
-  name        = var.name
+  name        = local.metadata.name
   path        = var.path
   description = var.description
 
@@ -53,10 +69,11 @@ module "this" {
   policies        = var.policies
   inline_policies = var.inline_policies
 
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
   tags = merge(
-    {
-      "Name" = var.name
-    },
+    local.module_tags,
     var.tags,
   )
 }

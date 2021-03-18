@@ -31,7 +31,11 @@ This module creates following resources.
 | image\_scan\_on\_push\_enabled | Indicates whether images are scanned after being pushed to the repository or not scanned. | `bool` | `false` | no |
 | image\_tag\_immutable\_enabled | Should be true if you want to disable to modify image tags. | `bool` | `false` | no |
 | lifecycle\_policy | The policy document for ECR Repository Lifecycle. This is a JSON formatted string. | `string` | `""` | no |
+| module\_tags\_enabled | Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | repository\_policy | The policy document for ECR Repository. This is a JSON formatted string. | `string` | `""` | no |
+| resource\_group\_description | The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
+| resource\_group\_enabled | Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
+| resource\_group\_name | The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
 | tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -41,6 +45,8 @@ This module creates following resources.
 | arn | The ARN of the repository. |
 | name | The name of the repository. |
 | registry\_id | The registry ID where the repository was created. |
+| resource\_group\_enabled | Whether Resource Group is enabled. |
+| resource\_group\_name | The name of Resource Group. |
 | url | The URL of the repository (in the form aws\_account\_id.dkr.ecr.region.amazonaws.com/repositoryName). |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

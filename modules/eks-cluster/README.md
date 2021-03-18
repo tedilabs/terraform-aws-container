@@ -32,9 +32,8 @@ This module creates following resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cluster\_name | Name of the EKS cluster. | `string` | n/a | yes |
+| name | Name of the EKS cluster. | `string` | n/a | yes |
 | subnet\_ids | A list of subnets to creates cross-account elastic network interfaces to allow communication between your worker nodes and the Kubernetes control plane. Must be in at least two different availability zones. | `list(string)` | n/a | yes |
-| cluster\_version | Kubernetes version to use for the EKS cluster. | `string` | `"1.19"` | no |
 | encryption\_enabled | Whether to encrypt kubernetes resources. | `string` | `false` | no |
 | encryption\_kms\_key | The ARN of the KMS customer master key (CMK) to encrypt resources. The CMK must be symmetric, created in the same region as the cluster, and if the CMK was created in a different account, the user must have access to the CMK. | `string` | `null` | no |
 | encryption\_resources | List of strings with resources to be encrypted. Valid values: `secrets`. | `list(string)` | <pre>[<br>  "secrets"<br>]</pre> | no |
@@ -43,9 +42,14 @@ This module creates following resources.
 | endpoint\_private\_access\_source\_security\_group\_ids | A list of allowed source security group to communicate to the Amazon EKS private API server endpoint. | `list(string)` | `[]` | no |
 | endpoint\_public\_access | Indicates whether or not the Amazon EKS public API server endpoint is enabled. | `bool` | `false` | no |
 | endpoint\_public\_access\_cidrs | A list of allowed CIDR to communicate to the Amazon EKS public API server endpoint. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| kubernetes\_version | Kubernetes version to use for the EKS cluster. | `string` | `"1.19"` | no |
 | log\_encryption\_kms\_key | The ARN of the KMS Key to use when encrypting log data. Please note, after the AWS KMS CMK is disassociated from the log group, AWS CloudWatch Logs stops encrypting newly ingested data for the log group. All previously ingested data remains encrypted, and AWS CloudWatch Logs requires permissions for the CMK whenever the encrypted data is requested. | `string` | `null` | no |
 | log\_retention\_in\_days | Number of days to retain log events. Default retention - 90 days. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire. | `number` | `90` | no |
 | log\_types | A list of the desired control plane logging to enable. | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
+| module\_tags\_enabled | Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
+| resource\_group\_description | The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
+| resource\_group\_enabled | Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
+| resource\_group\_name | The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
 | service\_cidr | The CIDR block to assign Kubernetes service IP addresses from. Recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created. | `string` | `"172.20.0.0/16"` | no |
 | tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
 | timeouts | How long to wait for the EKS Cluster to be created/updated/deleted. | `map(string)` | <pre>{<br>  "create": "30m",<br>  "delete": "15m",<br>  "update": "60m"<br>}</pre> | no |
@@ -66,6 +70,8 @@ This module creates following resources.
 | oidc\_provider\_url | Issuer URL for the OpenID Connect identity provider. |
 | oidc\_provider\_urn | Issuer URN for the OpenID Connect identity provider. |
 | platform\_version | The platform version for the cluster. |
+| resource\_group\_enabled | Whether Resource Group is enabled. |
+| resource\_group\_name | The name of Resource Group. |
 | security\_group\_ids | Security groups that were created for the EKS cluster. |
 | service\_cidr | The CIDR block which is assigned to Kubernetes service IP addresses. |
 | status | The status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`. |
