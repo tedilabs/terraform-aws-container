@@ -74,3 +74,29 @@ module "role__node" {
     var.tags,
   )
 }
+
+
+###################################################
+# IAM Role for Fargate Profiles
+###################################################
+
+module "role__fargate_profile" {
+  source  = "tedilabs/account/aws//modules/iam-role"
+  version = "0.11.0"
+
+  name        = "eks-${local.metadata.name}-fargate-profile"
+  path        = "/"
+  description = "Role for the EKS cluster(${local.metadata.name}) Fargate profiles"
+
+  trusted_services = ["eks-fargate-pods.amazonaws.com"]
+
+  policies = ["arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"]
+
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
+  tags = merge(
+    local.module_tags,
+    var.tags,
+  )
+}

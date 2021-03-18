@@ -60,8 +60,9 @@ output "security_group_ids" {
 output "iam_roles" {
   description = "IAM Roles for the EKS cluster."
   value = {
-    control_plane = module.role__control_plane
-    node          = module.role__node
+    control_plane   = module.role__control_plane
+    node            = module.role__node
+    fargate_profile = module.role__fargate_profile
   }
 }
 
