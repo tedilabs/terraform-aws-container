@@ -103,6 +103,15 @@ module "security_group__node" {
       self = true
     },
     {
+      id          = "all/cluster"
+      description = "Allow nodes to communicate from the cluster security group(for fargate pods)."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+    },
+    {
       id          = "ephemeral/control-plane"
       description = "Allow nodes to receive communication from the cluster control plane."
       protocol    = "tcp"
@@ -130,6 +139,15 @@ module "security_group__node" {
       to_port     = 0
 
       cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      id          = "all/cluster"
+      description = "Allow nodes egress access to the cluster security group(for fargate pods)."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
     },
   ]
 
