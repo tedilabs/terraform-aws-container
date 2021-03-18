@@ -33,6 +33,8 @@ This module creates following resources.
 | force\_detach\_policies | Specifies to force detaching any policies the role has before destroying it. | `bool` | `false` | no |
 | inline\_policies | Map of inline IAM policies to attach to IAM role. (`name` => `policy`). | `map(string)` | `{}` | no |
 | max\_session\_duration | Maximum CLI/API session duration in seconds between 3600 and 43200. | `number` | `3600` | no |
+| mfa\_required | Whether MFA should be required to assume the role. | `bool` | `false` | no |
+| mfa\_ttl | Max age of valid MFA (in seconds) for roles which require MFA. | `number` | `86400` | no |
 | module\_tags\_enabled | Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | path | Desired path of the IAM role for EKS service accounts. | `string` | `"/"` | no |
 | permissions\_boundary | The ARN of the policy that is used to set the permissions boundary for the role. | `string` | `""` | no |
@@ -43,6 +45,7 @@ This module creates following resources.
 | source\_ip\_blacklist | A list of source IP addresses or CIDRs denied to assume IAM role from. | `list(string)` | `[]` | no |
 | source\_ip\_whitelist | A list of source IP addresses or CIDRs allowed to assume IAM role from. | `list(string)` | `[]` | no |
 | tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
+| trusted\_iam\_entities | A list of ARNs of AWS IAM entities who can assume the role. | `list(string)` | `[]` | no |
 | trusted\_oidc\_conditions | Required conditions to assume the role for OIDC providers. | <pre>list(object({<br>    key       = string<br>    condition = string<br>    values    = list(string)<br>  }))</pre> | `[]` | no |
 | trusted\_service\_accounts | A list of Kubernetes service accounts which could be trusted to assume the role. The format should be `<namespace>:<service-account>`. The values can include a multi-character match wildcard (\*) or a single-character match wildcard (?) anywhere in the string. | `list(string)` | `[]` | no |
 
@@ -55,6 +58,8 @@ This module creates following resources.
 | effective\_date | Allow to assume IAM role only after this date and time. |
 | expiration\_date | Allow to assume IAM role only before this date and time. |
 | inline\_policies | List of names of inline IAM polices which are attached to IAM role. |
+| mfa\_required | Whether MFA should be required to assume the role. |
+| mfa\_ttl | Max age of valid MFA (in seconds) for roles which require MFA. |
 | name | IAM Role name. |
 | policies | List of ARNs of IAM policies which are atached to IAM role. |
 | resource\_group\_enabled | Whether Resource Group is enabled. |

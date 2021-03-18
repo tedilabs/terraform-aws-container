@@ -33,6 +33,12 @@ variable "permissions_boundary" {
   default     = ""
 }
 
+variable "trusted_iam_entities" {
+  description = "A list of ARNs of AWS IAM entities who can assume the role."
+  type        = list(string)
+  default     = []
+}
+
 variable "trusted_service_accounts" {
   description = "A list of Kubernetes service accounts which could be trusted to assume the role. The format should be `<namespace>:<service-account>`. The values can include a multi-character match wildcard (*) or a single-character match wildcard (?) anywhere in the string."
   type        = list(string)
@@ -62,6 +68,18 @@ variable "conditions" {
     values    = list(string)
   }))
   default = []
+}
+
+variable "mfa_required" {
+  description = "Whether MFA should be required to assume the role."
+  type        = bool
+  default     = false
+}
+
+variable "mfa_ttl" {
+  description = "Max age of valid MFA (in seconds) for roles which require MFA."
+  type        = number
+  default     = 24 * 60 * 60
 }
 
 variable "effective_date" {

@@ -53,6 +53,7 @@ module "this" {
   force_detach_policies = var.force_detach_policies
   permissions_boundary  = var.permissions_boundary
 
+  trusted_iam_entities   = var.trusted_iam_entities
   trusted_oidc_providers = local.trusted_oidc_providers
   trusted_oidc_conditions = concat(
     local.trusted_app_id_condition,
@@ -61,6 +62,8 @@ module "this" {
   )
   conditions = var.conditions
 
+  mfa_required        = var.mfa_required
+  mfa_ttl             = var.mfa_ttl
   effective_date      = var.effective_date
   expiration_date     = var.expiration_date
   source_ip_whitelist = var.source_ip_whitelist
