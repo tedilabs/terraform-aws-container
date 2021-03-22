@@ -59,7 +59,7 @@ This module creates following resources.
 | Name | Description |
 |------|-------------|
 | arn | The ARN of the cluster. |
-| certificate\_authority | The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster. |
+| ca\_cert | The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster. |
 | endpoint | The endpoint for the Kubernetes API server. |
 | iam\_roles | IAM Roles for the EKS cluster. |
 | log\_group\_arn | The Amazon Resource Name (ARN) specifying the log group. |
