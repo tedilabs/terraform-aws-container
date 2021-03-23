@@ -2,21 +2,21 @@ locals {
   map_roles = concat(
     [
       for role in var.node_roles : {
-        roleARN  = role
+        rolearn  = role
         username = "system:node:{{EC2PrivateDNSName}}"
         groups   = ["system:bootstrappers", "system:nodes"]
       }
     ],
     [
       for role in var.fargate_profile_roles : {
-        roleARN  = role
+        rolearn  = role
         username = "system:node:{{SessionName}}"
         groups   = ["system:bootstrappers", "system:nodes", "system:node-proxier"]
       }
     ],
     [
       for map_role in var.map_roles : {
-        roleARN  = map_role.iam_role
+        rolearn  = map_role.iam_role
         username = map_role.username
         groups   = try(map_role.groups, [])
       }
@@ -24,7 +24,7 @@ locals {
   )
   map_users = [
     for map_user in var.map_users : {
-      userARN  = map_user.iam_user
+      userarn  = map_user.iam_user
       username = map_user.username
       groups   = try(map_user.groups, [])
     }
