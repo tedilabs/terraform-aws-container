@@ -29,6 +29,15 @@ module "security_group__control_plane" {
         to_port     = 443
 
         source_security_group_id = module.security_group__node.id
+      },
+      {
+        id          = "cluster-api/pods"
+        description = "Allow pods to communicate with the cluster API server."
+        protocol    = "tcp"
+        from_port   = 443
+        to_port     = 443
+
+        source_security_group_id = module.security_group__pod.id
       }
     ],
     var.endpoint_private_access && length(var.endpoint_private_access_cidrs) > 0 ? [
@@ -58,12 +67,21 @@ module "security_group__control_plane" {
   egress_rules = [
     {
       id          = "ephemeral/nodes"
-      description = "Allow cluster egress access to nodes."
+      description = "Allow control plane to ephemrally communicate with nodes."
       protocol    = "tcp"
       from_port   = 1025
       to_port     = 65535
 
       source_security_group_id = module.security_group__node.id
+    },
+    {
+      id          = "ephemeral/pods"
+      description = "Allow control plane to ephemrally communicate with pods."
+      protocol    = "tcp"
+      from_port   = 1025
+      to_port     = 65535
+
+      source_security_group_id = module.security_group__pod.id
     },
   ]
 
@@ -121,13 +139,22 @@ module "security_group__node" {
       source_security_group_id = module.security_group__control_plane.id
     },
     {
-      id          = "cluster-api/control-plane"
-      description = "Allow nodes to communicate with the cluster API server."
+      id          = "kubelet/control-plane"
+      description = "Allow nodes to receive communication from the cluster control plane for kubelet."
       protocol    = "tcp"
-      from_port   = 443
-      to_port     = 443
+      from_port   = 10250
+      to_port     = 10250
 
       source_security_group_id = module.security_group__control_plane.id
+    },
+    {
+      id          = "kubelet/pods"
+      description = "Allow nodes to receive communication from the pods for kubelet."
+      protocol    = "tcp"
+      from_port   = 10250
+      to_port     = 10250
+
+      source_security_group_id = module.security_group__pod.id
     },
   ]
   egress_rules = [
@@ -148,6 +175,72 @@ module "security_group__node" {
       to_port     = 0
 
       source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+    },
+  ]
+
+  resource_group_enabled = false
+  module_tags_enabled    = false
+
+  tags = merge(
+    {
+      "kubernetes.io/cluster/${local.metadata.name}" = "owned"
+    },
+    local.module_tags,
+    var.tags,
+  )
+}
+
+
+###################################################
+# Security Group for Pods
+###################################################
+
+module "security_group__pod" {
+  source  = "tedilabs/network/aws//modules/security-group"
+  version = "0.16.1"
+
+  name        = "eks-${local.metadata.name}-pod"
+  description = "Security Group for all pods in the EKS cluster."
+  vpc_id      = local.vpc_id
+
+  ingress_rules = [
+    # {
+    #   id          = "all/self"
+    #   description = "Allow pods to communicate each others."
+    #   protocol    = "-1"
+    #   from_port   = 0
+    #   to_port     = 0
+    #
+    #   self = true
+    # },
+    {
+      id          = "all/nodes"
+      description = "Allow pods to communicate from the nodes."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      source_security_group_id = module.security_group__node.id
+    },
+    {
+      id          = "ephemeral/control-plane"
+      description = "Allow pods to receive communication from the cluster control plane."
+      protocol    = "tcp"
+      from_port   = 1025
+      to_port     = 65535
+
+      source_security_group_id = module.security_group__control_plane.id
+    },
+  ]
+  egress_rules = [
+    {
+      id          = "all/all"
+      description = "Allow pods to communicate to the Internet."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      cidr_blocks = ["0.0.0.0/0"]
     },
   ]
 

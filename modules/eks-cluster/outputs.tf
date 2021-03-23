@@ -54,6 +54,7 @@ output "security_group_ids" {
     cluster       = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
     control_plane = module.security_group__control_plane.id
     node          = module.security_group__node.id
+    pod           = module.security_group__pod.id
   }
 }
 
