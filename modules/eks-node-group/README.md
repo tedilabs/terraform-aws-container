@@ -11,13 +11,13 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 | template | n/a |
 
 ## Inputs
@@ -57,7 +57,5 @@ This module creates following resources.
 | asg\_arn | n/a |
 | asg\_id | ################################################## EKS ################################################## |
 | asg\_name | n/a |
-| resource\_group\_enabled | Whether Resource Group is enabled. |
-| resource\_group\_name | The name of Resource Group. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

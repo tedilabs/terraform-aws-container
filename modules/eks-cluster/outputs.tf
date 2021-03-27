@@ -96,18 +96,3 @@ output "log_types" {
   description = "A list of the enabled control plane logging."
   value       = aws_eks_cluster.this.enabled_cluster_log_types
 }
-
-
-###################################################
-# Resource Group
-###################################################
-
-output "resource_group_enabled" {
-  description = "Whether Resource Group is enabled."
-  value       = var.resource_group_enabled
-}
-
-output "resource_group_name" {
-  description = "The name of Resource Group."
-  value       = try(aws_resourcegroups_group.this.*.name[0], null)
-}

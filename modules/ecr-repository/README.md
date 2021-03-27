@@ -12,13 +12,13 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 
 ## Inputs
 
@@ -45,8 +45,6 @@ This module creates following resources.
 | arn | The ARN of the repository. |
 | name | The name of the repository. |
 | registry\_id | The registry ID where the repository was created. |
-| resource\_group\_enabled | Whether Resource Group is enabled. |
-| resource\_group\_name | The name of Resource Group. |
 | url | The URL of the repository (in the form aws\_account\_id.dkr.ecr.region.amazonaws.com/repositoryName). |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

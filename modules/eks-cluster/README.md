@@ -18,14 +18,14 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 | tls | >= 3.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.30 |
+| aws | >= 3.34 |
 | tls | >= 3.1 |
 
 ## Inputs
@@ -70,8 +70,6 @@ This module creates following resources.
 | oidc\_provider\_url | Issuer URL for the OpenID Connect identity provider. |
 | oidc\_provider\_urn | Issuer URN for the OpenID Connect identity provider. |
 | platform\_version | The platform version for the cluster. |
-| resource\_group\_enabled | Whether Resource Group is enabled. |
-| resource\_group\_name | The name of Resource Group. |
 | security\_group\_ids | Security groups that were created for the EKS cluster. |
 | service\_cidr | The CIDR block which is assigned to Kubernetes service IP addresses. |
 | status | The status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`. |

@@ -11,6 +11,14 @@ resource "aws_iam_openid_connect_provider" "this" {
 
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = [data.tls_certificate.this.certificates[0].sha1_fingerprint]
+
+  tags = merge(
+    {
+      "Name" = "eks-${local.metadata.name}-oidc-provider"
+    },
+    local.module_tags,
+    var.tags,
+  )
 }
 
 
@@ -20,7 +28,7 @@ resource "aws_iam_openid_connect_provider" "this" {
 
 module "role__control_plane" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.11.0"
+  version = "0.12.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   path        = "/"
@@ -49,7 +57,7 @@ module "role__control_plane" {
 
 module "role__node" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.11.0"
+  version = "0.12.0"
 
   name        = "eks-${local.metadata.name}-node"
   path        = "/"
@@ -82,7 +90,7 @@ module "role__node" {
 
 module "role__fargate_profile" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.11.0"
+  version = "0.12.0"
 
   name        = "eks-${local.metadata.name}-fargate-profile"
   path        = "/"
