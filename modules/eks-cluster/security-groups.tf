@@ -204,15 +204,15 @@ module "security_group__pod" {
   vpc_id      = local.vpc_id
 
   ingress_rules = [
-    # {
-    #   id          = "all/self"
-    #   description = "Allow pods to communicate each others."
-    #   protocol    = "-1"
-    #   from_port   = 0
-    #   to_port     = 0
-    #
-    #   self = true
-    # },
+    {
+      id          = "all/self"
+      description = "Allow pods to communicate each others."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      self = true
+    },
     {
       id          = "all/nodes"
       description = "Allow pods to communicate from the nodes."
