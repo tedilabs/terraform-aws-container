@@ -30,7 +30,7 @@ This module creates following resources.
 | encryption\_type | The encryption type to use for the repository. Valid values are `AES256` or `KMS`. | `string` | `"AES256"` | no |
 | image\_scan\_on\_push\_enabled | Indicates whether images are scanned after being pushed to the repository or not scanned. | `bool` | `false` | no |
 | image\_tag\_immutable\_enabled | Should be true if you want to disable to modify image tags. | `bool` | `false` | no |
-| lifecycle\_policy | The policy document for ECR Repository Lifecycle. This is a JSON formatted string. | `string` | `""` | no |
+| lifecycle\_rules | A list of ECR Repository Lifecycle rules. `priority` must be unique and do not need to be sequential across rules. `descriptoin` is optional. `type` is one of `tagged`, `untagged`, or `any`. `tag_prefixes` is required if you specified `tagged` type. Specify one of `expiration_days` or `expiration_count` | `any` | `[]` | no |
 | module\_tags\_enabled | Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | repository\_policy | The policy document for ECR Repository. This is a JSON formatted string. | `string` | `""` | no |
 | resource\_group\_description | The description of Resource Group. | `string` | `"Managed by Terraform."` | no |

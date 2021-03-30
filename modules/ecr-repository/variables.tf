@@ -39,10 +39,10 @@ variable "repository_policy" {
   default     = ""
 }
 
-variable "lifecycle_policy" {
-  description = "The policy document for ECR Repository Lifecycle. This is a JSON formatted string."
-  type        = string
-  default     = ""
+variable "lifecycle_rules" {
+  description = "A list of ECR Repository Lifecycle rules. `priority` must be unique and do not need to be sequential across rules. `descriptoin` is optional. `type` is one of `tagged`, `untagged`, or `any`. `tag_prefixes` is required if you specified `tagged` type. Specify one of `expiration_days` or `expiration_count`"
+  type        = any
+  default     = []
 }
 
 variable "tags" {

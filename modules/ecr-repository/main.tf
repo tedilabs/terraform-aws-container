@@ -58,9 +58,46 @@ resource "aws_ecr_repository_policy" "this" {
 # Lifecycle Policy
 ###################################################
 
+locals {
+  lifecycle_rules = [
+    for rule in var.lifecycle_rules : {
+      rulePriority = tonumber(rule.priority)
+      description  = rule.description
+      selection = merge(
+        {
+          tagStatus = rule.type
+        },
+        try(
+          {
+            tagPrefixList = rule.tag_prefixes
+          },
+          {}
+        ),
+        try(
+          {
+            countType   = "imageCountMoreThan"
+            countNumber = tonumber(rule.expiration_count)
+          },
+          {
+            countType   = "sinceImagePushed"
+            countUnit   = "days"
+            countNumber = tonumber(rule.expiration_days)
+          }
+        )
+      )
+      action = {
+        type = "expire"
+      }
+    }
+  ]
+  lifecycle_policy = jsonencode({
+    rules = local.lifecycle_rules
+  })
+}
+
 resource "aws_ecr_lifecycle_policy" "this" {
-  count = length(var.lifecycle_policy) > 0 ? 1 : 0
+  count = length(local.lifecycle_policy) >= 100 ? 1 : 0
 
   repository = aws_ecr_repository.this.name
-  policy     = var.lifecycle_policy
+  policy     = local.lifecycle_policy
 }
