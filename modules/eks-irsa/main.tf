@@ -43,7 +43,7 @@ locals {
 
 module "this" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.12.0"
+  version = "0.15.0"
 
   name        = local.metadata.name
   path        = var.path

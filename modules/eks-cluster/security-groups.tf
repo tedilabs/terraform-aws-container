@@ -13,7 +13,7 @@ locals {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.18.0"
+  version = "0.20.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
@@ -104,7 +104,7 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.18.0"
+  version = "0.20.0"
 
   name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
@@ -197,7 +197,7 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.18.0"
+  version = "0.20.0"
 
   name        = "eks-${local.metadata.name}-pod"
   description = "Security Group for all pods in the EKS cluster."
