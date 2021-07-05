@@ -156,6 +156,15 @@ module "security_group__node" {
 
       source_security_group_id = module.security_group__pod.id
     },
+    {
+      id          = "node-exporter/pods"
+      description = "Allow nodes to receive communication from the pods for node-exporter."
+      protocol    = "tcp"
+      from_port   = 9100
+      to_port     = 9100
+
+      source_security_group_id = module.security_group__pod.id
+    },
   ]
   egress_rules = [
     {
