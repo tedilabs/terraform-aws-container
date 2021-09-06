@@ -91,6 +91,48 @@ variable "instance_profile" {
   type        = string
 }
 
+variable "root_volume_type" {
+  description = "The volume type for root volume. Can be standard, `gp2`, `gp3`, `io1`, `io2`, `sc1` or `st1`."
+  type        = string
+  default     = "gp2"
+}
+
+variable "root_volume_size" {
+  description = "The size of the root volume in gigabytes."
+  type        = number
+  default     = 20
+}
+
+variable "root_volume_iops" {
+  description = "The amount of provisioned IOPS for the root volume."
+  type        = number
+  default     = null
+}
+
+variable "root_volume_throughput" {
+  description = "The throughput to provision for a gp3 volume in MiB/s (specified as an integer, e.g. 500), with a maximum of 1,000 MiB/s."
+  type        = number
+  default     = null
+}
+
+variable "root_volume_encryption_enabled" {
+  description = "Enables EBS encryption on the root volume."
+  type        = bool
+  default     = false
+}
+
+variable "root_volume_encryption_kms_key_id" {
+  description = "The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted volume. `root_volume_encryption_enabled` must be set to true when this is set."
+  type        = string
+  default     = null
+}
+
+variable "ebs_optimized" {
+  description = "If true, the launched EC2 instance will be EBS-optimized."
+  type        = bool
+  default     = false
+}
+
 variable "security_group_ids" {
   description = "All workers will be attached to those security groups."
   type        = list(string)
@@ -98,6 +140,12 @@ variable "security_group_ids" {
 
 variable "associate_public_ip_address" {
   description = "Associate a public ip address with an instance in a VPC."
+  type        = bool
+  default     = false
+}
+
+variable "monitoring_enabled" {
+  description = "If true, the launched EC2 instance will have detailed monitoring enabled."
   type        = bool
   default     = false
 }

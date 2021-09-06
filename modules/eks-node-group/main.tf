@@ -46,9 +46,25 @@ resource "aws_launch_template" "this" {
   instance_type = var.instance_type
   key_name      = var.instance_ssh_key
 
+  ebs_optimized = var.ebs_optimized
+
   user_data = base64encode(data.template_file.userdata.rendered)
 
   instance_initiated_shutdown_behavior = "terminate"
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+      volume_type           = var.root_volume_type
+      volume_size           = var.root_volume_size
+      iops                  = var.root_volume_iops
+      throughput            = var.root_volume_throughput
+      encrypted             = var.root_volume_encryption_enabled
+      kms_key_id            = var.root_volume_encryption_kms_key_id
+      delete_on_termination = true
+    }
+  }
 
   network_interfaces {
     description     = "Managed by Terraform."
@@ -56,6 +72,10 @@ resource "aws_launch_template" "this" {
 
     associate_public_ip_address = var.associate_public_ip_address
     delete_on_termination       = true
+  }
+
+  monitoring {
+    enabled = var.monitoring_enabled
   }
 
   iam_instance_profile {
