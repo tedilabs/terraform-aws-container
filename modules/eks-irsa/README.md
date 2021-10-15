@@ -18,13 +18,13 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.57.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.63.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | 0.15.0 |
+| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | 0.16.1 |
 
 ## Resources
 
