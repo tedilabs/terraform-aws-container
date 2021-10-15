@@ -25,19 +25,19 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.57.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.63.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_role__control_plane"></a> [role\_\_control\_plane](#module\_role\_\_control\_plane) | tedilabs/account/aws//modules/iam-role | 0.15.0 |
-| <a name="module_role__fargate_profile"></a> [role\_\_fargate\_profile](#module\_role\_\_fargate\_profile) | tedilabs/account/aws//modules/iam-role | 0.15.0 |
-| <a name="module_role__node"></a> [role\_\_node](#module\_role\_\_node) | tedilabs/account/aws//modules/iam-role | 0.15.0 |
-| <a name="module_security_group__control_plane"></a> [security\_group\_\_control\_plane](#module\_security\_group\_\_control\_plane) | tedilabs/network/aws//modules/security-group | 0.20.0 |
-| <a name="module_security_group__node"></a> [security\_group\_\_node](#module\_security\_group\_\_node) | tedilabs/network/aws//modules/security-group | 0.20.0 |
-| <a name="module_security_group__pod"></a> [security\_group\_\_pod](#module\_security\_group\_\_pod) | tedilabs/network/aws//modules/security-group | 0.20.0 |
+| <a name="module_role__control_plane"></a> [role\_\_control\_plane](#module\_role\_\_control\_plane) | tedilabs/account/aws//modules/iam-role | 0.16.1 |
+| <a name="module_role__fargate_profile"></a> [role\_\_fargate\_profile](#module\_role\_\_fargate\_profile) | tedilabs/account/aws//modules/iam-role | 0.16.1 |
+| <a name="module_role__node"></a> [role\_\_node](#module\_role\_\_node) | tedilabs/account/aws//modules/iam-role | 0.16.1 |
+| <a name="module_security_group__control_plane"></a> [security\_group\_\_control\_plane](#module\_security\_group\_\_control\_plane) | tedilabs/network/aws//modules/security-group | 0.24.0 |
+| <a name="module_security_group__node"></a> [security\_group\_\_node](#module\_security\_group\_\_node) | tedilabs/network/aws//modules/security-group | 0.24.0 |
+| <a name="module_security_group__pod"></a> [security\_group\_\_pod](#module\_security\_group\_\_pod) | tedilabs/network/aws//modules/security-group | 0.24.0 |
 
 ## Resources
 

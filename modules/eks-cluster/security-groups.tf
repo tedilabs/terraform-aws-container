@@ -13,7 +13,7 @@ locals {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.20.0"
+  version = "0.24.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
@@ -104,7 +104,7 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.20.0"
+  version = "0.24.0"
 
   name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
@@ -206,7 +206,7 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.20.0"
+  version = "0.24.0"
 
   name        = "eks-${local.metadata.name}-pod"
   description = "Security Group for all pods in the EKS cluster."
@@ -230,6 +230,15 @@ module "security_group__pod" {
       to_port     = 0
 
       source_security_group_id = module.security_group__node.id
+    },
+    {
+      id          = "metrics-server/control-plane"
+      description = "Allow pods to receive metrics-server communication from the cluster control plane."
+      protocol    = "tcp"
+      from_port   = 443
+      to_port     = 443
+
+      source_security_group_id = module.security_group__control_plane.id
     },
     {
       id          = "ephemeral/control-plane"
