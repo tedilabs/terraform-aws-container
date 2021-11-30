@@ -1,0 +1,21 @@
+# Modules
+":floppy_disk: ecr-registry":
+- modules/ecr-registry/**/*
+
+":floppy_disk: ecr-repository":
+- modules/ecr-repository/**/*
+
+":floppy_disk: eks-aws-auth":
+- modules/eks-aws-auth/**/*
+
+":floppy_disk: eks-cluster":
+- modules/eks-cluster/**/*
+
+":floppy_disk: eks-irsa":
+- modules/eks-irsa/**/*
+
+":floppy_disk: eks-max-pods":
+- modules/eks-max-pods/**/*
+
+":floppy_disk: eks-node-group":
+- modules/eks-node-group/**/*
