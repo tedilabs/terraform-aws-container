@@ -81,3 +81,68 @@ resource "aws_ecr_replication_configuration" "this" {
     }
   }
 }
+
+
+###################################################
+# Pull Through Cache Rule
+###################################################
+
+locals {
+  default_namespaces = {
+    "quay.io"        = "quay"
+    "public.ecr.aws" = "ecr-public"
+  }
+}
+
+resource "aws_ecr_pull_through_cache_rule" "this" {
+  for_each = {
+    for rule in var.pull_through_cache_rules :
+    try(rule.namespace, local.default_namespaces[rule.upstream_url]) => rule
+  }
+
+  ecr_repository_prefix = each.key
+  upstream_registry_url = each.value.upstream_url
+}
+
+
+###################################################
+# Scanning Configuration
+###################################################
+
+resource "aws_ecr_registry_scanning_configuration" "this" {
+  scan_type = var.scanning_type
+
+  dynamic "rule" {
+    for_each = length(var.scanning_on_push_filters) > 0 ? ["go"] : []
+
+    content {
+      scan_frequency = "SCAN_ON_PUSH"
+
+      dynamic "repository_filter" {
+        for_each = var.scanning_on_push_filters
+
+        content {
+          filter      = repository_filter.value
+          filter_type = "WILDCARD"
+        }
+      }
+    }
+  }
+
+  dynamic "rule" {
+    for_each = length(var.scanning_continuous_filters) > 0 ? ["go"] : []
+
+    content {
+      scan_frequency = "CONTINUOUS_SCAN"
+
+      dynamic "repository_filter" {
+        for_each = var.scanning_continuous_filters
+
+        content {
+          filter      = repository_filter.value
+          filter_type = "WILDCARD"
+        }
+      }
+    }
+  }
+}

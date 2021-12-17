@@ -23,6 +23,34 @@ variable "replication_destinations" {
   default = []
 }
 
+variable "pull_through_cache_rules" {
+  description = <<EOF
+  (Optional) A list of Pull Through Cache Rules for ECR registry. A `pull_through_cache_rules` block as defined below.
+    (Required) `upstream_url` - The registry URL of the upstream public registry to use as the source.
+    (Optional) `namespace` - The repository name prefix to use when caching images from the source registry. Default value is used if not provided.
+  EOF
+  type        = list(any)
+  default     = []
+}
+
+variable "scanning_type" {
+  description = "The scanning type to set for the registry. Can be either `ENHANCED` or `BASIC`."
+  type        = string
+  default     = "BASIC"
+}
+
+variable "scanning_on_push_filters" {
+  description = "A list of repository filter to scan on push. Wildcard character is allowed."
+  type        = list(string)
+  default     = []
+}
+
+variable "scanning_continuous_filters" {
+  description = "A list of repository filter to scan continuous. Wildcard character is allowed."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources."
   type        = map(string)
