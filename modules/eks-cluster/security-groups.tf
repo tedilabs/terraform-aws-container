@@ -8,6 +8,35 @@ locals {
 
 
 ###################################################
+# Cluster Security Group Rules
+###################################################
+
+resource "aws_security_group_rule" "node" {
+  security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+  type              = "ingress"
+  description       = "Allow nodes to communicate to the cluster security group(for fargate pods)."
+
+  protocol    = "-1"
+  from_port   = 0
+  to_port     = 0
+
+  source_security_group_id = module.security_group__node.id
+}
+
+resource "aws_security_group_rule" "pod" {
+  security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+  type              = "ingress"
+  description       = "Allow pods to communicate to the cluster security group(for fargate pods)."
+
+  protocol    = "-1"
+  from_port   = 0
+  to_port     = 0
+
+  source_security_group_id = module.security_group__pod.id
+}
+
+
+###################################################
 # Security Group for Control Plane
 ###################################################
 
@@ -230,6 +259,15 @@ module "security_group__pod" {
       to_port     = 0
 
       source_security_group_id = module.security_group__node.id
+    },
+    {
+      id          = "all/cluster"
+      description = "Allow pods to communicate from the cluster security group(for fargate pods)."
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+
+      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
     },
     {
       id          = "metrics-server/control-plane"
