@@ -28,7 +28,7 @@ resource "aws_iam_openid_connect_provider" "this" {
 
 module "role__control_plane" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.16.1"
+  version = "0.19.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   path        = "/"
@@ -57,7 +57,7 @@ module "role__control_plane" {
 
 module "role__node" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.16.1"
+  version = "0.19.0"
 
   name        = "eks-${local.metadata.name}-node"
   path        = "/"
@@ -90,7 +90,7 @@ module "role__node" {
 
 module "role__fargate_profile" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.16.1"
+  version = "0.19.0"
 
   name        = "eks-${local.metadata.name}-fargate-profile"
   path        = "/"

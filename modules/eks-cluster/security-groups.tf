@@ -16,9 +16,9 @@ resource "aws_security_group_rule" "node" {
   type              = "ingress"
   description       = "Allow nodes to communicate to the cluster security group(for fargate pods)."
 
-  protocol    = "-1"
-  from_port   = 0
-  to_port     = 0
+  protocol  = "-1"
+  from_port = 0
+  to_port   = 0
 
   source_security_group_id = module.security_group__node.id
 }
@@ -28,9 +28,9 @@ resource "aws_security_group_rule" "pod" {
   type              = "ingress"
   description       = "Allow pods to communicate to the cluster security group(for fargate pods)."
 
-  protocol    = "-1"
-  from_port   = 0
-  to_port     = 0
+  protocol  = "-1"
+  from_port = 0
+  to_port   = 0
 
   source_security_group_id = module.security_group__pod.id
 }
