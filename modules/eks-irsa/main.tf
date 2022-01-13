@@ -43,7 +43,7 @@ locals {
 
 module "this" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.16.1"
+  version = "0.19.0"
 
   name        = local.metadata.name
   path        = var.path
@@ -69,6 +69,7 @@ module "this" {
   source_ip_whitelist = var.source_ip_whitelist
   source_ip_blacklist = var.source_ip_blacklist
 
+  assumable_roles = var.assumable_roles
   policies        = var.policies
   inline_policies = var.inline_policies
 

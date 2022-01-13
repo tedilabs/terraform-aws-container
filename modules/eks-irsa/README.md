@@ -18,13 +18,13 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.63.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.71.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | 0.16.1 |
+| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | 0.19.0 |
 
 ## Resources
 
@@ -38,6 +38,7 @@ This module creates following resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Desired name of the IAM role for EKS service accounts. | `string` | n/a | yes |
 | <a name="input_oidc_provider_urls"></a> [oidc\_provider\_urls](#input\_oidc\_provider\_urls) | A list of URLs of OIDC identity providers. | `list(string)` | n/a | yes |
+| <a name="input_assumable_roles"></a> [assumable\_roles](#input\_assumable\_roles) | List of IAM roles ARNs which can be assumed by the role. | `list(string)` | `[]` | no |
 | <a name="input_conditions"></a> [conditions](#input\_conditions) | Required conditions to assume the role. | <pre>list(object({<br>    key       = string<br>    condition = string<br>    values    = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_description"></a> [description](#input\_description) | The description of the role. | `string` | `""` | no |
 | <a name="input_effective_date"></a> [effective\_date](#input\_effective\_date) | Allow to assume IAM role only after a specific date and time. | `string` | `null` | no |
@@ -66,6 +67,7 @@ This module creates following resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN assigned by AWS for this role. |
+| <a name="output_assumable_roles"></a> [assumable\_roles](#output\_assumable\_roles) | List of ARNs of IAM roles which members of IAM role can assume. |
 | <a name="output_description"></a> [description](#output\_description) | The description of the role. |
 | <a name="output_effective_date"></a> [effective\_date](#output\_effective\_date) | Allow to assume IAM role only after this date and time. |
 | <a name="output_expiration_date"></a> [expiration\_date](#output\_expiration\_date) | Allow to assume IAM role only before this date and time. |
