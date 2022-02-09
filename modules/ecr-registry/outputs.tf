@@ -10,7 +10,7 @@ output "id" {
 
 output "policy" {
   description = "The registry policy."
-  value       = try(aws_ecr_registry_policy.this.*.policy[0], null)
+  value       = one(aws_ecr_registry_policy.this.*.policy)
 }
 
 output "replication_destinations" {

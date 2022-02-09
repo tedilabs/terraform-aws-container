@@ -27,7 +27,9 @@ locals {
 # Registry Policy
 ###################################################
 
-data "aws_iam_policy_document" "this" {
+data "aws_iam_policy_document" "replication" {
+  count = length(try(var.replication_policies, [])) > 0 ? 1 : 0
+
   dynamic "statement" {
     for_each = try(var.replication_policies, [])
 
@@ -50,12 +52,44 @@ data "aws_iam_policy_document" "this" {
       ]
     }
   }
+}
+
+data "aws_iam_policy_document" "pull_through_cache" {
+  count = length(try(var.pull_through_cache_policies, [])) > 0 ? 1 : 0
+
+  dynamic "statement" {
+    for_each = try(var.pull_through_cache_policies, [])
+
+    content {
+      sid    = "PullThroughCacheAccess-${statement.key}"
+      effect = "Allow"
+      principals {
+        type        = "AWS"
+        identifiers = try(statement.value.iam_entities, [])
+      }
+      actions = compact([
+        try(statement.value.allow_create_repository, true) ? "ecr:CreateRepository" : null,
+        "ecr:BatchImportUpstreamImage",
+      ])
+      resources = [
+        for repository in statement.value.repositories :
+        "arn:aws:ecr:${local.region}:${local.account_id}:repository/${repository}"
+      ]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "this" {
+  source_policy_documents = concat(
+    try(data.aws_iam_policy_document.replication[*].json, []),
+    try(data.aws_iam_policy_document.pull_through_cache[*].json, []),
+  )
 
   override_json = var.policy
 }
 
 resource "aws_ecr_registry_policy" "this" {
-  count = length(var.replication_policies) > 0 || var.policy != null ? 1 : 0
+  count = length(var.replication_policies) > 0 || length(var.pull_through_cache_policies) > 0 || var.policy != null ? 1 : 0
 
   policy = data.aws_iam_policy_document.this.json
 }
