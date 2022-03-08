@@ -1,17 +1,17 @@
 variable "node_roles" {
-  description = "A list of ARNs of AWS IAM Roles for EKS node."
+  description = "(Optional) A list of ARNs of AWS IAM Roles for EKS node."
   type        = list(string)
   default     = []
 }
 
 variable "fargate_profile_roles" {
-  description = "A list of ARNs of AWS IAM Roles for EKS fargate profiles."
+  description = "(Optional) A list of ARNs of AWS IAM Roles for EKS fargate profiles."
   type        = list(string)
   default     = []
 }
 
 variable "map_roles" {
-  description = "Additional mapping for IAM roles and Kubernetes RBAC."
+  description = "(Optional) Additional mapping for IAM roles and Kubernetes RBAC."
   type = list(object({
     iam_role = string
     username = string
@@ -21,7 +21,7 @@ variable "map_roles" {
 }
 
 variable "map_users" {
-  description = "Additional mapping for IAM users and Kubernetes RBAC."
+  description = "(Optional) Additional mapping for IAM users and Kubernetes RBAC."
   type = list(object({
     iam_user = string
     username = string
@@ -31,7 +31,7 @@ variable "map_users" {
 }
 
 variable "map_accounts" {
-  description = "AWS account numbers to automatically map IAM ARNs from."
+  description = "(Optional) AWS account numbers to automatically map IAM ARNs from."
   type        = list(string)
   default     = []
 }

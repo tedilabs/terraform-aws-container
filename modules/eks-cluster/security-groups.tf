@@ -203,7 +203,8 @@ module "security_group__node" {
       from_port   = 0
       to_port     = 0
 
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
     },
     {
       id          = "all/cluster"
@@ -296,7 +297,8 @@ module "security_group__pod" {
       from_port   = 0
       to_port     = 0
 
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
     },
   ]
 
