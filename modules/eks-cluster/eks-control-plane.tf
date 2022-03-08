@@ -48,6 +48,7 @@ resource "aws_eks_cluster" "this" {
 
   kubernetes_network_config {
     service_ipv4_cidr = var.service_cidr
+    ip_family         = lower(var.ip_family)
   }
 
   dynamic "encryption_config" {

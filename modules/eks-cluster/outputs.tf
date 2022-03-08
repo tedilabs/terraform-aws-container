@@ -48,6 +48,11 @@ output "service_cidr" {
   value       = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
 }
 
+output "ip_family" {
+  description = "The IP family used to assign Kubernetes pod and service addresses."
+  value       = upper(aws_eks_cluster.this.kubernetes_network_config[0].ip_family)
+}
+
 output "security_group_ids" {
   description = "Security groups that were created for the EKS cluster."
   value = {
@@ -82,17 +87,28 @@ output "oidc_provider_urn" {
   value       = aws_iam_openid_connect_provider.this.url
 }
 
-output "log_group_name" {
-  description = "The Name of the log group."
-  value       = aws_cloudwatch_log_group.this.name
+output "logging" {
+  description = "The configurations of the control plane logging."
+  value = {
+    type = aws_eks_cluster.this.enabled_cluster_log_types
+    cloudwatch_log_group = {
+      arn  = aws_cloudwatch_log_group.this.arn
+      name = aws_cloudwatch_log_group.this.name
+    }
+  }
 }
 
-output "log_group_arn" {
-  description = "The Amazon Resource Name (ARN) specifying the log group."
-  value       = aws_cloudwatch_log_group.this.arn
-}
-
-output "log_types" {
-  description = "A list of the enabled control plane logging."
-  value       = aws_eks_cluster.this.enabled_cluster_log_types
+output "fargate_profiles" {
+  description = "A map of all Fargate Profiles created."
+  value = {
+    for name, profile in aws_eks_fargate_profile.this :
+    name => {
+      id         = profile.id
+      arn        = profile.arn
+      status     = profile.status
+      name       = profile.fargate_profile_name
+      subnet_ids = profile.subnet_ids
+      selectors  = profile.selector
+    }
+  }
 }
