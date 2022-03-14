@@ -46,7 +46,7 @@ variable "trusted_service_accounts" {
 }
 
 variable "oidc_provider_urls" {
-  description = "(Optional) A list of URLs of OIDC identity providers."
+  description = "(Required) A list of URLs of OIDC identity providers."
   type        = list(string)
 }
 

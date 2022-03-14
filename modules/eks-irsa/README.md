@@ -37,7 +37,7 @@ This module creates following resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | (Required) Desired name of the IAM role for EKS service accounts. | `string` | n/a | yes |
-| <a name="input_oidc_provider_urls"></a> [oidc\_provider\_urls](#input\_oidc\_provider\_urls) | (Optional) A list of URLs of OIDC identity providers. | `list(string)` | n/a | yes |
+| <a name="input_oidc_provider_urls"></a> [oidc\_provider\_urls](#input\_oidc\_provider\_urls) | (Required) A list of URLs of OIDC identity providers. | `list(string)` | n/a | yes |
 | <a name="input_assumable_roles"></a> [assumable\_roles](#input\_assumable\_roles) | (Optional) List of IAM roles ARNs which can be assumed by the role. | `list(string)` | `[]` | no |
 | <a name="input_conditions"></a> [conditions](#input\_conditions) | (Optional) Required conditions to assume the role. | <pre>list(object({<br>    key       = string<br>    condition = string<br>    values    = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) The description of the role. | `string` | `""` | no |
