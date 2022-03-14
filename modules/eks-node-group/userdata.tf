@@ -24,14 +24,9 @@ locals {
     ],
     var.kubelet_extra_args,
   ))
-}
-
-data "template_file" "userdata" {
-  template = file("${path.module}/templates/userdata.sh.tpl")
-
-  vars = {
+  userdata = templatefile("${path.module}/templates/userdata.sh.tpl", {
     cluster_name         = var.cluster_name,
     bootstrap_extra_args = join(" ", local.bootstrap_extra_args),
     kubelet_extra_args   = join(" ", local.kubelet_extra_args)
-  }
+  })
 }

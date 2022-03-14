@@ -48,7 +48,7 @@ resource "aws_launch_template" "this" {
 
   ebs_optimized = var.ebs_optimized
 
-  user_data = base64encode(data.template_file.userdata.rendered)
+  user_data = base64encode(local.userdata)
 
   instance_initiated_shutdown_behavior = "terminate"
 
