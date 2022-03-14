@@ -112,3 +112,22 @@ output "fargate_profiles" {
     }
   }
 }
+
+output "oidc_identity_providers" {
+  description = "A map of all associated OIDC Identity Providers to the cluster."
+  value = {
+    for name, provider in aws_eks_identity_provider_config.this :
+    name => {
+      arn        = provider.arn
+      status     = provider.status
+      name       = provider.oidc[0].identity_provider_config_name
+      issuer_url = provider.oidc[0].issuer_url
+
+      required_claims = provider.oidc[0].required_claims
+      username_claim  = provider.oidc[0].username_claim
+      username_prefix = provider.oidc[0].username_prefix
+      groups_claim    = provider.oidc[0].groups_claim
+      groups_prefix   = provider.oidc[0].groups_prefix
+    }
+  }
+}

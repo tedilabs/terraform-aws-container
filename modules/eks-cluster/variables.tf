@@ -131,6 +131,22 @@ variable "fargate_profiles" {
   default     = []
 }
 
+variable "oidc_identity_providers" {
+  description = <<EOF
+  (Optional) A list of OIDC Identity Providers to associate as an additional method for user authentication to your Kubernetes cluster. Each item of `oidc_identity_providers` block as defined below.
+    (Required) `name` - A unique name for the Identity Provider Configuration.
+    (Required) `issuer_url` - The OIDC Identity Provider issuer URL.
+    (Required) `client_id` - The OIDC Identity Provider client ID.
+    (Optional) `required_claims` - The key value pairs that describe required claims in the identity token.
+    (Optional) `username_claim` - The JWT claim that the provider will use as the username.
+    (Optional) `username_prefix` - A prefix that is prepended to username claims.
+    (Optional) `groups_claim` - The JWT claim that the provider will use to return groups.
+    (Optional) `groups_prefix` - A prefix that is prepended to group claims e.g., `oidc:`.
+  EOF
+  type        = any
+  default     = []
+}
+
 variable "tags" {
   description = "(Optional) A map of tags to add to all resources."
   type        = map(string)
