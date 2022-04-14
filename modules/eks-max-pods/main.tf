@@ -5,7 +5,17 @@
 # CNI Custom Networking maxPods = (number of interfaces - 1) * (max IPv4 addresses per interface - 1) + 2
 
 locals {
-  max_enis = local.ips_per_eni_per_instance_type[var.instance_type][0]
-  max_ips  = local.ips_per_eni_per_instance_type[var.instance_type][1]
-  max_pods = (var.use_cni_custom_networking ? (local.max_enis - 1) : local.max_enis) * (local.max_ips - 1) + 2
+  data = jsondecode(file("${path.module}/data.json"))
+
+  limits_per_instance_type = {
+    for i in local.data :
+    i.type => {
+      max_enis               = i.max_enis
+      max_ipv4_addrs_per_eni = i.max_ipv4_addrs_per_eni
+
+      max_pods = (var.use_cni_custom_networking ? (i.max_enis - 1) : i.max_enis) * (i.max_ipv4_addrs_per_eni - 1) + 2
+    }
+  }
+
+  limits = local.limits_per_instance_type[var.instance_type]
 }
