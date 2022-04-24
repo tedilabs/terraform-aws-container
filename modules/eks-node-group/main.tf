@@ -14,6 +14,8 @@ locals {
   } : {}
 }
 
+data "aws_default_tags" "this" {}
+
 locals {
   tags = merge(
     {
@@ -23,8 +25,14 @@ locals {
     local.module_tags,
     var.tags,
   )
-  asg_tags = [
-    for key, value in local.tags : {
+  default_tags = data.aws_default_tags.this.tags
+
+  indirect_managed_tags = merge(
+    local.tags,
+    local.default_tags,
+  )
+  indirect_managed_asg_tags = [
+    for key, value in local.indirect_managed_tags : {
       key   = key
       value = value
 
@@ -84,12 +92,12 @@ resource "aws_launch_template" "this" {
 
   tag_specifications {
     resource_type = "instance"
-    tags          = local.tags
+    tags          = local.indirect_managed_tags
   }
 
   tag_specifications {
     resource_type = "volume"
-    tags          = local.tags
+    tags          = local.indirect_managed_tags
   }
 
   tags = local.tags
@@ -121,7 +129,7 @@ resource "aws_autoscaling_group" "this" {
     triggers = []
   }
 
-  tags = local.asg_tags
+  tags = local.indirect_managed_asg_tags
 
   lifecycle {
     create_before_destroy = true
