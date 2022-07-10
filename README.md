@@ -7,6 +7,24 @@
 Terraform module which creates resources for container services on AWS.
 
 
+## Target AWS Services
+
+Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-container) were written to manage the following AWS Services with Terraform.
+
+- AWS ECR (Elastic Container Registry)
+  - Private Registry
+    - Repository
+      - Lifecycle Policy
+    - Pull-through Cache
+    - Replication
+    - Scanning
+- AWS EKS (Elastic Kubernetes Service)
+  - Control Plane
+  - Node Group with ASG
+  - Fargate Profile
+  - IRSA (IAM Role for ServiceAccount)
+
+
 ## Self Promotion
 
 Like this project? Follow the repository on [GitHub](https://github.com/tedilabs/terraform-aws-container). And if you're feeling especially charitable, follow **[posquit0](https://github.com/posquit0)** on GitHub.
