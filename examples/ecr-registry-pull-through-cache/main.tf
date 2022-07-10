@@ -17,7 +17,7 @@ module "registry" {
   pull_through_cache_policies = [
     {
       # Specify one or more IAM principals to grant permission. Support the ARN of IAM entities, or AWS account ID.
-      iam_entities = [data.aws_caller_identity.this.account_id]
+      iam_entities            = [data.aws_caller_identity.this.account_id]
       allow_create_repository = true
       repositories = [
         "ecr-public/amazonlinux/*",
@@ -27,7 +27,7 @@ module "registry" {
 
     }
   ]
-  pull_through_cache_rules    = [
+  pull_through_cache_rules = [
     {
       namespace    = "ecr-public"
       upstream_url = "public.ecr.aws"

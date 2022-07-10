@@ -1,3 +1,3 @@
 output "registry" {
-  value     = module.registry
+  value = module.registry
 }
