@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "this" {
     try(data.aws_iam_policy_document.pull_through_cache[*].json, []),
   )
 
-  override_json = var.policy
+  override_policy_documents = var.policy != null ? [var.policy] : null
 }
 
 resource "aws_ecr_registry_policy" "this" {
