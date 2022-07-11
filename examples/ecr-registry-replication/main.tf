@@ -20,7 +20,7 @@ data "aws_caller_identity" "dst" {
 module "registry_src" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.19.0"
+  # version = "~> 0.20.0"
 
   replication_destinations = [
     {
@@ -28,16 +28,12 @@ module "registry_src" {
       region      = "us-east-2"
     }
   ]
-
-  tags = {
-    "project" = "terraform-aws-container-examples"
-  }
 }
 
 module "registry_dst" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.19.0"
+  # version = "~> 0.20.0"
 
   providers = {
     aws = aws.dst
@@ -50,8 +46,4 @@ module "registry_dst" {
       repositories            = ["allowed/*"]
     }
   ]
-
-  tags = {
-    "project" = "terraform-aws-container-examples"
-  }
 }

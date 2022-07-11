@@ -10,11 +10,7 @@ provider "aws" {
 module "registry" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.19.0"
+  # version = "~> 0.20.0"
 
   scanning_type = "BASIC"
-
-  tags = {
-    "project" = "terraform-aws-container-examples"
-  }
 }

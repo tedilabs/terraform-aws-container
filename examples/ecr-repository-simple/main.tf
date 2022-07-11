@@ -10,7 +10,7 @@ provider "aws" {
 module "repository" {
   source = "../../modules/ecr-repository"
   # source  = "tedilabs/container/aws//modules/ecr-repository"
-  # version = "~> 0.19.0"
+  # version = "~> 0.20.0"
 
   name = "examples/simple"
 

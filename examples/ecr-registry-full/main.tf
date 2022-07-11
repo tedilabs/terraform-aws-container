@@ -12,7 +12,7 @@ data "aws_caller_identity" "this" {}
 module "registry" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.19.0"
+  # version = "~> 0.20.0"
 
   ## Replication
   replication_destinations = []
@@ -53,8 +53,4 @@ module "registry" {
   scanning_type               = "ENHANCED"
   scanning_on_push_filters    = ["quay/*", "sre/*"]
   scanning_continuous_filters = ["example/example"]
-
-  tags = {
-    "project" = "terraform-aws-container-examples"
-  }
 }
