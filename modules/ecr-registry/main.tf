@@ -5,13 +5,13 @@ locals {
     module  = basename(path.module)
     name    = data.aws_caller_identity.this.id
   }
-  module_tags = var.module_tags_enabled ? {
+  module_tags = {
     "module.terraform.io/package"   = local.metadata.package
     "module.terraform.io/version"   = local.metadata.version
     "module.terraform.io/name"      = local.metadata.module
     "module.terraform.io/full-name" = "${local.metadata.package}/${local.metadata.module}"
     "module.terraform.io/instance"  = local.metadata.name
-  } : {}
+  }
 }
 
 data "aws_caller_identity" "this" {}
