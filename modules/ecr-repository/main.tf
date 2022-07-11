@@ -17,19 +17,16 @@ locals {
 resource "aws_ecr_repository" "this" {
   name = local.metadata.name
 
+  force_delete         = var.force_delete
   image_tag_mutability = var.image_tag_immutable_enabled ? "IMMUTABLE" : "MUTABLE"
 
   image_scanning_configuration {
     scan_on_push = var.image_scan_on_push_enabled
   }
 
-  dynamic "encryption_configuration" {
-    for_each = var.encryption_enabled ? ["go"] : []
-
-    content {
-      encryption_type = var.encryption_type
-      kms_key         = var.encryption_kms_key
-    }
+  encryption_configuration {
+    encryption_type = var.encryption_type
+    kms_key         = var.encryption_kms_key
   }
 
   tags = merge(

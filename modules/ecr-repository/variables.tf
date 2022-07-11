@@ -4,27 +4,36 @@ variable "name" {
 }
 
 variable "image_tag_immutable_enabled" {
-  description = "(Optional) Should be true if you want to disable to modify image tags."
+  description = "(Optional) Enable tag immutability to prevent image tags from being overwritten by subsequent image pushes using the same tag. Disable tag immutability to allow image tags to be overwritten."
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "image_scan_on_push_enabled" {
-  description = "(Optional) Indicates whether images are scanned after being pushed to the repository or not scanned."
+  description = "(Optional, Deprecated) Indicates whether images are scanned after being pushed to the repository or not scanned."
   type        = bool
   default     = false
+  nullable    = false
 }
 
-variable "encryption_enabled" {
-  description = "(Optional) Enable Encryption for repository."
+variable "force_delete" {
+  description = "(Optional) If `true`, will delete the repository even if it contains images. Defaults to `false`."
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "encryption_type" {
   description = "(Optional) The encryption type to use for the repository. Valid values are `AES256` or `KMS`."
   type        = string
   default     = "AES256"
+  nullable    = false
+
+  validation {
+    condition     = contains(["AES256", "KMS"], var.encryption_type)
+    error_message = "Valid values are `AES256`, `KMS`."
+  }
 }
 
 variable "encryption_kms_key" {
@@ -37,12 +46,14 @@ variable "repository_policy" {
   description = "(Optional) The policy document for ECR Repository. This is a JSON formatted string."
   type        = string
   default     = ""
+  nullable    = false
 }
 
 variable "lifecycle_rules" {
   description = "(Optional) A list of ECR Repository Lifecycle rules. `priority` must be unique and do not need to be sequential across rules. `descriptoin` is optional. `type` is one of `tagged`, `untagged`, or `any`. `tag_prefixes` is required if you specified `tagged` type. Specify one of `expiration_days` or `expiration_count`"
   type        = any
   default     = []
+  nullable    = false
 }
 
 variable "tags" {
