@@ -16,7 +16,6 @@ module "registry" {
   scanning_on_push_filters    = ["quay/*", "sre/*"]
   scanning_continuous_filters = ["example/example"]
 
-
   tags = {
     "project" = "terraform-aws-container-examples"
   }
