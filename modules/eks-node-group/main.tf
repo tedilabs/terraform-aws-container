@@ -31,14 +31,6 @@ locals {
     local.tags,
     local.default_tags,
   )
-  indirect_managed_asg_tags = [
-    for key, value in local.indirect_managed_tags : {
-      key   = key
-      value = value
-
-      propagate_at_launch = true
-    }
-  ]
 }
 
 
@@ -129,7 +121,16 @@ resource "aws_autoscaling_group" "this" {
     triggers = []
   }
 
-  tags = local.indirect_managed_asg_tags
+  dynamic "tag" {
+    for_each = local.indirect_managed_tags
+
+    content {
+      key   = tag.key
+      value = tag.value
+
+      propagate_at_launch = true
+    }
+  }
 
   lifecycle {
     create_before_destroy = true
