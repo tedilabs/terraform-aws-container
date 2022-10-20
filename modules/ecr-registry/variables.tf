@@ -11,7 +11,8 @@ variable "replication_policies" {
     allow_create_repository = bool
     repositories            = list(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "replication_destinations" {
@@ -20,7 +21,8 @@ variable "replication_destinations" {
     registry_id = string
     region      = string
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "pull_through_cache_policies" {
@@ -35,7 +37,8 @@ variable "pull_through_cache_policies" {
     allow_create_repository = bool
     repositories            = list(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "pull_through_cache_rules" {
@@ -46,22 +49,26 @@ variable "pull_through_cache_rules" {
   EOF
   type        = list(any)
   default     = []
+  nullable    = false
 }
 
 variable "scanning_type" {
   description = "(Optional) The scanning type to set for the registry. Can be either `ENHANCED` or `BASIC`."
   type        = string
   default     = "BASIC"
+  nullable    = false
 }
 
 variable "scanning_on_push_filters" {
   description = "(Optional) A list of repository filter to scan on push. Wildcard character is allowed."
   type        = list(string)
   default     = []
+  nullable    = false
 }
 
 variable "scanning_continuous_filters" {
   description = "(Optional) A list of repository filter to scan continuous. Wildcard character is allowed."
   type        = list(string)
   default     = []
+  nullable    = false
 }

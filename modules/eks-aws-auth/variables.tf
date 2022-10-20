@@ -2,12 +2,14 @@ variable "node_roles" {
   description = "(Optional) A list of ARNs of AWS IAM Roles for EKS node."
   type        = list(string)
   default     = []
+  nullable    = false
 }
 
 variable "fargate_profile_roles" {
   description = "(Optional) A list of ARNs of AWS IAM Roles for EKS fargate profiles."
   type        = list(string)
   default     = []
+  nullable    = false
 }
 
 variable "map_roles" {
@@ -17,7 +19,8 @@ variable "map_roles" {
     username = string
     groups   = list(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "map_users" {
@@ -27,11 +30,13 @@ variable "map_users" {
     username = string
     groups   = list(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "map_accounts" {
   description = "(Optional) AWS account numbers to automatically map IAM ARNs from."
   type        = list(string)
   default     = []
+  nullable    = false
 }

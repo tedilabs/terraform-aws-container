@@ -7,4 +7,5 @@ variable "use_cni_custom_networking" {
   description = "(Optional) Use EKS CNI Custom Networking."
   type        = bool
   default     = true
+  nullable    = false
 }
