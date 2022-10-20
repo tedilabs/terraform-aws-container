@@ -17,13 +17,15 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.22.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.35.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_eks_max_pods"></a> [eks\_max\_pods](#module\_eks\_max\_pods) | ../eks-max-pods | n/a |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 0.26.0 |
 
 ## Resources
 
@@ -31,8 +33,8 @@ This module creates following resources.
 |------|------|
 | [aws_autoscaling_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
 | [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
-| [aws_resourcegroups_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/resourcegroups_group) | resource |
 | [aws_default_tags.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
+| [aws_subnet.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 
 ## Inputs
 
@@ -46,11 +48,12 @@ This module creates following resources.
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | (Required) The maximum number of instances to run in the EKS cluster node group. | `number` | n/a | yes |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | (Required) The minimum number of instances to run in the EKS cluster node group. | `number` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) Name of node group to create. | `string` | n/a | yes |
-| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | (Required) All workers will be attached to those security groups. | `list(string)` | n/a | yes |
+| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | (Required) A list of security group IDs to assign to the node group. | `list(string)` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | (Required) A list of subnets to place the EKS cluster node group within. | `list(string)` | n/a | yes |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | (Optional) Associate a public ip address with an instance in a VPC. | `bool` | `false` | no |
 | <a name="input_bootstrap_extra_args"></a> [bootstrap\_extra\_args](#input\_bootstrap\_extra\_args) | (Optional) Extra arguments to add to the `/etc/eks/bootstrap.sh`. | `list(string)` | `[]` | no |
 | <a name="input_cni_custom_networking_enabled"></a> [cni\_custom\_networking\_enabled](#input\_cni\_custom\_networking\_enabled) | (Optional) Whether to use EKS CNI Custom Networking. | `bool` | `false` | no |
+| <a name="input_default_security_group"></a> [default\_security\_group](#input\_default\_security\_group) | (Optional) The configuration of the default security group for the EKS node gorup. `default_security_group` block as defined below.<br>    (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.<br>    (Optional) `name` - The name of the default security group. If not provided, the node group name is used for the name of security group.<br>    (Optional) `description` - The description of the default security group.<br>    (Optional) `ingress_rules` - A list of ingress rules in a security group.<br>    (Optional) `egress_rules` - A list of egress rules in a security group. | <pre>object({<br>    enabled       = optional(bool, true)<br>    name          = optional(string, null)<br>    description   = optional(string, "Managed by Terraform.")<br>    ingress_rules = optional(any, [])<br>    egress_rules  = optional(any, [])<br>  })</pre> | `{}` | no |
 | <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | (Optional) The number of instances that should be running in the group. | `number` | `null` | no |
 | <a name="input_ebs_optimized"></a> [ebs\_optimized](#input\_ebs\_optimized) | (Optional) If true, the launched EC2 instance will be EBS-optimized. | `bool` | `false` | no |
 | <a name="input_enabled_metrics"></a> [enabled\_metrics](#input\_enabled\_metrics) | (Optional) A list of metrics to collect. The allowed values are GroupDesiredCapacity, GroupInServiceCapacity, GroupPendingCapacity, GroupMinSize, GroupMaxSize, GroupInServiceInstances, GroupPendingInstances, GroupStandbyInstances, GroupStandbyCapacity, GroupTerminatingCapacity, GroupTerminatingInstances, GroupTotalCapacity, GroupTotalInstances. | `list(string)` | <pre>[<br>  "GroupMinSize",<br>  "GroupMaxSize",<br>  "GroupDesiredCapacity",<br>  "GroupInServiceCapacity",<br>  "GroupInServiceInstances",<br>  "GroupPendingCapacity",<br>  "GroupPendingInstances",<br>  "GroupStandbyCapacity",<br>  "GroupStandbyInstances",<br>  "GroupTerminatingCapacity",<br>  "GroupTerminatingInstances",<br>  "GroupTotalCapacity",<br>  "GroupTotalInstances"<br>]</pre> | no |
@@ -87,4 +90,5 @@ This module creates following resources.
 | <a name="output_max_size"></a> [max\_size](#output\_max\_size) | The maximum number of instances in the EKS cluster node group. |
 | <a name="output_min_size"></a> [min\_size](#output\_min\_size) | The minimum number of instances in the EKS cluster node group. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the node group. |
+| <a name="output_network"></a> [network](#output\_network) | The configuration for network of the EKS node group. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
