@@ -4,6 +4,10 @@
 # Default CNI Networking maxPods = number of interfaces * (max IPv4 addresses per interface - 1) + 2
 # CNI Custom Networking maxPods = (number of interfaces - 1) * (max IPv4 addresses per interface - 1) + 2
 
+# ENI Prefix Mode
+# https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
+# ENI Prefix Mode maxPods = (number of interfaces) * (max IPv4 addresses per interface - 1) * 16 + 2
+
 locals {
   data = jsondecode(file("${path.module}/data.json"))
 
@@ -13,7 +17,10 @@ locals {
       max_enis               = i.max_enis
       max_ipv4_addrs_per_eni = i.max_ipv4_addrs_per_eni
 
-      max_pods = (var.use_cni_custom_networking ? (i.max_enis - 1) : i.max_enis) * (i.max_ipv4_addrs_per_eni - 1) + 2
+      max_pods = min(
+        (i.max_enis - (var.use_cni_custom_networking ? 1 : 0)) * ((i.max_ipv4_addrs_per_eni - 1) * (var.use_cni_eni_prefix_mode ? 16 : 1)) + 2,
+        (i.vcpu > 30) ? 250 : 110
+      )
     }
   }
 
