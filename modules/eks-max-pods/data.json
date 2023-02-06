@@ -1,1557 +1,2150 @@
 [
     {
-        "type": "r6g.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "inf1.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m5ad.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "d2.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5zn.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m6g.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5zn.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "t3a.small",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "c5d.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r6g.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6i.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "i3en.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "t3.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "g3.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "g4dn.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5a.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r6g.medium",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "t4g.medium",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 6
-    },
-    {
-        "type": "c5n.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "x1.16xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5b.12xlarge",
+        "type": "m4.4xlarge",
+        "vcpu": 16,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "c4.8xlarge",
+        "vcpu": 36,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c5a.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5a.xlarge",
+        "type": "c5.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "r5b.metal",
+        "type": "m5.metal",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "r5n.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5a.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5a.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "r5ad.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5n.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5a.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "t3a.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "g3.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5ad.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "i3en.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "p2.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "t2.2xlarge",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "t3.medium",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 6
-    },
-    {
-        "type": "c6g.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "t4g.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
+        "type": "r6gd.medium",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
     },
     {
         "type": "c6g.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "c6i.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "i3en.3xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c6i.32xlarge",
+        "type": "c6g.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r6i.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5d.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6i.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "z1d.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c5n.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5zn.6xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6i.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5d.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m6i.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "g4dn.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "x1e.8xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c6i.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m6i.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "t4g.nano",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
     },
     {
         "type": "d2.8xlarge",
+        "vcpu": 36,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "x1e.32xlarge",
+        "type": "r6gd.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6g.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m6i.large",
+        "type": "r5a.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "r3.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "z1d.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5n.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
         "type": "m5.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "r5dn.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m6g.xlarge",
+        "type": "r5a.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5ad.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "x1e.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r4.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
     },
     {
         "type": "c4.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5ad.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m4.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r6i.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "i2.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5a.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5ad.8xlarge",
+        "vcpu": 16,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "c5d.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "m5ad.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5a.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r6g.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m5ad.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m5a.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r3.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "t3.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c5.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5a.4xlarge",
+        "type": "m5ad.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c6g.16xlarge",
+        "type": "x1e.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "z1d.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5n.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5n.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6gd.metal",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "r6i.4xlarge",
+        "type": "i3en.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5a.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "inf1.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "r5.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6i.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t2.2xlarge",
+        "vcpu": 8,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6g.medium",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "x2iedn.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6i.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "m5d.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "c5a.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6i.32xlarge",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "x2iedn.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gn.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t4g.nano",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
+    },
+    {
+        "type": "d2.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g3.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6gd.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "r5n.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6i.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r4.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m6g.metal",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "x2idn.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r3.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5d.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i2.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5ad.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6i.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6gd.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5b.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "r6g.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "m6g.8xlarge",
+        "type": "m5a.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m6i.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6g.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c4.large",
+        "type": "m5zn.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "m4.16xlarge",
+        "type": "m5d.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "r5dn.large",
+        "type": "c6gn.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m5.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m5ad.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5d.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t3.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6i.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m6i.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5ad.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5ad.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "g4dn.xlarge",
+        "type": "i3en.3xlarge",
+        "vcpu": 12,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r3.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "r5n.2xlarge",
+        "type": "c6i.2xlarge",
+        "vcpu": 8,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "t3.micro",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
+        "type": "m5zn.6xlarge",
+        "vcpu": 24,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "r5dn.metal",
+        "type": "m5zn.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "t3a.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gn.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5dn.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x1e.32xlarge",
+        "vcpu": 128,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6i.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g4dn.metal",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t3a.large",
+        "type": "x1.16xlarge",
+        "vcpu": 64,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5ad.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5ad.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m6i.large",
+        "vcpu": 2,
         "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 12
-    },
-    {
-        "type": "r5b.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5d.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5b.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m4.large",
-        "max_enis": 2,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "p3.2xlarge",
+        "type": "m5d.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "m6g.4xlarge",
+        "type": "x1e.8xlarge",
+        "vcpu": 32,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6i.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c5a.2xlarge",
+        "type": "m6g.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "c5a.24xlarge",
+        "type": "c5d.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t3.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i4i.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "m6i.4xlarge",
+        "type": "r5a.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m4.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "g5g.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r6i.16xlarge",
+        "type": "i3en.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "c5n.9xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
+        "type": "m5a.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "r3.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5.16xlarge",
+        "type": "r5b.metal",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "r5d.24xlarge",
+        "type": "m5a.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i4i.metal",
+        "vcpu": 128,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t2.micro",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
-    },
-    {
-        "type": "c4.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r3.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r4.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "p4d.24xlarge",
-        "max_enis": 60,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "t4g.large",
+        "type": "r6g.large",
+        "vcpu": 2,
         "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 12
-    },
-    {
-        "type": "c4.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5ad.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5d.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "t4g.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "g5g.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r4.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "inf1.2xlarge",
-        "max_enis": 4,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "r6g.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
+        "type": "c5n.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "t3a.medium",
+        "type": "t4g.medium",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 6
     },
     {
-        "type": "t4g.small",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "c5a.16xlarge",
+        "type": "c6i.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "r5ad.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m6g.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "z1d.12xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5zn.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m6g.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "g5g.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5a.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5b.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "z1d.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5d.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "r5d.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "t4g.micro",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
-    },
-    {
-        "type": "r5.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "t3.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 12
-    },
-    {
-        "type": "inf1.6xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5d.18xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c5.9xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m6i.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5n.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5ad.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "i2.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m6i.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "c6g.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "r5.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c5n.18xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5b.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5dn.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5d.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5a.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5d.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5ad.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "u-6tb1.112xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5d.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5a.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5d.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5zn.12xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5zn.3xlarge",
+        "type": "r5n.4xlarge",
+        "vcpu": 16,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "mac1.metal",
+        "vcpu": 12,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "r5n.16xlarge",
+        "type": "c5.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
         "type": "t2.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 12
     },
     {
-        "type": "u-6tb1.56xlarge",
+        "type": "g5g.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5a.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5dn.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "t3a.medium",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 6
+    },
+    {
+        "type": "c6gn.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5dn.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5b.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t3.nano",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
+        "type": "m6g.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c5.24xlarge",
+        "type": "r5d.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gd.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5zn.metal",
+        "vcpu": 48,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "p3.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m4.large",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "c5d.18xlarge",
+        "vcpu": 72,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5d.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
         "type": "g5g.2xlarge",
+        "vcpu": 8,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "r5.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5b.large",
+        "type": "r5ad.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "g3.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
+        "type": "m6i.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "i3.xlarge",
+        "type": "r5b.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "i4i.2xlarge",
+        "vcpu": 8,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "c6i.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
+        "type": "r3.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m5ad.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
+        "type": "r6g.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m6i.32xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
+        "type": "t3.nano",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
     },
     {
         "type": "r3.2xlarge",
+        "vcpu": 8,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "p3.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.2xlarge",
+        "type": "c6gd.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "m5a.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
+        "type": "t3a.small",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
     },
     {
-        "type": "r4.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "i2.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "x1.32xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6i.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5.16xlarge",
+        "type": "m5d.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "i3en.xlarge",
+        "type": "r5a.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6g.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6gd.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t2.micro",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
+    },
+    {
+        "type": "m5.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "u-24tb1.112xlarge",
+        "vcpu": 448,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "g5g.metal",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c5d.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m6i.metal",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5zn.3xlarge",
+        "vcpu": 12,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t3.medium",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 6
+    },
+    {
+        "type": "c4.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "m5zn.12xlarge",
+        "vcpu": 48,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "z1d.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "z1d.3xlarge",
+        "type": "inf1.6xlarge",
+        "vcpu": 24,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r4.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5d.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m6g.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "r5b.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t3.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 12
+    },
+    {
+        "type": "r5d.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "m6i.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "g3.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5d.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5ad.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m5a.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5a.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6gd.metal",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5n.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m4.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g4dn.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "g3.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5n.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5n.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5d.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x2iedn.metal",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c5a.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c5.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "inf1.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "p2.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i4i.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5dn.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i2.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "t4g.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 12
+    },
+    {
+        "type": "c5a.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "c6gn.medium",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "g5g.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t4g.small",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "x2idn.metal",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m4.16xlarge",
+        "vcpu": 64,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5a.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5n.9xlarge",
+        "vcpu": 36,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c5d.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "u-6tb1.56xlarge",
+        "vcpu": 224,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5b.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6g.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "m6g.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "p4d.24xlarge",
+        "vcpu": 96,
+        "max_enis": 60,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c4.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5n.18xlarge",
+        "vcpu": 72,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t4g.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m6i.32xlarge",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5b.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i2.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x1e.16xlarge",
+        "vcpu": 64,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x2iedn.4xlarge",
+        "vcpu": 16,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "z1d.6xlarge",
+        "vcpu": 24,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "r6i.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c5n.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m5a.24xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5dn.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5b.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "i2.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5n.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r6g.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "m6i.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "d2.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6i.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c6g.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5n.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "m6g.medium",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "i3.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r6i.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "r5n.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "g4dn.8xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "i3.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
-        "type": "r6i.32xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5dn.16xlarge",
+        "type": "x2idn.32xlarge",
+        "vcpu": 128,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
         "type": "r5a.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "i3.16xlarge",
+        "type": "m5ad.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "i3en.large",
+        "type": "r5.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6gn.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "c5d.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r6g.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "p3.16xlarge",
+        "type": "r5dn.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m5.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "i3.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c6g.4xlarge",
+        "type": "r5n.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "c5d.9xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
+        "type": "c6i.metal",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "c6g.medium",
+        "type": "i3.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5n.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gd.medium",
+        "vcpu": 1,
         "max_enis": 2,
         "max_ipv4_addrs_per_eni": 4
     },
     {
-        "type": "g4dn.16xlarge",
+        "type": "c5.2xlarge",
+        "vcpu": 8,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
-        "type": "r5dn.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
+        "type": "c6g.medium",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
     },
     {
-        "type": "x1e.16xlarge",
+        "type": "r5b.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "t3a.nano",
+        "type": "r5.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "t3.micro",
+        "vcpu": 2,
         "max_enis": 2,
         "max_ipv4_addrs_per_eni": 2
     },
     {
-        "type": "x1e.4xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5d.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "g3s.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5d.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r4.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r6i.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "i3.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5ad.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "m5d.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r6g.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5d.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "i3en.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "t2.small",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "g5g.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "p2.16xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5a.large",
+        "type": "i4i.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "r6i.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
+        "type": "m4.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
     },
     {
         "type": "c5.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "c5a.8xlarge",
+        "type": "m6g.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m6g.16xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "r5ad.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "z1d.large",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 10
-    },
-    {
         "type": "inf1.24xlarge",
+        "vcpu": 96,
         "max_enis": 11,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "i3en.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
+        "type": "r5a.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "m5.large",
+        "type": "x1e.xlarge",
+        "vcpu": 4,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "c5n.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m4.10xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5b.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "i3.8xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5d.metal",
+        "type": "m5.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t2.medium",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 6
-    },
-    {
-        "type": "m6g.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m5zn.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m4.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r5dn.4xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "t2.nano",
-        "max_enis": 2,
-        "max_ipv4_addrs_per_eni": 2
-    },
-    {
-        "type": "r5.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "c6i.metal",
+        "type": "m6g.16xlarge",
+        "vcpu": 64,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t3.small",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 4
-    },
-    {
-        "type": "c6g.2xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "d2.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m6i.12xlarge",
+        "type": "r4.8xlarge",
+        "vcpu": 32,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c4.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i3.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i3en.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6gd.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t4g.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5dn.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
     },
     {
         "type": "r6i.metal",
+        "vcpu": 128,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "t2.xlarge",
-        "max_enis": 3,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "m6i.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
-    },
-    {
-        "type": "r4.large",
+        "type": "i3.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "p2.xlarge",
+        "type": "c5a.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6g.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
         "type": "m5a.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "m5ad.16xlarge",
+        "type": "x2iedn.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "x1e.xlarge",
+        "type": "r5d.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5ad.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t2.medium",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 6
+    },
+    {
+        "type": "r5dn.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gn.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i4i.32xlarge",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i3en.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "r5.12xlarge",
+        "type": "m4.10xlarge",
+        "vcpu": 40,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
-        "type": "r5a.8xlarge",
+        "type": "m6i.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m5d.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5a.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t4g.micro",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
+    },
+    {
+        "type": "r4.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r3.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "p3.16xlarge",
+        "vcpu": 64,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6i.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t2.xlarge",
+        "vcpu": 4,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "t3.small",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "z1d.12xlarge",
+        "vcpu": 48,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c5.9xlarge",
+        "vcpu": 36,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5ad.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "z1d.metal",
+        "vcpu": 48,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c5d.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "x2iedn.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5ad.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i2.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5d.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "g4dn.xlarge",
+        "vcpu": 4,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "z1d.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "u-6tb1.112xlarge",
+        "vcpu": 448,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5ad.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6gd.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5d.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6gd.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r4.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "m5d.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r5ad.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5b.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "g3s.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "x2idn.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "m5.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "r5ad.16xlarge",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c6g.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5zn.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6gn.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "t3a.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 12
+    },
+    {
+        "type": "r5d.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r5.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "d2.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6i.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i3.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "p2.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g4dn.16xlarge",
+        "vcpu": 64,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i3en.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5n.metal",
+        "vcpu": 72,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i4i.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6g.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6i.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "r6i.32xlarge",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6i.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m6g.medium",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "m5a.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "i3.metal",
+        "vcpu": 72,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r6gd.12xlarge",
+        "vcpu": 48,
         "max_enis": 8,
         "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "t3a.micro",
+        "vcpu": 2,
         "max_enis": 2,
         "max_ipv4_addrs_per_eni": 2
     },
     {
-        "type": "g4dn.2xlarge",
+        "type": "r5n.large",
+        "vcpu": 2,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "c6gd.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "g5g.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6i.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5a.24xlarge",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "r4.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     },
     {
         "type": "g4dn.4xlarge",
+        "vcpu": 16,
         "max_enis": 3,
         "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "g5g.xlarge",
-        "max_enis": 4,
-        "max_ipv4_addrs_per_eni": 15
+        "type": "c5a.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
     },
     {
-        "type": "m5a.12xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "r5n.metal",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "i3en.6xlarge",
-        "max_enis": 8,
-        "max_ipv4_addrs_per_eni": 30
-    },
-    {
-        "type": "c5.18xlarge",
-        "max_enis": 15,
-        "max_ipv4_addrs_per_eni": 50
-    },
-    {
-        "type": "t3a.xlarge",
+        "type": "d2.xlarge",
+        "vcpu": 4,
         "max_enis": 4,
         "max_ipv4_addrs_per_eni": 15
     },
     {
         "type": "r5dn.24xlarge",
+        "vcpu": 96,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
     },
     {
-        "type": "c6g.metal",
+        "type": "c5.18xlarge",
+        "vcpu": 72,
         "max_enis": 15,
         "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "g5g.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r6i.large",
+        "vcpu": 2,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "p2.16xlarge",
+        "vcpu": 64,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t2.nano",
+        "vcpu": 1,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
+    },
+    {
+        "type": "c5n.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5d.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6gd.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6g.metal",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "c6gd.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x2iedn.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i3en.6xlarge",
+        "vcpu": 24,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t3a.nano",
+        "vcpu": 2,
+        "max_enis": 2,
+        "max_ipv4_addrs_per_eni": 2
+    },
+    {
+        "type": "i3en.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "x1e.4xlarge",
+        "vcpu": 16,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g4dn.8xlarge",
+        "vcpu": 32,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c6g.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m6i.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "x2iedn.32xlarge",
+        "vcpu": 128,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "t3a.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "r5dn.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "p3.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "t2.small",
+        "vcpu": 1,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 4
+    },
+    {
+        "type": "r6g.metal",
+        "vcpu": 64,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "x1.32xlarge",
+        "vcpu": 128,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m6g.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m6i.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "m5a.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6i.xlarge",
+        "vcpu": 4,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "c5d.9xlarge",
+        "vcpu": 36,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i3.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6gd.12xlarge",
+        "vcpu": 48,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "i4i.8xlarge",
+        "vcpu": 32,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "m5d.4xlarge",
+        "vcpu": 16,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
+    },
+    {
+        "type": "c6g.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "g4dn.2xlarge",
+        "vcpu": 8,
+        "max_enis": 3,
+        "max_ipv4_addrs_per_eni": 10
+    },
+    {
+        "type": "r5n.metal",
+        "vcpu": 96,
+        "max_enis": 15,
+        "max_ipv4_addrs_per_eni": 50
+    },
+    {
+        "type": "i3.2xlarge",
+        "vcpu": 8,
+        "max_enis": 4,
+        "max_ipv4_addrs_per_eni": 15
+    },
+    {
+        "type": "z1d.3xlarge",
+        "vcpu": 12,
+        "max_enis": 8,
+        "max_ipv4_addrs_per_eni": 30
     }
 ]

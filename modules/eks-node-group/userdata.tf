@@ -1,9 +1,15 @@
 # EKS CNI Custom Networking needs kubelet extra arg --max-pods. Default CNI Networking doesn't. See the doc below.
 # https://docs.aws.amazon.com/eks/latest/userguide/cni-custom-network.html
+
+# ENI Prefix Mode needs kubelet extra arg --max-pods. See the doc below.
+# https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
 module "eks_max_pods" {
   source = "../eks-max-pods"
 
   instance_type = var.instance_type
+
+  use_cni_custom_networking = var.cni_custom_networking_enabled
+  use_cni_eni_prefix_mode   = var.cni_eni_prefix_mode_enabled
 }
 
 locals {
@@ -12,7 +18,7 @@ locals {
 
   bootstrap_extra_args = compact(concat(
     [
-      var.cni_custom_networking_enabled ? "--use-max-pods false" : "",
+      var.cni_custom_networking_enabled || var.cni_eni_prefix_mode_enabled ? "--use-max-pods false" : "",
     ],
     var.bootstrap_extra_args,
   ))
@@ -20,7 +26,7 @@ locals {
     [
       length(local.node_labels) > 0 ? "--node-labels ${join(",", local.node_labels)}" : "",
       length(local.node_taints) > 0 ? "--register-with-taints ${join(",", local.node_taints)}" : "",
-      var.cni_custom_networking_enabled ? "--max-pods ${module.eks_max_pods.max_pods}" : "",
+      var.cni_custom_networking_enabled || var.cni_eni_prefix_mode_enabled ? "--max-pods ${module.eks_max_pods.max_pods}" : "",
     ],
     var.kubelet_extra_args,
   ))

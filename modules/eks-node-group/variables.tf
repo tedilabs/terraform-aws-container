@@ -219,6 +219,13 @@ variable "cni_custom_networking_enabled" {
   nullable    = false
 }
 
+variable "cni_eni_prefix_mode_enabled" {
+  description = "(Optional) Whether to use ENI Prefix Mode of EKS CNI."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "tags" {
   description = "(Optional) A map of tags to add to all resources."
   type        = map(string)
