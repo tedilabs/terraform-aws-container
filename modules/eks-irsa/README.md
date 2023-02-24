@@ -23,7 +23,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
-| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | 0.19.0 |
+| <a name="module_this"></a> [this](#module\_this) | tedilabs/account/aws//modules/iam-role | ~> 0.22.0 |
 
 ## Resources
 
@@ -35,6 +35,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | (Required) Desired name of the IAM role for EKS service accounts. | `string` | n/a | yes |
 | <a name="input_oidc_provider_urls"></a> [oidc\_provider\_urls](#input\_oidc\_provider\_urls) | (Required) A list of URLs of OIDC identity providers. | `list(string)` | n/a | yes |
+| <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | (Optional) The ARN of the policy that is used to set the permissions boundary for the role. | `string` | n/a | yes |
 | <a name="input_assumable_roles"></a> [assumable\_roles](#input\_assumable\_roles) | (Optional) List of IAM roles ARNs which can be assumed by the role. | `list(string)` | `[]` | no |
 | <a name="input_conditions"></a> [conditions](#input\_conditions) | (Optional) Required conditions to assume the role. | <pre>list(object({<br>    key       = string<br>    condition = string<br>    values    = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) The description of the role. | `string` | `""` | no |
@@ -47,7 +48,6 @@ No resources.
 | <a name="input_mfa_ttl"></a> [mfa\_ttl](#input\_mfa\_ttl) | (Optional) Max age of valid MFA (in seconds) for roles which require MFA. | `number` | `86400` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_path"></a> [path](#input\_path) | (Optional) Desired path of the IAM role for EKS service accounts. | `string` | `"/"` | no |
-| <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | (Optional) The ARN of the policy that is used to set the permissions boundary for the role. | `string` | `""` | no |
 | <a name="input_policies"></a> [policies](#input\_policies) | (Optional) List of IAM policies ARNs to attach to IAM role. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
 | <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
