@@ -80,9 +80,9 @@ This module creates following resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_asg_arn"></a> [asg\_arn](#output\_asg\_arn) | n/a |
-| <a name="output_asg_id"></a> [asg\_id](#output\_asg\_id) | ################################################## EKS ################################################## |
-| <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | n/a |
+| <a name="output_asg_arn"></a> [asg\_arn](#output\_asg\_arn) | The ARN of ASG(Auto-Scaling Group). |
+| <a name="output_asg_id"></a> [asg\_id](#output\_asg\_id) | The ID of ASG(Auto-Scaling Group). |
+| <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | The name of ASG(Auto-Scaling Group). |
 | <a name="output_desired_size"></a> [desired\_size](#output\_desired\_size) | The number of instances in the EKS cluster node group. |
 | <a name="output_instance_ami"></a> [instance\_ami](#output\_instance\_ami) | The AMI of the EKS cluster node group. |
 | <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | The name of the IAM instance profile which is attached to instances of the EKS cluster node group. |

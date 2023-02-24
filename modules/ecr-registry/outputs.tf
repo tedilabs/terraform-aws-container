@@ -5,12 +5,12 @@ output "name" {
 
 output "id" {
   description = "The ID of the registry."
-  value       = try(aws_ecr_replication_configuration.this.*.registry_id[0], local.metadata.name)
+  value       = try(aws_ecr_replication_configuration.this[*].registry_id[0], local.metadata.name)
 }
 
 output "policy" {
   description = "The registry policy."
-  value       = one(aws_ecr_registry_policy.this.*.policy)
+  value       = one(aws_ecr_registry_policy.this[*].policy)
 }
 
 output "replication_destinations" {

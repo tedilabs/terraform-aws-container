@@ -33,8 +33,6 @@ variable "force_detach_policies" {
 variable "permissions_boundary" {
   description = "(Optional) The ARN of the policy that is used to set the permissions boundary for the role."
   type        = string
-  default     = ""
-  nullable    = false
 }
 
 variable "trusted_iam_entities" {

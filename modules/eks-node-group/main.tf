@@ -69,7 +69,7 @@ resource "aws_launch_template" "this" {
   network_interfaces {
     description = "Managed by Terraform."
     security_groups = (var.default_security_group.enabled
-      ? concat(module.security_group.*.id, var.security_groups)
+      ? concat(module.security_group[*].id, var.security_groups)
       : var.security_groups
     )
 

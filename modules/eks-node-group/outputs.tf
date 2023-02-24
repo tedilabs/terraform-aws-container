@@ -43,7 +43,7 @@ output "network" {
   The configuration for network of the EKS node group.
   EOF
   value = {
-    default_security_group = one(module.security_group.*.id)
+    default_security_group = one(module.security_group[*].id)
     security_groups        = aws_launch_template.this.network_interfaces[0].security_groups
   }
 }
@@ -53,13 +53,16 @@ output "network" {
 # EKS
 ###################################################
 output "asg_id" {
-  value = aws_autoscaling_group.this.id
+  description = "The ID of ASG(Auto-Scaling Group)."
+  value       = aws_autoscaling_group.this.id
 }
 
 output "asg_arn" {
-  value = aws_autoscaling_group.this.arn
+  description = "The ARN of ASG(Auto-Scaling Group)."
+  value       = aws_autoscaling_group.this.arn
 }
 
 output "asg_name" {
-  value = aws_autoscaling_group.this.name
+  description = "The name of ASG(Auto-Scaling Group)."
+  value       = aws_autoscaling_group.this.name
 }
