@@ -11,6 +11,9 @@
 ":floppy_disk: eks-cluster":
 - modules/eks-cluster/**/*
 
+":floppy_disk: eks-fargate-profile":
+- modules/eks-fargate-profile/**/*
+
 ":floppy_disk: eks-irsa":
 - modules/eks-irsa/**/*
 

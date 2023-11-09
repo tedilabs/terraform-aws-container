@@ -19,17 +19,8 @@ locals {
 # EKS Control Plane
 ###################################################
 
-locals {
-  cluster_timeouts = merge(
-    {
-      create = "30m",
-      update = "60m",
-      delete = "15m",
-    },
-    var.timeouts
-  )
-}
-
+# TODO:
+# - `outpost_config`
 resource "aws_eks_cluster" "this" {
   name     = var.name
   version  = var.kubernetes_version
@@ -47,19 +38,25 @@ resource "aws_eks_cluster" "this" {
   }
 
   kubernetes_network_config {
-    service_ipv4_cidr = var.service_cidr
-    ip_family         = lower(var.ip_family)
+    service_ipv4_cidr = var.kubernetes_network_config.service_ipv4_cidr
+    ip_family         = lower(var.kubernetes_network_config.ip_family)
   }
 
   dynamic "encryption_config" {
-    for_each = var.encryption_enabled ? ["go"] : []
+    for_each = var.secrets_encryption.enabled ? [var.secrets_encryption] : []
 
     content {
       provider {
-        key_arn = var.encryption_kms_key
+        key_arn = encryption_config.value.kms_key
       }
-      resources = var.encryption_resources
+      resources = ["secrets"]
     }
+  }
+
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
   }
 
   tags = merge(
@@ -69,12 +66,6 @@ resource "aws_eks_cluster" "this" {
     local.module_tags,
     var.tags,
   )
-
-  timeouts {
-    create = local.cluster_timeouts.create
-    update = local.cluster_timeouts.update
-    delete = local.cluster_timeouts.delete
-  }
 
   depends_on = [
     module.role__control_plane,

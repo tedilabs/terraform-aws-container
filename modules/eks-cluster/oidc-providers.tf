@@ -16,11 +16,11 @@ resource "aws_eks_identity_provider_config" "this" {
     issuer_url = each.value.issuer_url
     client_id  = each.value.client_id
 
-    required_claims = try(each.value.required_claims, null)
-    username_claim  = try(each.value.username_claim, null)
-    username_prefix = try(each.value.username_prefix, null)
-    groups_claim    = try(each.value.groups_claim, null)
-    groups_prefix   = try(each.value.groups_prefix, null)
+    required_claims = each.value.required_claims
+    username_claim  = each.value.username_claim
+    username_prefix = each.value.username_prefix
+    groups_claim    = each.value.groups_claim
+    groups_prefix   = each.value.groups_prefix
   }
 
   tags = merge(
