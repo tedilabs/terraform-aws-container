@@ -43,14 +43,26 @@ output "subnet_ids" {
   value       = aws_eks_cluster.this.vpc_config[0].subnet_ids
 }
 
-output "service_cidr" {
-  description = "The CIDR block which is assigned to Kubernetes service IP addresses."
-  value       = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
+output "kubernetes_network_config" {
+  description = <<EOF
+  The configurations of Kubernetes network.
+    `service_ipv4_cidr` - The CIDR block which is assigned to Kubernetes service IP addresses.
+    `ip_family` - The IP family used to assign Kubernetes pod and service addresses.
+  EOF
+  value = {
+    service_ipv4_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
+    ip_family         = upper(aws_eks_cluster.this.kubernetes_network_config[0].ip_family)
+  }
 }
 
-output "ip_family" {
-  description = "The IP family used to assign Kubernetes pod and service addresses."
-  value       = upper(aws_eks_cluster.this.kubernetes_network_config[0].ip_family)
+output "secrets_encryption" {
+  description = <<EOF
+  The configurations of the encryption of Kubernetes secrets.
+  EOF
+  value = {
+    enabled = var.secrets_encryption.enabled
+    kms_key = one(aws_eks_cluster.this.encryption_config[*].provider[0].key_arn)
+  }
 }
 
 output "security_group_ids" {
@@ -94,21 +106,6 @@ output "logging" {
     cloudwatch_log_group = {
       arn  = aws_cloudwatch_log_group.this.arn
       name = aws_cloudwatch_log_group.this.name
-    }
-  }
-}
-
-output "fargate_profiles" {
-  description = "A map of all Fargate Profiles created."
-  value = {
-    for name, profile in aws_eks_fargate_profile.this :
-    name => {
-      id         = profile.id
-      arn        = profile.arn
-      status     = profile.status
-      name       = profile.fargate_profile_name
-      subnet_ids = profile.subnet_ids
-      selectors  = profile.selector
     }
   }
 }

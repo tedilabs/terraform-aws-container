@@ -1,6 +1,7 @@
 variable "name" {
   description = "(Required) Name of the EKS cluster. Must be between 1-100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores."
   type        = string
+  nullable    = false
 
   validation {
     condition     = length(var.name) <= 100
@@ -9,35 +10,35 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  description = "(Optional) Kubernetes version to use for the EKS cluster."
+  description = "(Optional) Desired Kubernetes version to use for the EKS cluster. Defaults to `1.26`."
   type        = string
-  default     = "1.21"
+  default     = "1.26"
   nullable    = false
+}
+
+variable "kubernetes_network_config" {
+  description = <<EOF
+  (Optional) A configuration of Kubernetes network. `kubernetes_network_config` as defined below.
+    (Optional) `service_ipv4_cidr` - The CIDR block to assign Kubernetes pod and service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the `10.100.0.0/16` or `172.20.0.0/16` CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created.
+    (Optional) `ip_family` - The IP family used to assign Kubernetes pod and service addresses. Valid values are `IPV4` and `IPV6`. Defaults to `IPV4`. You can only specify an IP family when you create a cluster, changing this value will force a new cluster to be created.
+  EOF
+  type = object({
+    service_ipv4_cidr = optional(string)
+    ip_family         = optional(string, "IPV4")
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition     = contains(["IPV4", "IPV6"], var.kubernetes_network_config.ip_family)
+    error_message = "Valid values for `kubernetes_network_config.ip_family` are `IPV4` and `IPV6`."
+  }
 }
 
 variable "subnet_ids" {
   description = "(Required) A list of subnets to creates cross-account elastic network interfaces to allow communication between your worker nodes and the Kubernetes control plane. Must be in at least two different availability zones."
   type        = list(string)
   nullable    = false
-}
-
-variable "service_cidr" {
-  description = "(Optional) The CIDR block to assign Kubernetes service IP addresses from. Recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created. Only valid if `ip_family` is `IPV4`."
-  type        = string
-  default     = "172.20.0.0/16"
-  nullable    = false
-}
-
-variable "ip_family" {
-  description = "(Optional) The IP family used to assign Kubernetes pod and service addresses. Valid values are `IPV4` and `IPV6`. Defaults to `IPV4`. You can only specify an IP family when you create a cluster, changing this value will force a new cluster to be created."
-  type        = string
-  default     = "IPV4"
-  nullable    = false
-
-  validation {
-    condition     = contains(["IPV4", "IPV6"], var.ip_family)
-    error_message = "The possible values are `IPV4` and `IPV6`."
-  }
 }
 
 variable "endpoint_public_access" {
@@ -76,8 +77,8 @@ variable "endpoint_private_access_source_security_group_ids" {
 }
 
 variable "log_types" {
-  description = "(Optional) A list of the desired control plane logging to enable."
-  type        = list(string)
+  description = "(Optional) A set of the desired control plane logging to enable."
+  type        = set(string)
   default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   nullable    = false
 }
@@ -95,56 +96,18 @@ variable "log_encryption_kms_key" {
   default     = null
 }
 
-variable "encryption_enabled" {
-  description = "(Optional) Whether to encrypt kubernetes resources."
-  type        = string
-  default     = false
-  nullable    = false
-}
-
-variable "encryption_kms_key" {
-  description = "(Optional) The ARN of the KMS customer master key (CMK) to encrypt resources. The CMK must be symmetric, created in the same region as the cluster, and if the CMK was created in a different account, the user must have access to the CMK."
-  type        = string
-  default     = null
-}
-
-variable "encryption_resources" {
-  description = "(Optional) List of strings with resources to be encrypted. Valid values: `secrets`."
-  type        = list(string)
-  default     = ["secrets"]
-  nullable    = false
-}
-
-variable "timeouts" {
-  description = "(Optional) How long to wait for the EKS Cluster to be created/updated/deleted."
-  type        = map(string)
-  default = {
-    create = "30m"
-    update = "60m"
-    delete = "15m"
-  }
-  nullable = false
-}
-
-variable "fargate_default_subnet_ids" {
-  description = "(Optional) A list of defualt subnet IDs for the EKS Fargate Profile. Only used if you do not specified `subnet_ids` in Fargate Profile."
-  type        = list(string)
-  default     = []
-  nullable    = false
-}
-
-variable "fargate_profiles" {
+variable "secrets_encryption" {
   description = <<EOF
-  (Optional) A list of Fargate Profile definitions to create. `fargate_profiles` block as defined below.
-    (Required) `name` - The name of Fargate Profile.
-    (Required) `selectors` - Configuration block(s) for selecting Kubernetes Pods to execute with this EKS Fargate Profile. Each block of `selectors` block as defined below.
-      (Required) `namespace` - Kubernetes namespace for selection.
-      (Optional) `labels` - Key-value map of Kubernetes labels for selection.
-    (Optional) `subnet_ids` - A list of subnet IDs for the EKS Fargate Profile. Use cluster subnet IDs if not provided.
+  (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.
+    (Optional) `enabled` - Whether to enable envelope encryption of Kubernetes secrets. Defaults to `false`.
+    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets.
   EOF
-  type        = any
-  default     = []
-  nullable    = false
+  type = object({
+    enabled = optional(bool, false)
+    kms_key = optional(string)
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "oidc_identity_providers" {
@@ -159,9 +122,30 @@ variable "oidc_identity_providers" {
     (Optional) `groups_claim` - The JWT claim that the provider will use to return groups.
     (Optional) `groups_prefix` - A prefix that is prepended to group claims e.g., `oidc:`.
   EOF
-  type        = any
-  default     = []
-  nullable    = false
+  type = list(object({
+    name       = string
+    issuer_url = string
+    client_id  = string
+
+    required_claims = optional(map(string), {})
+    username_claim  = optional(string)
+    username_prefix = optional(string)
+    groups_claim    = optional(string)
+    groups_prefix   = optional(string)
+  }))
+  default  = []
+  nullable = false
+}
+
+variable "timeouts" {
+  description = "(Optional) How long to wait for the EKS Cluster to be created/updated/deleted."
+  type = object({
+    create = optional(string, "30m")
+    update = optional(string, "60m")
+    delete = optional(string, "15m")
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "tags" {
