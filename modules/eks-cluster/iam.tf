@@ -4,19 +4,24 @@
 
 module "role__control_plane" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.19.0"
+  version = "~> 0.28.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   path        = "/"
   description = "Role for the EKS cluster(${local.metadata.name}) control plane"
 
-  trusted_services = ["eks.amazonaws.com"]
+  trusted_service_policies = [
+    {
+      services = ["eks.amazonaws.com"]
+    }
+  ]
 
   policies = [
     "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
     "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController",
   ]
 
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -33,13 +38,17 @@ module "role__control_plane" {
 
 module "role__node" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.19.0"
+  version = "~> 0.28.0"
 
   name        = "eks-${local.metadata.name}-node"
   path        = "/"
   description = "Role for the EKS cluster(${local.metadata.name}) nodes"
 
-  trusted_services = ["ec2.amazonaws.com"]
+  trusted_service_policies = [
+    {
+      services = ["ec2.amazonaws.com"]
+    }
+  ]
 
   policies = [
     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
@@ -48,8 +57,11 @@ module "role__node" {
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
   ]
 
-  instance_profile_enabled = true
+  instance_profile = {
+    enabled = true
+  }
 
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -66,16 +78,21 @@ module "role__node" {
 
 module "role__fargate_profile" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.19.0"
+  version = "~> 0.28.0"
 
   name        = "eks-${local.metadata.name}-fargate-profile"
   path        = "/"
   description = "Role for the EKS cluster(${local.metadata.name}) Fargate profiles"
 
-  trusted_services = ["eks-fargate-pods.amazonaws.com"]
+  trusted_service_policies = [
+    {
+      services = ["eks-fargate-pods.amazonaws.com"]
+    }
+  ]
 
   policies = ["arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"]
 
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
