@@ -18,17 +18,22 @@ variable "subnets" {
 
 variable "default_pod_execution_role" {
   description = <<EOF
-  (Optional) A configuration for the default pod execution role to use for pods that match the selectors in the Fargate profile. Only one of `default_pod_execution_role.role` or `pod_execution_role` can be specified. `default_pod_execution_role` as defined below.
+  (Optional) A configuration for the default pod execution role to use for pods that match the selectors in the Fargate profile. Use `pod_execution_role` if `default_pod_execution_role.enabled` is `false`. `default_pod_execution_role` as defined below.
     (Optional) `enabled` - Whether to create the default pod execution role. Defaults to `true`.
     (Optional) `name` - The name of the default pod execution role. Defaults to `eks-$${var.cluster_name}-fargate-profile-$${var.name}`.
     (Optional) `path` - The path of the default pod execution role. Defaults to `/`.
     (Optional) `description` - The description of the default pod execution role.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the default pod execution role. `AmazonEKSFargatePodExecutionRolePolicy` is always attached. Defaults to `[]`.
+    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default pod execution role. (`name` => `policy`).
   EOF
   type = object({
     enabled     = optional(bool, true)
     name        = optional(string)
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
+
+    policies        = optional(list(string), [])
+    inline_policies = optional(map(string), {})
   })
   default  = {}
   nullable = false

@@ -76,6 +76,61 @@ variable "endpoint_private_access_source_security_group_ids" {
   nullable    = false
 }
 
+variable "default_cluster_role" {
+  description = <<EOF
+  (Optional) A configuration for the default IAM role for EKS cluster. Use `cluster_role` if `default_cluster_role.enabled` is `false`. `default_cluster_role` as defined below.
+    (Optional) `enabled` - Whether to create the default cluster role. Defaults to `true`.
+    (Optional) `name` - The name of the default cluster role. Defaults to `eks-$${var.name}-cluster`.
+    (Optional) `path` - The path of the default cluster role. Defaults to `/`.
+    (Optional) `description` - The description of the default cluster role.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the default cluster role. `AmazonEKSClusterPolicy` is always attached. Defaults to `[]`.
+    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default cluster role. (`name` => `policy`).
+  EOF
+  type = object({
+    enabled     = optional(bool, true)
+    name        = optional(string)
+    path        = optional(string, "/")
+    description = optional(string, "Managed by Terraform.")
+
+    policies        = optional(list(string), [])
+    inline_policies = optional(map(string), {})
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "cluster_role" {
+  description = <<EOF
+  (Optional) The ARN (Amazon Resource Name) of the IAM Role for the EKS cluster role. Only required if `default_cluster_role.enabled` is `false`.
+  EOF
+  type        = string
+  default     = null
+  nullable    = true
+}
+
+variable "default_node_role" {
+  description = <<EOF
+  (Optional) A configuration for the default IAM role for EKS nodes. `default_node_role` as defined below.
+    (Optional) `enabled` - Whether to create the default node role. Defaults to `false`.
+    (Optional) `name` - The name of the default node role. Defaults to `eks-$${var.name}-node`.
+    (Optional) `path` - The path of the default node role. Defaults to `/`.
+    (Optional) `description` - The description of the default node role.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEKS_CNI_Policy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.
+    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`).
+  EOF
+  type = object({
+    enabled     = optional(bool, false)
+    name        = optional(string)
+    path        = optional(string, "/")
+    description = optional(string, "Managed by Terraform.")
+
+    policies        = optional(list(string), [])
+    inline_policies = optional(map(string), {})
+  })
+  default  = {}
+  nullable = false
+}
+
 variable "log_types" {
   description = "(Optional) A set of the desired control plane logging to enable."
   type        = set(string)

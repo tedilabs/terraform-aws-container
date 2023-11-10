@@ -75,13 +75,19 @@ output "security_group_ids" {
   }
 }
 
-output "iam_roles" {
-  description = "IAM Roles for the EKS cluster."
-  value = {
-    control_plane   = module.role__control_plane
-    node            = module.role__node
-    fargate_profile = module.role__fargate_profile
-  }
+output "cluster_role" {
+  description = "The IAM Role for the EKS cluster."
+  value       = aws_eks_cluster.this.role_arn
+}
+
+output "default_cluster_role" {
+  description = "The default IAM Role for the EKS cluster."
+  value       = one(module.role)
+}
+
+output "default_node_role" {
+  description = "The default IAM Role for the EKS node."
+  value       = one(module.role__node)
 }
 
 output "irsa_oidc_provider" {

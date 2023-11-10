@@ -21,7 +21,11 @@ module "role" {
     }
   ]
 
-  policies = ["arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"]
+  policies = concat(
+    ["arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"],
+    var.default_pod_execution_role.policies,
+  )
+  inline_policies = var.default_pod_execution_role.inline_policies
 
   force_detach_policies  = true
   resource_group_enabled = false

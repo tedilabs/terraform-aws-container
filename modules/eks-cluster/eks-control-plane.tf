@@ -22,9 +22,12 @@ locals {
 # TODO:
 # - `outpost_config`
 resource "aws_eks_cluster" "this" {
-  name     = var.name
-  version  = var.kubernetes_version
-  role_arn = module.role__control_plane.arn
+  name    = var.name
+  version = var.kubernetes_version
+  role_arn = (var.default_cluster_role.enabled
+    ? module.role[0].arn
+    : var.cluster_role
+  )
 
   enabled_cluster_log_types = var.log_types
 
@@ -68,7 +71,6 @@ resource "aws_eks_cluster" "this" {
   )
 
   depends_on = [
-    module.role__control_plane,
     aws_cloudwatch_log_group.this,
   ]
 }
