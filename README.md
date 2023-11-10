@@ -8,6 +8,7 @@ Terraform module which creates resources for container services on AWS.
 
 - [ecr-registry](./modules/ecr-registry)
 - [ecr-repository](./modules/ecr-repository)
+- [eks-addon](./modules/eks-addon)
 - [eks-aws-auth](./modules/eks-aws-auth)
 - [eks-cluster](./modules/eks-cluster)
 - [eks-fargate-profile](./modules/eks-fargate-profile)
@@ -27,7 +28,8 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
     - Scanning
 - **AWS EKS (Elastic Kubernetes Service)**
   - Control Plane
-  - Node Group with ASG
+  - Add-on
+  - Self-Managed Node Group (with ASG)
   - Fargate Profile
   - IRSA (IAM Role for ServiceAccount)
 
