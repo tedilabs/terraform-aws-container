@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "pod" {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.24.0"
+  version = "~> 0.31.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
@@ -57,7 +57,7 @@ module "security_group__control_plane" {
         from_port   = 443
         to_port     = 443
 
-        source_security_group_id = module.security_group__node.id
+        security_groups = [module.security_group__node.id]
       },
       {
         id          = "cluster-api/pods"
@@ -66,7 +66,7 @@ module "security_group__control_plane" {
         from_port   = 443
         to_port     = 443
 
-        source_security_group_id = module.security_group__pod.id
+        security_groups = [module.security_group__pod.id]
       }
     ],
     var.endpoint_private_access && length(var.endpoint_private_access_cidrs) > 0 ? [
@@ -77,7 +77,7 @@ module "security_group__control_plane" {
         from_port   = 443
         to_port     = 443
 
-        cidr_blocks = var.endpoint_private_access_cidrs
+        ipv4_cidrs = var.endpoint_private_access_cidrs
       }
     ] : [],
     [
@@ -88,7 +88,7 @@ module "security_group__control_plane" {
         from_port   = 443
         to_port     = 443
 
-        source_security_group_id = source_security_group_id
+        security_groups = [source_security_group_id]
       }
       if var.endpoint_private_access
     ]
@@ -101,7 +101,7 @@ module "security_group__control_plane" {
       from_port   = 1025
       to_port     = 65535
 
-      source_security_group_id = module.security_group__node.id
+      security_groups = [module.security_group__node.id]
     },
     {
       id          = "ephemeral/pods"
@@ -110,10 +110,11 @@ module "security_group__control_plane" {
       from_port   = 1025
       to_port     = 65535
 
-      source_security_group_id = module.security_group__pod.id
+      security_groups = [module.security_group__pod.id]
     },
   ]
 
+  revoke_rules_on_delete = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -133,7 +134,7 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.24.0"
+  version = "~> 0.31.0"
 
   name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
@@ -156,7 +157,7 @@ module "security_group__node" {
       from_port   = 0
       to_port     = 0
 
-      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+      security_groups = [aws_eks_cluster.this.vpc_config[0].cluster_security_group_id]
     },
     {
       id          = "ephemeral/control-plane"
@@ -165,7 +166,7 @@ module "security_group__node" {
       from_port   = 1025
       to_port     = 65535
 
-      source_security_group_id = module.security_group__control_plane.id
+      security_groups = [module.security_group__control_plane.id]
     },
     {
       id          = "kubelet/control-plane"
@@ -174,7 +175,7 @@ module "security_group__node" {
       from_port   = 10250
       to_port     = 10250
 
-      source_security_group_id = module.security_group__control_plane.id
+      security_groups = [module.security_group__control_plane.id]
     },
     {
       id          = "kubelet/pods"
@@ -183,7 +184,7 @@ module "security_group__node" {
       from_port   = 10250
       to_port     = 10250
 
-      source_security_group_id = module.security_group__pod.id
+      security_groups = [module.security_group__pod.id]
     },
     {
       id          = "node-exporter/pods"
@@ -192,7 +193,7 @@ module "security_group__node" {
       from_port   = 9100
       to_port     = 9100
 
-      source_security_group_id = module.security_group__pod.id
+      security_groups = [module.security_group__pod.id]
     },
   ]
   egress_rules = [
@@ -203,8 +204,8 @@ module "security_group__node" {
       from_port   = 0
       to_port     = 0
 
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
+      ipv4_cidrs = ["0.0.0.0/0"]
+      ipv6_cidrs = ["::/0"]
     },
     {
       id          = "all/cluster"
@@ -213,10 +214,11 @@ module "security_group__node" {
       from_port   = 0
       to_port     = 0
 
-      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+      security_groups = [aws_eks_cluster.this.vpc_config[0].cluster_security_group_id]
     },
   ]
 
+  revoke_rules_on_delete = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -236,7 +238,7 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "0.24.0"
+  version = "~> 0.31.0"
 
   name        = "eks-${local.metadata.name}-pod"
   description = "Security Group for all pods in the EKS cluster."
@@ -259,7 +261,7 @@ module "security_group__pod" {
       from_port   = 0
       to_port     = 0
 
-      source_security_group_id = module.security_group__node.id
+      security_groups = [module.security_group__node.id]
     },
     {
       id          = "all/cluster"
@@ -268,7 +270,7 @@ module "security_group__pod" {
       from_port   = 0
       to_port     = 0
 
-      source_security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+      security_groups = [aws_eks_cluster.this.vpc_config[0].cluster_security_group_id]
     },
     {
       id          = "metrics-server/control-plane"
@@ -277,7 +279,7 @@ module "security_group__pod" {
       from_port   = 443
       to_port     = 443
 
-      source_security_group_id = module.security_group__control_plane.id
+      security_groups = [module.security_group__control_plane.id]
     },
     {
       id          = "ephemeral/control-plane"
@@ -286,7 +288,7 @@ module "security_group__pod" {
       from_port   = 1025
       to_port     = 65535
 
-      source_security_group_id = module.security_group__control_plane.id
+      security_groups = [module.security_group__control_plane.id]
     },
   ]
   egress_rules = [
@@ -297,11 +299,12 @@ module "security_group__pod" {
       from_port   = 0
       to_port     = 0
 
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
+      ipv4_cidrs = ["0.0.0.0/0"]
+      ipv6_cidrs = ["::/0"]
     },
   ]
 
+  revoke_rules_on_delete = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
