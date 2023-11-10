@@ -2,20 +2,19 @@
 # IRSA OIDC Provider
 ###################################################
 
-data "tls_certificate" "this" {
-  url = aws_eks_cluster.this.identity[0].oidc[0].issuer
-}
+module "oidc_provider" {
+  source  = "tedilabs/account/aws//modules/iam-oidc-identity-provider"
+  version = "~> 0.27.0"
 
-resource "aws_iam_openid_connect_provider" "this" {
-  url = aws_eks_cluster.this.identity[0].oidc[0].issuer
+  url       = aws_eks_cluster.this.identity[0].oidc[0].issuer
+  audiences = ["sts.amazonaws.com"]
 
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.this.certificates[0].sha1_fingerprint]
+  auto_thumbprint_enabled = true
+
+  resource_group_enabled = false
+  module_tags_enabled    = false
 
   tags = merge(
-    {
-      "Name" = "eks-${local.metadata.name}-oidc-provider"
-    },
     local.module_tags,
     var.tags,
   )

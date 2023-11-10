@@ -84,19 +84,20 @@ output "iam_roles" {
   }
 }
 
-output "oidc_provider_arn" {
-  description = "The Amazon Resource Name (ARN) for the OpenID Connect identity provider."
-  value       = aws_iam_openid_connect_provider.this.arn
-}
-
-output "oidc_provider_url" {
-  description = "Issuer URL for the OpenID Connect identity provider."
-  value       = aws_eks_cluster.this.identity[0].oidc[0].issuer
-}
-
-output "oidc_provider_urn" {
-  description = "Issuer URN for the OpenID Connect identity provider."
-  value       = aws_iam_openid_connect_provider.this.url
+output "irsa_oidc_provider" {
+  description = <<EOF
+  The configurations of the OIDC provider for IRSA (IAM Roles for Service Accounts).
+    `arn` - The ARN assigned by AWS for this provider.
+    `url` - The URL of the identity provider.
+    `urn` - The URN of the identity provider.
+    `audiences` - A list of audiences (also known as client IDs) for the IAM OIDC provider.
+  EOF
+  value = {
+    arn       = module.oidc_provider.arn
+    url       = aws_eks_cluster.this.identity[0].oidc[0].issuer
+    urn       = module.oidc_provider.url
+    audiences = module.oidc_provider.audiences
+  }
 }
 
 output "logging" {

@@ -27,12 +27,12 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.4 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_oidc_provider"></a> [oidc\_provider](#module\_oidc\_provider) | tedilabs/account/aws//modules/iam-oidc-identity-provider | ~> 0.27.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
 | <a name="module_role__control_plane"></a> [role\_\_control\_plane](#module\_role\_\_control\_plane) | tedilabs/account/aws//modules/iam-role | 0.19.0 |
 | <a name="module_role__fargate_profile"></a> [role\_\_fargate\_profile](#module\_role\_\_fargate\_profile) | tedilabs/account/aws//modules/iam-role | 0.19.0 |
@@ -48,11 +48,9 @@ This module creates following resources.
 | [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster) | resource |
 | [aws_eks_identity_provider_config.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_identity_provider_config) | resource |
-| [aws_iam_openid_connect_provider.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_openid_connect_provider) | resource |
 | [aws_security_group_rule.node](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.pod](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
-| [tls_certificate.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |
 
 ## Inputs
 
@@ -87,13 +85,11 @@ This module creates following resources.
 | <a name="output_ca_cert"></a> [ca\_cert](#output\_ca\_cert) | The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster. |
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | The endpoint for the Kubernetes API server. |
 | <a name="output_iam_roles"></a> [iam\_roles](#output\_iam\_roles) | IAM Roles for the EKS cluster. |
+| <a name="output_irsa_oidc_provider"></a> [irsa\_oidc\_provider](#output\_irsa\_oidc\_provider) | The configurations of the OIDC provider for IRSA (IAM Roles for Service Accounts).<br>    `arn` - The ARN assigned by AWS for this provider.<br>    `url` - The URL of the identity provider.<br>    `urn` - The URN of the identity provider.<br>    `audiences` - A list of audiences (also known as client IDs) for the IAM OIDC provider. |
 | <a name="output_kubernetes_network_config"></a> [kubernetes\_network\_config](#output\_kubernetes\_network\_config) | The configurations of Kubernetes network.<br>    `service_ipv4_cidr` - The CIDR block which is assigned to Kubernetes service IP addresses.<br>    `ip_family` - The IP family used to assign Kubernetes pod and service addresses. |
 | <a name="output_logging"></a> [logging](#output\_logging) | The configurations of the control plane logging. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the cluster. |
 | <a name="output_oidc_identity_providers"></a> [oidc\_identity\_providers](#output\_oidc\_identity\_providers) | A map of all associated OIDC Identity Providers to the cluster. |
-| <a name="output_oidc_provider_arn"></a> [oidc\_provider\_arn](#output\_oidc\_provider\_arn) | The Amazon Resource Name (ARN) for the OpenID Connect identity provider. |
-| <a name="output_oidc_provider_url"></a> [oidc\_provider\_url](#output\_oidc\_provider\_url) | Issuer URL for the OpenID Connect identity provider. |
-| <a name="output_oidc_provider_urn"></a> [oidc\_provider\_urn](#output\_oidc\_provider\_urn) | Issuer URN for the OpenID Connect identity provider. |
 | <a name="output_platform_version"></a> [platform\_version](#output\_platform\_version) | The platform version for the cluster. |
 | <a name="output_secrets_encryption"></a> [secrets\_encryption](#output\_secrets\_encryption) | The configurations of the encryption of Kubernetes secrets. |
 | <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | Security groups that were created for the EKS cluster. |
