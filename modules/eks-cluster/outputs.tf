@@ -1,5 +1,10 @@
 output "name" {
   description = "The name of the cluster."
+  value       = aws_eks_cluster.this.name
+}
+
+output "id" {
+  description = "The ID of the cluster."
   value       = aws_eks_cluster.this.id
 }
 
@@ -46,11 +51,13 @@ output "subnet_ids" {
 output "kubernetes_network_config" {
   description = <<EOF
   The configurations of Kubernetes network.
-    `service_ipv4_cidr` - The CIDR block which is assigned to Kubernetes service IP addresses.
+    `service_ipv4_cidr` - The IPv4 CIDR block which is assigned to Kubernetes service IP addresses.
+    `service_ipv6_cidr` - The IPv6 CIDR block that Kubernetes pod and service IP addresses are assigned from if you specified `IPV6` for `ip_family` when you created the cluster. Kubernetes assigns service addresses from the unique local address range (fc00::/7) because you can't specify a custom IPv6 CIDR block when you create the cluster.
     `ip_family` - The IP family used to assign Kubernetes pod and service addresses.
   EOF
   value = {
     service_ipv4_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
+    service_ipv6_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv6_cidr
     ip_family         = upper(aws_eks_cluster.this.kubernetes_network_config[0].ip_family)
   }
 }
@@ -135,3 +142,27 @@ output "oidc_identity_providers" {
     }
   }
 }
+
+output "outpost_config" {
+  description = <<EOF
+  The configurations of the outpost for the EKS cluster.
+    `outposts` - The list of the Outposts ARNs.
+    `control_plane_instance_type` - The EC2 instance type of the local EKS control plane node on Outposts.
+    `control_plane_placement_group` - The name of the placement group for the EKS control plane node on Outposts.
+  EOF
+  value = (var.outpost_config != null
+    ? {
+      outposts                      = aws_eks_cluster.this.outpost_config[0].outpost_arns
+      cluster_id                    = aws_eks_cluster.this.cluster_id
+      control_plane_instance_type   = aws_eks_cluster.this.outpost_config[0].control_plane_instance_type
+      control_plane_placement_group = one(aws_eks_cluster.this.outpost_config[0].control_plane_placement[*].group_name)
+    }
+    : null
+  )
+}
+
+output "created_at" {
+  description = "The Unix epoch timestamp in seconds for when the cluster was created."
+  value       = aws_eks_cluster.this.created_at
+}
+

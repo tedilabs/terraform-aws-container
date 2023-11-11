@@ -192,6 +192,25 @@ variable "oidc_identity_providers" {
   nullable = false
 }
 
+variable "outpost_config" {
+  description = <<EOF
+  (Optional) A configuration of the outpost for the EKS cluster. `outpost_config` as defined below.
+    (Required) `outposts` - A list of the Outpost ARNs that you want to use for your local Amazon EKS cluster on Outposts. This argument is a list of arns, but only a single Outpost ARN is supported currently.
+    (Required) `control_plane_instance_type` - The Amazon EC2 instance type that you want to use for your local Amazon EKS cluster on Outposts. The instance type that you specify is used for all Kubernetes control plane instances. The instance type can't be changed after cluster creation. Choose an instance type based on the number of nodes that your cluster will have.
+      - 1–20 nodes, then we recommend specifying a large instance type.
+      - 21–100 nodes, then we recommend specifying an xlarge instance type.
+      - 101–250 nodes, then we recommend specifying a 2xlarge instance type.
+    (Optional) `control_plane_placement_group` - The name of the placement group for the Kubernetes control plane instances. This setting can't be changed after cluster creation.
+  EOF
+  type = object({
+    outposts                      = list(string)
+    control_plane_instance_type   = string
+    control_plane_placement_group = optional(string)
+  })
+  default  = null
+  nullable = true
+}
+
 variable "timeouts" {
   description = "(Optional) How long to wait for the EKS Cluster to be created/updated/deleted."
   type = object({

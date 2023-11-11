@@ -19,8 +19,6 @@ locals {
 # EKS Control Plane
 ###################################################
 
-# TODO:
-# - `outpost_config`
 resource "aws_eks_cluster" "this" {
   name    = var.name
   version = var.kubernetes_version
@@ -53,6 +51,24 @@ resource "aws_eks_cluster" "this" {
         key_arn = encryption_config.value.kms_key
       }
       resources = ["secrets"]
+    }
+  }
+
+  dynamic "outpost_config" {
+    for_each = var.outpost_config != null ? [var.outpost_config] : []
+
+    content {
+      outpost_arns = outpost_config.value.outposts
+
+      control_plane_instance_type = outpost_config.value.control_plane_instance_type
+
+      dynamic "control_plane_placement" {
+        for_each = outpost_config.value.control_plane_placement_group != null ? [outpost_config.value.control_plane_placement_group] : []
+
+        content {
+          group_name = control_plane_placement.value
+        }
+      }
     }
   }
 
