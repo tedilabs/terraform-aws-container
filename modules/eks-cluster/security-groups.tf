@@ -1,5 +1,5 @@
 data "aws_subnet" "selected" {
-  id = var.subnet_ids[0]
+  id = var.subnets[0]
 }
 
 locals {
@@ -69,7 +69,7 @@ module "security_group__control_plane" {
         security_groups = [module.security_group__pod.id]
       }
     ],
-    var.endpoint_private_access && length(var.endpoint_private_access_cidrs) > 0 ? [
+    var.endpoint_access.private_access_enabled && length(var.endpoint_access.private_access_cidrs) > 0 ? [
       {
         id          = "cluster-api/cidrs"
         description = "Allow CIDRs to communicate with the cluster API server."
@@ -77,11 +77,11 @@ module "security_group__control_plane" {
         from_port   = 443
         to_port     = 443
 
-        ipv4_cidrs = var.endpoint_private_access_cidrs
+        ipv4_cidrs = var.endpoint_access.private_access_cidrs
       }
     ] : [],
     [
-      for idx, source_security_group_id in var.endpoint_private_access_source_security_group_ids : {
+      for idx, source_security_group_id in var.endpoint_access.private_access_security_groups : {
         id          = "cluster-api/security-groups/${idx}"
         description = "Allow source security groups to communicate with the cluster API server."
         protocol    = "tcp"
@@ -90,7 +90,7 @@ module "security_group__control_plane" {
 
         security_groups = [source_security_group_id]
       }
-      if var.endpoint_private_access
+      if var.endpoint_access.private_access_enabled
     ]
   )
   egress_rules = [

@@ -35,45 +35,52 @@ variable "kubernetes_network_config" {
   }
 }
 
-variable "subnet_ids" {
-  description = "(Required) A list of subnets to creates cross-account elastic network interfaces to allow communication between your worker nodes and the Kubernetes control plane. Must be in at least two different availability zones."
+variable "subnets" {
+  description = "(Required) A list of subnet IDs. Must be in at least two different availability zones. Amazon EKS creates cross-account elastic network interfaces in these subnets to allow communication between your worker nodes and the Kubernetes control plane."
   type        = list(string)
   nullable    = false
+
+  validation {
+    condition     = length(var.subnets) > 1
+    error_message = "Must be in at least two different availability zones."
+  }
 }
 
-variable "endpoint_public_access" {
-  description = "(Optional) Indicates whether or not the Amazon EKS public API server endpoint is enabled."
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
-variable "endpoint_private_access" {
-  description = "(Optional) Indicates whether or not the Amazon EKS private API server endpoint is enabled."
-  type        = bool
-  default     = true
-  nullable    = false
-}
-
-variable "endpoint_public_access_cidrs" {
-  description = "(Optional) A list of allowed CIDR to communicate to the Amazon EKS public API server endpoint."
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-  nullable    = false
-}
-
-variable "endpoint_private_access_cidrs" {
-  description = "(Optional) A list of allowed CIDR to communicate to the Amazon EKS private API server endpoint."
+variable "additional_security_groups" {
+  description = "(Optional) A list of additional security group IDs to associate with the Kubernetes API server endpoint. The cluster security group always attached to the endpoint. You can specify additional security groups to use for the endpoint using this argument. Defaults to `[]`."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
-variable "endpoint_private_access_source_security_group_ids" {
-  description = "(Optional) A list of allowed source security group to communicate to the Amazon EKS private API server endpoint."
-  type        = list(string)
-  default     = []
-  nullable    = false
+variable "endpoint_access" {
+  description = <<EOF
+  (Optional) A configuration for the endpoint access to the Kubernetes API server endpoint. `endpoint_access` as defined below.
+    (Optional) `private_access_enabled` - Whether to enable private access for your cluster's Kubernetes API server endpoint. If you enable private access, Kubernetes API requests from within your cluster's VPC use the private VPC endpoint. Defaults to `true`. If you disable private access and you have nodes or Fargate pods in the cluster, then ensure that `public_access_cidrs` includes the necessary CIDR blocks for communication with the nodes or Fargate pods.
+    (Optional) `private_access_cidrs` - A list of allowed CIDR to communicate to the Amazon EKS private API server endpoint.
+    (Optional) `private_access_security_groups` - A list of allowed source security group to communicate to the Amazon EKS private API server endpoint.
+    (Optional) `public_access_enabled` - Whether to enable public access to your cluster's Kubernetes API server endpoint. If you disable public access, your cluster's Kubernetes API server can only receive requests from within the cluster VPC. Defaults to `false`.
+    (Optional) `public_access_cidrs` - A list of CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint. Defaults to `0.0.0.0/0` .
+  EOF
+  type = object({
+    private_access_enabled         = optional(bool, true)
+    private_access_cidrs           = optional(list(string), [])
+    private_access_security_groups = optional(list(string), [])
+
+    public_access_enabled = optional(bool, false)
+    public_access_cidrs   = optional(list(string), ["0.0.0.0/0"])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "cluster_role" {
+  description = <<EOF
+  (Optional) The ARN (Amazon Resource Name) of the IAM Role for the EKS cluster role. Only required if `default_cluster_role.enabled` is `false`.
+  EOF
+  type        = string
+  default     = null
+  nullable    = true
 }
 
 variable "default_cluster_role" {
@@ -97,15 +104,6 @@ variable "default_cluster_role" {
   })
   default  = {}
   nullable = false
-}
-
-variable "cluster_role" {
-  description = <<EOF
-  (Optional) The ARN (Amazon Resource Name) of the IAM Role for the EKS cluster role. Only required if `default_cluster_role.enabled` is `false`.
-  EOF
-  type        = string
-  default     = null
-  nullable    = true
 }
 
 variable "default_node_role" {

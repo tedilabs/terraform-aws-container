@@ -28,26 +28,6 @@ output "status" {
   value       = aws_eks_cluster.this.status
 }
 
-output "endpoint" {
-  description = "The endpoint for the Kubernetes API server."
-  value       = aws_eks_cluster.this.endpoint
-}
-
-output "ca_cert" {
-  description = "The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster."
-  value       = aws_eks_cluster.this.certificate_authority[0].data
-}
-
-output "vpc_id" {
-  description = "The ID of VPC associated with the cluster."
-  value       = aws_eks_cluster.this.vpc_config[0].vpc_id
-}
-
-output "subnet_ids" {
-  description = "Subnets which the ENIs of Kubernetes control plane are located in."
-  value       = aws_eks_cluster.this.vpc_config[0].subnet_ids
-}
-
 output "kubernetes_network_config" {
   description = <<EOF
   The configurations of Kubernetes network.
@@ -62,6 +42,54 @@ output "kubernetes_network_config" {
   }
 }
 
+output "vpc_id" {
+  description = "The ID of VPC associated with the cluster."
+  value       = aws_eks_cluster.this.vpc_config[0].vpc_id
+}
+
+output "subnets" {
+  description = "The IDs of subnets which the ENIs of Kubernetes control plane are located in."
+  value       = aws_eks_cluster.this.vpc_config[0].subnet_ids
+}
+
+output "cluster_security_group" {
+  description = "The security group that was created by EKS for the cluster. Managed node groups use this security group for control-plane-to-data-plane communication."
+  value       = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+}
+
+output "additional_security_groups" {
+  description = "The list of additional security groups for the EKS control plane."
+  value       = aws_eks_cluster.this.vpc_config[0].security_group_ids
+}
+
+output "security_group_ids" {
+  description = "Security groups that were created for the EKS cluster."
+  value = {
+    control_plane = module.security_group__control_plane.id
+    node          = module.security_group__node.id
+    pod           = module.security_group__pod.id
+  }
+}
+
+output "endpoint" {
+  description = "The endpoint for the Kubernetes API server."
+  value       = aws_eks_cluster.this.endpoint
+}
+
+output "endpoint_access" {
+  description = "The configuration for the endpoint access to the Kubernetes API server endpoint."
+  value = {
+    private_access_enabled = aws_eks_cluster.this.vpc_config[0].endpoint_private_access
+    public_access_enabled  = aws_eks_cluster.this.vpc_config[0].endpoint_public_access
+    public_access_cidrs    = aws_eks_cluster.this.vpc_config[0].public_access_cidrs
+  }
+}
+
+output "ca_cert" {
+  description = "The base64 encoded certificate data required to communicate with your cluster. Add this to the `certificate-authority-data` section of the `kubeconfig` file for your cluster."
+  value       = aws_eks_cluster.this.certificate_authority[0].data
+}
+
 output "secrets_encryption" {
   description = <<EOF
   The configurations of the encryption of Kubernetes secrets.
@@ -69,16 +97,6 @@ output "secrets_encryption" {
   value = {
     enabled = var.secrets_encryption.enabled
     kms_key = one(aws_eks_cluster.this.encryption_config[*].provider[0].key_arn)
-  }
-}
-
-output "security_group_ids" {
-  description = "Security groups that were created for the EKS cluster."
-  value = {
-    cluster       = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
-    control_plane = module.security_group__control_plane.id
-    node          = module.security_group__node.id
-    pod           = module.security_group__pod.id
   }
 }
 
@@ -165,4 +183,3 @@ output "created_at" {
   description = "The Unix epoch timestamp in seconds for when the cluster was created."
   value       = aws_eks_cluster.this.created_at
 }
-
