@@ -136,8 +136,8 @@ output "logging" {
   value = {
     type = aws_eks_cluster.this.enabled_cluster_log_types
     cloudwatch_log_group = {
-      arn  = aws_cloudwatch_log_group.this.arn
-      name = aws_cloudwatch_log_group.this.name
+      arn  = data.aws_cloudwatch_log_group.this.arn
+      name = data.aws_cloudwatch_log_group.this.name
     }
   }
 }

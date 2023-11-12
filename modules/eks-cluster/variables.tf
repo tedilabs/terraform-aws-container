@@ -136,19 +136,6 @@ variable "log_types" {
   nullable    = false
 }
 
-variable "log_retention_in_days" {
-  description = "(Optional) Number of days to retain log events. Default retention - 90 days. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire."
-  type        = number
-  default     = 90
-  nullable    = false
-}
-
-variable "log_encryption_kms_key" {
-  description = "(Optional) The ARN of the KMS Key to use when encrypting log data. Please note, after the AWS KMS CMK is disassociated from the log group, AWS CloudWatch Logs stops encrypting newly ingested data for the log group. All previously ingested data remains encrypted, and AWS CloudWatch Logs requires permissions for the CMK whenever the encrypted data is requested."
-  type        = string
-  default     = null
-}
-
 variable "secrets_encryption" {
   description = <<EOF
   (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.

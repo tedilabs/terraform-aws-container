@@ -88,8 +88,4 @@ resource "aws_eks_cluster" "this" {
     local.module_tags,
     var.tags,
   )
-
-  depends_on = [
-    aws_cloudwatch_log_group.this,
-  ]
 }
