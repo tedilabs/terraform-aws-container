@@ -31,7 +31,6 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
   - Add-on
   - Self-Managed Node Group (with ASG)
   - Fargate Profile
-  - IRSA (IAM Role for ServiceAccount)
 
 
 ## Self Promotion
