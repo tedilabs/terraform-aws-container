@@ -47,3 +47,23 @@ resource "aws_eks_addon" "this" {
     var.tags,
   )
 }
+
+
+###################################################
+# Versions of EKS Addon
+###################################################
+
+data "aws_eks_cluster" "this" {
+  name = var.cluster_name
+}
+
+data "aws_eks_addon_version" "default" {
+  addon_name         = var.name
+  kubernetes_version = data.aws_eks_cluster.this.version
+}
+
+data "aws_eks_addon_version" "latest" {
+  addon_name         = var.name
+  kubernetes_version = data.aws_eks_cluster.this.version
+  most_recent        = true
+}

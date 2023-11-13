@@ -29,6 +29,9 @@ This module creates following resources.
 | Name | Type |
 |------|------|
 | [aws_eks_addon.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
+| [aws_eks_addon_version.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.latest](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 
 ## Inputs
 
@@ -53,14 +56,17 @@ This module creates following resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_addon_version"></a> [addon\_version](#output\_addon\_version) | The version of the EKS add-on. |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the EKS add-on. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the EKS cluster. |
 | <a name="output_conflict_resolution_strategy_on_create"></a> [conflict\_resolution\_strategy\_on\_create](#output\_conflict\_resolution\_strategy\_on\_create) | How to resolve field value conflicts when migrating a self-managed add-on to an EKS add-on. |
 | <a name="output_conflict_resolution_strategy_on_update"></a> [conflict\_resolution\_strategy\_on\_update](#output\_conflict\_resolution\_strategy\_on\_update) | How to resolve field value conflicts for an EKS add-on if you've changed a value from the EKS default value. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Date and time in RFC3339 format that the EKS add-on was created. |
+| <a name="output_default_version"></a> [default\_version](#output\_default\_version) | The default version of the EKS add-on compatible with the EKS cluster version. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the EKS add-on. |
+| <a name="output_is_latest"></a> [is\_latest](#output\_is\_latest) | Whether the EKS add-on version is the latest available. |
+| <a name="output_latest_version"></a> [latest\_version](#output\_latest\_version) | The latest version of the EKS add-on compatible with the EKS cluster version. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the EKS add-on. |
 | <a name="output_service_account_role"></a> [service\_account\_role](#output\_service\_account\_role) | The ARN (Amazon Resource Name) of the IAM Role to bind to the add-on's service account |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | Date and time in RFC3339 format that the EKS add-on was updated. |
+| <a name="output_version"></a> [version](#output\_version) | The version of the EKS add-on. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
