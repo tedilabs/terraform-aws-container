@@ -28,13 +28,13 @@ module "security_group" {
   ingress_rules = [
     for i, rule in var.default_security_group.ingress_rules :
     merge(rule, {
-      id = try(rule.id, "eks-node-group-${i}")
+      id = coalesce(rule.id, "eks-node-group-${i}")
     })
   ]
   egress_rules = [
     for i, rule in var.default_security_group.egress_rules :
     merge(rule, {
-      id = try(rule.id, "eks-node-group-${i}")
+      id = coalesce(rule.id, "eks-node-group-${i}")
     })
   ]
 
