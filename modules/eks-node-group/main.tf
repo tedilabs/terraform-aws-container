@@ -67,11 +67,8 @@ resource "aws_launch_template" "this" {
   }
 
   network_interfaces {
-    description = "Managed by Terraform."
-    security_groups = (var.default_security_group.enabled
-      ? concat(module.security_group[*].id, var.security_groups)
-      : var.security_groups
-    )
+    description     = "Managed by Terraform."
+    security_groups = local.security_groups
 
     associate_public_ip_address = var.associate_public_ip_address
     delete_on_termination       = true

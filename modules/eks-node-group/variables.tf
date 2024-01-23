@@ -1,11 +1,13 @@
 variable "name" {
   description = "(Required) Name of node group to create."
   type        = string
+  nullable    = false
 }
 
 variable "cluster_name" {
   description = "(Required) Name of the EKS cluster."
   type        = string
+  nullable    = false
 }
 
 
@@ -16,22 +18,26 @@ variable "cluster_name" {
 variable "min_size" {
   description = "(Required) The minimum number of instances to run in the EKS cluster node group."
   type        = number
+  nullable    = false
 }
 
 variable "max_size" {
   description = "(Required) The maximum number of instances to run in the EKS cluster node group."
   type        = number
+  nullable    = false
 }
 
 variable "desired_size" {
   description = "(Optional) The number of instances that should be running in the group."
   type        = number
   default     = null
+  nullable    = true
 }
 
 variable "subnet_ids" {
   description = "(Required) A list of subnets to place the EKS cluster node group within."
   type        = list(string)
+  nullable    = false
 }
 
 variable "target_group_arns" {
@@ -146,27 +152,83 @@ variable "ebs_optimized" {
 
 variable "default_security_group" {
   description = <<EOF
-  (Optional) The configuration of the default security group for the EKS node gorup. `default_security_group` block as defined below.
+  (Optional) The configuration of the default security group for the EKS node group. `default_security_group` block as defined below.
     (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.
     (Optional) `name` - The name of the default security group. If not provided, the node group name is used for the name of security group.
     (Optional) `description` - The description of the default security group.
-    (Optional) `ingress_rules` - A list of ingress rules in a security group.
-    (Optional) `egress_rules` - A list of egress rules in a security group.
+    (Optional) `ingress_rules` - A list of ingress rules in a security group. Defaults to `[]`. Each block of `ingress_rules` as defined below.
+      (Required) `id` - The ID of the ingress rule. This value is only used internally within Terraform code.
+      (Optional) `description` - The description of the rule.
+      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.
+      (Required) `from_port` - The start of port range for the protocols.
+      (Required) `to_port` - The end of port range for the protocols.
+      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.
+      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.
+      (Optional) `prefix_lists` - The prefix list IDs to allow.
+      (Optional) `security_groups` - The source security group IDs to allow.
+      (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule.
+    (Optional) `egress_rules` - A list of egress rules in a security group. Defaults to `[{ id = "default", protocol = -1, from_port = 1, to_port=65535, ipv4_cidrs = ["0.0.0.0/0"] }]`. Each block of `egress_rules` as defined below.
+      (Required) `id` - The ID of the egress rule. This value is only used internally within Terraform code.
+      (Optional) `description` - The description of the rule.
+      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.
+      (Required) `from_port` - The start of port range for the protocols.
+      (Required) `to_port` - The end of port range for the protocols.
+      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.
+      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.
+      (Optional) `prefix_lists` - The prefix list IDs to allow.
+      (Optional) `security_groups` - The source security group IDs to allow.
+      (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule.
   EOF
   type = object({
-    enabled       = optional(bool, true)
-    name          = optional(string, null)
-    description   = optional(string, "Managed by Terraform.")
-    ingress_rules = optional(any, [])
-    egress_rules  = optional(any, [])
+    enabled     = optional(bool, true)
+    name        = optional(string)
+    description = optional(string, "Managed by Terraform.")
+    ingress_rules = optional(
+      list(object({
+        id              = string
+        description     = optional(string, "Managed by Terraform.")
+        protocol        = string
+        from_port       = number
+        to_port         = number
+        ipv4_cidrs      = optional(list(string), [])
+        ipv6_cidrs      = optional(list(string), [])
+        prefix_lists    = optional(list(string), [])
+        security_groups = optional(list(string), [])
+        self            = optional(bool, false)
+      })),
+      []
+    )
+    egress_rules = optional(
+      list(object({
+        id              = string
+        description     = optional(string, "Managed by Terraform.")
+        protocol        = string
+        from_port       = number
+        to_port         = number
+        ipv4_cidrs      = optional(list(string), [])
+        ipv6_cidrs      = optional(list(string), [])
+        prefix_lists    = optional(list(string), [])
+        security_groups = optional(list(string), [])
+        self            = optional(bool, false)
+      })),
+      [{
+        id          = "default"
+        description = "Allow all outbound traffic."
+        protocol    = "-1"
+        from_port   = 1
+        to_port     = 65535
+        ipv4_cidrs  = ["0.0.0.0/0"]
+      }]
+    )
   })
   default  = {}
   nullable = false
 }
 
 variable "security_groups" {
-  description = "(Required) A list of security group IDs to assign to the node group."
+  description = "(Optional) A list of security group IDs to assign to the node group."
   type        = list(string)
+  default     = []
   nullable    = false
 }
 

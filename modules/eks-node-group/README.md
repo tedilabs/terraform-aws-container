@@ -10,14 +10,14 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.22 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.47 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.19.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.33.0 |
 
 ## Modules
 
@@ -25,7 +25,7 @@ This module creates following resources.
 |------|--------|---------|
 | <a name="module_eks_max_pods"></a> [eks\_max\_pods](#module\_eks\_max\_pods) | ../eks-max-pods | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 0.26.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 0.31.0 |
 
 ## Resources
 
@@ -48,13 +48,12 @@ This module creates following resources.
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | (Required) The maximum number of instances to run in the EKS cluster node group. | `number` | n/a | yes |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | (Required) The minimum number of instances to run in the EKS cluster node group. | `number` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) Name of node group to create. | `string` | n/a | yes |
-| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | (Required) A list of security group IDs to assign to the node group. | `list(string)` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | (Required) A list of subnets to place the EKS cluster node group within. | `list(string)` | n/a | yes |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | (Optional) Associate a public ip address with an instance in a VPC. | `bool` | `false` | no |
 | <a name="input_bootstrap_extra_args"></a> [bootstrap\_extra\_args](#input\_bootstrap\_extra\_args) | (Optional) Extra arguments to add to the `/etc/eks/bootstrap.sh`. | `list(string)` | `[]` | no |
 | <a name="input_cni_custom_networking_enabled"></a> [cni\_custom\_networking\_enabled](#input\_cni\_custom\_networking\_enabled) | (Optional) Whether to use EKS CNI Custom Networking. | `bool` | `false` | no |
 | <a name="input_cni_eni_prefix_mode_enabled"></a> [cni\_eni\_prefix\_mode\_enabled](#input\_cni\_eni\_prefix\_mode\_enabled) | (Optional) Whether to use ENI Prefix Mode of EKS CNI. | `bool` | `false` | no |
-| <a name="input_default_security_group"></a> [default\_security\_group](#input\_default\_security\_group) | (Optional) The configuration of the default security group for the EKS node gorup. `default_security_group` block as defined below.<br>    (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.<br>    (Optional) `name` - The name of the default security group. If not provided, the node group name is used for the name of security group.<br>    (Optional) `description` - The description of the default security group.<br>    (Optional) `ingress_rules` - A list of ingress rules in a security group.<br>    (Optional) `egress_rules` - A list of egress rules in a security group. | <pre>object({<br>    enabled       = optional(bool, true)<br>    name          = optional(string, null)<br>    description   = optional(string, "Managed by Terraform.")<br>    ingress_rules = optional(any, [])<br>    egress_rules  = optional(any, [])<br>  })</pre> | `{}` | no |
+| <a name="input_default_security_group"></a> [default\_security\_group](#input\_default\_security\_group) | (Optional) The configuration of the default security group for the EKS node group. `default_security_group` block as defined below.<br>    (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.<br>    (Optional) `name` - The name of the default security group. If not provided, the node group name is used for the name of security group.<br>    (Optional) `description` - The description of the default security group.<br>    (Optional) `ingress_rules` - A list of ingress rules in a security group. Defaults to `[]`. Each block of `ingress_rules` as defined below.<br>      (Required) `id` - The ID of the ingress rule. This value is only used internally within Terraform code.<br>      (Optional) `description` - The description of the rule.<br>      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.<br>      (Required) `from_port` - The start of port range for the protocols.<br>      (Required) `to_port` - The end of port range for the protocols.<br>      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.<br>      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.<br>      (Optional) `prefix_lists` - The prefix list IDs to allow.<br>      (Optional) `security_groups` - The source security group IDs to allow.<br>      (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule.<br>    (Optional) `egress_rules` - A list of egress rules in a security group. Defaults to `[{ id = "default", protocol = -1, from_port = 1, to_port=65535, ipv4_cidrs = ["0.0.0.0/0"] }]`. Each block of `egress_rules` as defined below.<br>      (Required) `id` - The ID of the egress rule. This value is only used internally within Terraform code.<br>      (Optional) `description` - The description of the rule.<br>      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.<br>      (Required) `from_port` - The start of port range for the protocols.<br>      (Required) `to_port` - The end of port range for the protocols.<br>      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.<br>      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.<br>      (Optional) `prefix_lists` - The prefix list IDs to allow.<br>      (Optional) `security_groups` - The source security group IDs to allow.<br>      (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule. | <pre>object({<br>    enabled     = optional(bool, true)<br>    name        = optional(string)<br>    description = optional(string, "Managed by Terraform.")<br>    ingress_rules = optional(<br>      list(object({<br>        id              = string<br>        description     = optional(string, "Managed by Terraform.")<br>        protocol        = string<br>        from_port       = number<br>        to_port         = number<br>        ipv4_cidrs      = optional(list(string), [])<br>        ipv6_cidrs      = optional(list(string), [])<br>        prefix_lists    = optional(list(string), [])<br>        security_groups = optional(list(string), [])<br>        self            = optional(bool, false)<br>      })),<br>      []<br>    )<br>    egress_rules = optional(<br>      list(object({<br>        id              = string<br>        description     = optional(string, "Managed by Terraform.")<br>        protocol        = string<br>        from_port       = number<br>        to_port         = number<br>        ipv4_cidrs      = optional(list(string), [])<br>        ipv6_cidrs      = optional(list(string), [])<br>        prefix_lists    = optional(list(string), [])<br>        security_groups = optional(list(string), [])<br>        self            = optional(bool, false)<br>      })),<br>      [{<br>        id          = "default"<br>        description = "Allow all outbound traffic."<br>        protocol    = "-1"<br>        from_port   = 1<br>        to_port     = 65535<br>        ipv4_cidrs  = ["0.0.0.0/0"]<br>      }]<br>    )<br>  })</pre> | `{}` | no |
 | <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | (Optional) The number of instances that should be running in the group. | `number` | `null` | no |
 | <a name="input_ebs_optimized"></a> [ebs\_optimized](#input\_ebs\_optimized) | (Optional) If true, the launched EC2 instance will be EBS-optimized. | `bool` | `false` | no |
 | <a name="input_enabled_metrics"></a> [enabled\_metrics](#input\_enabled\_metrics) | (Optional) A list of metrics to collect. The allowed values are GroupDesiredCapacity, GroupInServiceCapacity, GroupPendingCapacity, GroupMinSize, GroupMaxSize, GroupInServiceInstances, GroupPendingInstances, GroupStandbyInstances, GroupStandbyCapacity, GroupTerminatingCapacity, GroupTerminatingInstances, GroupTotalCapacity, GroupTotalInstances. | `list(string)` | <pre>[<br>  "GroupMinSize",<br>  "GroupMaxSize",<br>  "GroupDesiredCapacity",<br>  "GroupInServiceCapacity",<br>  "GroupInServiceInstances",<br>  "GroupPendingCapacity",<br>  "GroupPendingInstances",<br>  "GroupStandbyCapacity",<br>  "GroupStandbyInstances",<br>  "GroupTerminatingCapacity",<br>  "GroupTerminatingInstances",<br>  "GroupTotalCapacity",<br>  "GroupTotalInstances"<br>]</pre> | no |
@@ -73,6 +72,7 @@ This module creates following resources.
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | (Optional) The size of the root volume in gigabytes. | `number` | `20` | no |
 | <a name="input_root_volume_throughput"></a> [root\_volume\_throughput](#input\_root\_volume\_throughput) | (Optional) The throughput to provision for a gp3 volume in MiB/s (specified as an integer, e.g. 500), with a maximum of 1,000 MiB/s. | `number` | `null` | no |
 | <a name="input_root_volume_type"></a> [root\_volume\_type](#input\_root\_volume\_type) | (Optional) The volume type for root volume. Can be standard, `gp2`, `gp3`, `io1`, `io2`, `sc1` or `st1`. | `string` | `"gp2"` | no |
+| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | (Optional) A list of security group IDs to assign to the node group. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to add to all resources. | `map(string)` | `{}` | no |
 | <a name="input_target_group_arns"></a> [target\_group\_arns](#input\_target\_group\_arns) | (Optional) A set of `aws_alb_target_group` ARNs, for use with Application or Network Load Balancing. | `list(string)` | `[]` | no |
 
@@ -83,6 +83,7 @@ This module creates following resources.
 | <a name="output_asg_arn"></a> [asg\_arn](#output\_asg\_arn) | The ARN of ASG(Auto-Scaling Group). |
 | <a name="output_asg_id"></a> [asg\_id](#output\_asg\_id) | The ID of ASG(Auto-Scaling Group). |
 | <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | The name of ASG(Auto-Scaling Group). |
+| <a name="output_default_security_group"></a> [default\_security\_group](#output\_default\_security\_group) | The default security group ID of the EKS node group. |
 | <a name="output_desired_size"></a> [desired\_size](#output\_desired\_size) | The number of instances in the EKS cluster node group. |
 | <a name="output_instance_ami"></a> [instance\_ami](#output\_instance\_ami) | The AMI of the EKS cluster node group. |
 | <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | The name of the IAM instance profile which is attached to instances of the EKS cluster node group. |
@@ -91,5 +92,5 @@ This module creates following resources.
 | <a name="output_max_size"></a> [max\_size](#output\_max\_size) | The maximum number of instances in the EKS cluster node group. |
 | <a name="output_min_size"></a> [min\_size](#output\_min\_size) | The minimum number of instances in the EKS cluster node group. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the node group. |
-| <a name="output_network"></a> [network](#output\_network) | The configuration for network of the EKS node group. |
+| <a name="output_security_groups"></a> [security\_groups](#output\_security\_groups) | A set of security group IDs which is assigned to the load balancer. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

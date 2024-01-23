@@ -4,6 +4,10 @@ data "aws_subnet" "this" {
 
 locals {
   vpc_id = data.aws_subnet.this.vpc_id
+  security_groups = (var.default_security_group.enabled
+    ? concat(module.security_group[*].id, var.security_groups)
+    : var.security_groups
+  )
 }
 
 
@@ -13,7 +17,7 @@ locals {
 
 module "security_group" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.26.0"
+  version = "~> 0.31.0"
 
   count = var.default_security_group.enabled ? 1 : 0
 
@@ -34,6 +38,7 @@ module "security_group" {
     })
   ]
 
+  revoke_rules_on_delete = true
   resource_group_enabled = false
   module_tags_enabled    = false
 

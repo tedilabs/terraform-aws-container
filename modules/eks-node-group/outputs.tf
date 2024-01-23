@@ -38,14 +38,14 @@ output "instance_profile" {
   value       = var.instance_profile
 }
 
-output "network" {
-  description = <<EOF
-  The configuration for network of the EKS node group.
-  EOF
-  value = {
-    default_security_group = one(module.security_group[*].id)
-    security_groups        = aws_launch_template.this.network_interfaces[0].security_groups
-  }
+output "default_security_group" {
+  description = "The default security group ID of the EKS node group."
+  value       = one(module.security_group[*].id)
+}
+
+output "security_groups" {
+  description = "A set of security group IDs which is assigned to the load balancer."
+  value       = aws_launch_template.this.network_interfaces[0].security_groups
 }
 
 
