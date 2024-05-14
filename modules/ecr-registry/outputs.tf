@@ -13,33 +13,40 @@ output "policy" {
   value       = one(aws_ecr_registry_policy.this[*].policy)
 }
 
-output "replication_destinations" {
-  description = "A list of destinations for ECR registry replication."
-  value       = var.replication_destinations
+output "replication_policies" {
+  description = "A list of replication policies for ECR Registry."
+  value       = var.replication_policies
+}
+
+output "replication_rules" {
+  description = "A list of replication rules for ECR Registry."
+  value       = var.replication_rules
+}
+
+output "pull_through_cache_policies" {
+  description = "A list of Pull Through Cache policies for ECR Registry."
+  value       = var.pull_through_cache_policies
 }
 
 output "pull_through_cache_rules" {
   description = "A list of Pull Through Cache Rules for ECR registry."
-  value = [
-    for id, rule in aws_ecr_pull_through_cache_rule.this : {
-      id           = id
-      namespace    = rule.ecr_repository_prefix
-      upstream_url = rule.upstream_registry_url
-    }
-  ]
+  value       = var.pull_through_cache_rules
 }
 
 output "scanning_type" {
-  description = "The scanning type for the registry."
+  description = "The scanning type to set for the registry."
   value       = aws_ecr_registry_scanning_configuration.this.scan_type
 }
 
-output "scanning_on_push_filters" {
-  description = "A list of repository filter to scan on push."
-  value       = var.scanning_on_push_filters
+output "scanning_rules" {
+  description = "A list of scanning rules to determine which repository filters are used and at what frequency scanning will occur."
+  value       = var.scanning_rules
 }
 
-output "scanning_continuous_filters" {
-  description = "A list of repository filter to scan continuous."
-  value       = var.scanning_continuous_filters
-}
+# output "debug" {
+#   value = {
+#     pull_through_cache_rules = aws_ecr_pull_through_cache_rule.this
+#     replication_rules        = aws_ecr_replication_configuration.this
+#     scanning_rules           = aws_ecr_registry_scanning_configuration.this
+#   }
+# }
