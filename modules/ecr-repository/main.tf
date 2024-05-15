@@ -14,6 +14,11 @@ locals {
   } : {}
 }
 
+
+###################################################
+# ECR Repository
+###################################################
+
 resource "aws_ecr_repository" "this" {
   name = local.metadata.name
 
@@ -25,8 +30,8 @@ resource "aws_ecr_repository" "this" {
   }
 
   encryption_configuration {
-    encryption_type = var.encryption_type
-    kms_key         = var.encryption_kms_key
+    encryption_type = var.encryption.type
+    kms_key         = var.encryption.kms_key
   }
 
   tags = merge(
@@ -44,10 +49,10 @@ resource "aws_ecr_repository" "this" {
 ###################################################
 
 resource "aws_ecr_repository_policy" "this" {
-  count = length(var.repository_policy) > 0 ? 1 : 0
+  count = length(var.policy) > 0 ? 1 : 0
 
   repository = aws_ecr_repository.this.name
-  policy     = var.repository_policy
+  policy     = var.policy
 }
 
 
@@ -58,30 +63,36 @@ resource "aws_ecr_repository_policy" "this" {
 locals {
   lifecycle_rules = [
     for rule in var.lifecycle_rules : {
-      rulePriority = tonumber(rule.priority)
+      rulePriority = rule.priority
       description  = rule.description
-      selection = merge(
-        {
-          tagStatus = rule.type
-        },
-        try(
-          {
-            tagPrefixList = rule.tag_prefixes
-          },
-          {}
-        ),
-        try(
-          {
-            countType   = "imageCountMoreThan"
-            countNumber = tonumber(rule.expiration_count)
-          },
-          {
-            countType   = "sinceImagePushed"
-            countUnit   = "days"
-            countNumber = tonumber(rule.expiration_days)
-          }
-        )
-      )
+      selection = {
+        for k, v in {
+          tagStatus = rule.target.status
+          tagPatternList = (rule.target.status == "tagged" && length(rule.target.tag_patterns) > 0
+            ? rule.target.tag_patterns
+            : null
+          )
+          tagPrefixList = (rule.target.status == "tagged" && length(rule.target.tag_prefixes) > 0
+            ? rule.target.tag_prefixes
+            : null
+          )
+
+          countType = (rule.expiration.count != null
+            ? "imageCountMoreThan"
+            : "sinceImagePushed"
+          )
+          countUnit = (rule.expiration.count != null
+            ? null
+            : "days"
+          )
+          countNumber = (rule.expiration.count != null
+            ? rule.expiration.count
+            : rule.expiration.days
+          )
+        } :
+        k => v
+        if v != null
+      }
       action = {
         type = "expire"
       }

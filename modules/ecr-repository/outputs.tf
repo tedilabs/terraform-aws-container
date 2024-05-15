@@ -28,8 +28,13 @@ output "image_scan_on_push_enabled" {
   value       = aws_ecr_repository.this.image_scanning_configuration[0].scan_on_push
 }
 
+output "lifecycle_rules" {
+  description = "The lifecycle rules for the repository."
+  value       = var.lifecycle_rules
+}
+
 output "encryption" {
-  description = "The configuration for the encryption of repository."
+  description = "The encryption configuration of the repository."
   value = {
     type    = aws_ecr_repository.this.encryption_configuration[0].encryption_type
     kms_key = aws_ecr_repository.this.encryption_configuration[0].kms_key
