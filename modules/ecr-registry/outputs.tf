@@ -5,7 +5,7 @@ output "name" {
 
 output "id" {
   description = "The ID of the registry."
-  value       = try(aws_ecr_replication_configuration.this[*].registry_id[0], local.metadata.name)
+  value       = aws_ecr_registry_scanning_configuration.this.registry_id
 }
 
 output "policy" {
