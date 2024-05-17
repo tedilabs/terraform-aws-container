@@ -30,28 +30,42 @@ resource "aws_ec2_tag" "cluster_security_group" {
   value       = each.value
 }
 
-resource "aws_security_group_rule" "node" {
+resource "aws_vpc_security_group_ingress_rule" "node" {
   security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
-  type              = "ingress"
   description       = "Allow nodes to communicate to the cluster security group(for fargate pods)."
 
-  protocol  = "-1"
-  from_port = 0
-  to_port   = 0
+  ip_protocol = "-1"
+  from_port   = -1
+  to_port     = -1
 
-  source_security_group_id = module.security_group__node.id
+  referenced_security_group_id = module.security_group__node.id
+
+  tags = merge(
+    {
+      "Name" = "node"
+    },
+    local.module_tags,
+    var.tags,
+  )
 }
 
-resource "aws_security_group_rule" "pod" {
+resource "aws_vpc_security_group_ingress_rule" "pod" {
   security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
-  type              = "ingress"
   description       = "Allow pods to communicate to the cluster security group(for fargate pods)."
 
-  protocol  = "-1"
-  from_port = 0
-  to_port   = 0
+  ip_protocol = "-1"
+  from_port   = -1
+  to_port     = -1
 
-  source_security_group_id = module.security_group__pod.id
+  referenced_security_group_id = module.security_group__pod.id
+
+  tags = merge(
+    {
+      "Name" = "pod"
+    },
+    local.module_tags,
+    var.tags,
+  )
 }
 
 
@@ -61,7 +75,7 @@ resource "aws_security_group_rule" "pod" {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.31.0"
+  version = "~> 0.32.0"
 
   name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
@@ -153,7 +167,7 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.31.0"
+  version = "~> 0.32.0"
 
   name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
@@ -257,7 +271,7 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.31.0"
+  version = "~> 0.32.0"
 
   name        = "eks-${local.metadata.name}-pod"
   description = "Security Group for all pods in the EKS cluster."

@@ -6,7 +6,7 @@ module "role" {
   count = var.default_cluster_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.30.0"
 
   name = coalesce(
     var.default_cluster_role.name,
@@ -46,7 +46,7 @@ module "role__node" {
   count = var.default_node_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.30.0"
 
   name = coalesce(
     var.default_node_role.name,
@@ -64,7 +64,6 @@ module "role__node" {
   policies = concat(
     [
       "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-      # TODO: https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html
       "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
     ],
     var.default_node_role.policies,

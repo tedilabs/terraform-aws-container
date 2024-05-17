@@ -14,6 +14,13 @@ locals {
   } : {}
 }
 
+locals {
+  ip_family = {
+    "IPv4" = "ipv4"
+    "IPv6" = "ipv6"
+  }
+}
+
 
 ###################################################
 # EKS Control Plane
@@ -29,6 +36,8 @@ resource "aws_eks_cluster" "this" {
 
   enabled_cluster_log_types = var.log_types
 
+
+  ## Network
   vpc_config {
     subnet_ids = var.subnets
     security_group_ids = concat(
@@ -39,22 +48,6 @@ resource "aws_eks_cluster" "this" {
     endpoint_private_access = var.endpoint_access.private_access_enabled
     endpoint_public_access  = var.endpoint_access.public_access_enabled
     public_access_cidrs     = var.endpoint_access.public_access_cidrs
-  }
-
-  kubernetes_network_config {
-    service_ipv4_cidr = var.kubernetes_network_config.service_ipv4_cidr
-    ip_family         = lower(var.kubernetes_network_config.ip_family)
-  }
-
-  dynamic "encryption_config" {
-    for_each = var.secrets_encryption.enabled ? [var.secrets_encryption] : []
-
-    content {
-      provider {
-        key_arn = encryption_config.value.kms_key
-      }
-      resources = ["secrets"]
-    }
   }
 
   dynamic "outpost_config" {
@@ -75,6 +68,31 @@ resource "aws_eks_cluster" "this" {
     }
   }
 
+  kubernetes_network_config {
+    service_ipv4_cidr = var.kubernetes_network_config.service_ipv4_cidr
+    ip_family         = local.ip_family[var.kubernetes_network_config.ip_family]
+  }
+
+
+  ## Access Control
+  access_config {
+    authentication_mode                         = var.authentication_mode
+    bootstrap_cluster_creator_admin_permissions = var.bootstrap_cluster_creator_admin_access
+  }
+
+
+  ## Encryption
+  dynamic "encryption_config" {
+    for_each = var.secrets_encryption.enabled ? [var.secrets_encryption] : []
+
+    content {
+      provider {
+        key_arn = encryption_config.value.kms_key
+      }
+      resources = ["secrets"]
+    }
+  }
+
   timeouts {
     create = var.timeouts.create
     update = var.timeouts.update
@@ -88,4 +106,8 @@ resource "aws_eks_cluster" "this" {
     local.module_tags,
     var.tags,
   )
+
+  depends_on = [
+    module.role,
+  ]
 }

@@ -10,29 +10,10 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  description = "(Optional) Desired Kubernetes version to use for the EKS cluster. Defaults to `1.26`."
+  description = "(Optional) Desired Kubernetes version to use for the EKS cluster. The value must be configured and increased to upgrade the version when desired. Downgrades are not supported by EKS. Defaults to `1.26`."
   type        = string
   default     = "1.26"
   nullable    = false
-}
-
-variable "kubernetes_network_config" {
-  description = <<EOF
-  (Optional) A configuration of Kubernetes network. `kubernetes_network_config` as defined below.
-    (Optional) `service_ipv4_cidr` - The CIDR block to assign Kubernetes pod and service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the `10.100.0.0/16` or `172.20.0.0/16` CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created.
-    (Optional) `ip_family` - The IP family used to assign Kubernetes pod and service addresses. Valid values are `IPV4` and `IPV6`. Defaults to `IPV4`. You can only specify an IP family when you create a cluster, changing this value will force a new cluster to be created.
-  EOF
-  type = object({
-    service_ipv4_cidr = optional(string)
-    ip_family         = optional(string, "IPV4")
-  })
-  default  = {}
-  nullable = false
-
-  validation {
-    condition     = contains(["IPV4", "IPV6"], var.kubernetes_network_config.ip_family)
-    error_message = "Valid values for `kubernetes_network_config.ip_family` are `IPV4` and `IPV6`."
-  }
 }
 
 variable "subnets" {
@@ -69,6 +50,81 @@ variable "endpoint_access" {
 
     public_access_enabled = optional(bool, false)
     public_access_cidrs   = optional(list(string), ["0.0.0.0/0"])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "outpost_config" {
+  description = <<EOF
+  (Optional) A configuration of the outpost for the EKS cluster. `outpost_config` as defined below.
+    (Required) `outposts` - A list of the Outpost ARNs that you want to use for your local Amazon EKS cluster on Outposts. This argument is a list of arns, but only a single Outpost ARN is supported currently.
+    (Required) `control_plane_instance_type` - The Amazon EC2 instance type that you want to use for your local Amazon EKS cluster on Outposts. The instance type that you specify is used for all Kubernetes control plane instances. The instance type can't be changed after cluster creation. Choose an instance type based on the number of nodes that your cluster will have.
+      - 1–20 nodes, then we recommend specifying a large instance type.
+      - 21–100 nodes, then we recommend specifying an xlarge instance type.
+      - 101–250 nodes, then we recommend specifying a 2xlarge instance type.
+    (Optional) `control_plane_placement_group` - The name of the placement group for the Kubernetes control plane instances. This setting can't be changed after cluster creation.
+  EOF
+  type = object({
+    outposts                      = list(string)
+    control_plane_instance_type   = string
+    control_plane_placement_group = optional(string)
+  })
+  default  = null
+  nullable = true
+}
+
+variable "kubernetes_network_config" {
+  description = <<EOF
+  (Optional) A configuration of Kubernetes network. `kubernetes_network_config` as defined below.
+    (Optional) `service_ipv4_cidr` - The CIDR block to assign Kubernetes pod and service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the `10.100.0.0/16` or `172.20.0.0/16` CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created.
+    (Optional) `ip_family` - The IP family used to assign Kubernetes pod and service addresses. Valid values are `IPv4` and `IPv6`. Defaults to `IPv4`. You can only specify an IP family when you create a cluster, changing this value will force a new cluster to be created.
+  EOF
+  type = object({
+    service_ipv4_cidr = optional(string)
+    ip_family         = optional(string, "IPv4")
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition     = contains(["IPv4", "IPv6"], var.kubernetes_network_config.ip_family)
+    error_message = "Valid values for `kubernetes_network_config.ip_family` are `IPv4` and `IPv6`."
+  }
+}
+
+variable "authentication_mode" {
+  description = <<EOF
+  (Optional) The authentication mode for the cluster. Valid values are `CONFIG_MAP`, `API` or `API_AND_CONFIG_MAP`. Defaults to `API_AND_CONFIG_MAP`.
+  EOF
+  type        = string
+  default     = "API_AND_CONFIG_MAP"
+  nullable    = false
+
+  validation {
+    condition     = contains(["CONFIG_MAP", "API", "API_AND_CONFIG_MAP"], var.authentication_mode)
+    error_message = "Valid values for `authentication_mode` are `CONFIG_MAP`, `API` or `API_AND_CONFIG_MAP`."
+  }
+}
+
+variable "bootstrap_cluster_creator_admin_access" {
+  description = <<EOF
+  (Optional) Whether to set the cluster creator IAM principal as a cluster admin access entry during cluster creation time. Defaults to `false`.
+  EOF
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "secrets_encryption" {
+  description = <<EOF
+  (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.
+    (Optional) `enabled` - Whether to enable envelope encryption of Kubernetes secrets. Defaults to `false`.
+    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets.
+  EOF
+  type = object({
+    enabled = optional(bool, false)
+    kms_key = optional(string)
   })
   default  = {}
   nullable = false
@@ -113,7 +169,7 @@ variable "default_node_role" {
     (Optional) `name` - The name of the default node role. Defaults to `eks-$${var.name}-node`.
     (Optional) `path` - The path of the default node role. Defaults to `/`.
     (Optional) `description` - The description of the default node role.
-    (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEKS_CNI_Policy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`).
   EOF
   type = object({
@@ -130,24 +186,18 @@ variable "default_node_role" {
 }
 
 variable "log_types" {
-  description = "(Optional) A set of the desired control plane logging to enable."
+  description = "(Optional) A set of the desired control plane logging to enable. Valid values are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`. Defaults to all."
   type        = set(string)
   default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   nullable    = false
-}
 
-variable "secrets_encryption" {
-  description = <<EOF
-  (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.
-    (Optional) `enabled` - Whether to enable envelope encryption of Kubernetes secrets. Defaults to `false`.
-    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets.
-  EOF
-  type = object({
-    enabled = optional(bool, false)
-    kms_key = optional(string)
-  })
-  default  = {}
-  nullable = false
+  validation {
+    condition = alltrue([
+      for log_type in var.log_types :
+      contains(["api", "audit", "authenticator", "controllerManager", "scheduler"], log_type)
+    ])
+    error_message = "Valid values for `log_types` are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`."
+  }
 }
 
 variable "oidc_identity_providers" {
@@ -175,25 +225,6 @@ variable "oidc_identity_providers" {
   }))
   default  = []
   nullable = false
-}
-
-variable "outpost_config" {
-  description = <<EOF
-  (Optional) A configuration of the outpost for the EKS cluster. `outpost_config` as defined below.
-    (Required) `outposts` - A list of the Outpost ARNs that you want to use for your local Amazon EKS cluster on Outposts. This argument is a list of arns, but only a single Outpost ARN is supported currently.
-    (Required) `control_plane_instance_type` - The Amazon EC2 instance type that you want to use for your local Amazon EKS cluster on Outposts. The instance type that you specify is used for all Kubernetes control plane instances. The instance type can't be changed after cluster creation. Choose an instance type based on the number of nodes that your cluster will have.
-      - 1–20 nodes, then we recommend specifying a large instance type.
-      - 21–100 nodes, then we recommend specifying an xlarge instance type.
-      - 101–250 nodes, then we recommend specifying a 2xlarge instance type.
-    (Optional) `control_plane_placement_group` - The name of the placement group for the Kubernetes control plane instances. This setting can't be changed after cluster creation.
-  EOF
-  type = object({
-    outposts                      = list(string)
-    control_plane_instance_type   = string
-    control_plane_placement_group = optional(string)
-  })
-  default  = null
-  nullable = true
 }
 
 variable "timeouts" {

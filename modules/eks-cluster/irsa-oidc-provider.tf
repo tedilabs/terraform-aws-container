@@ -4,7 +4,7 @@
 
 module "oidc_provider" {
   source  = "tedilabs/account/aws//modules/iam-oidc-identity-provider"
-  version = "~> 0.27.0"
+  version = "~> 0.30.0"
 
   url       = aws_eks_cluster.this.identity[0].oidc[0].issuer
   audiences = ["sts.amazonaws.com"]
