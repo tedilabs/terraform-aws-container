@@ -17,6 +17,9 @@
 ":floppy_disk: eks-fargate-profile":
 - modules/eks-fargate-profile/**/*
 
+":floppy_disk: eks-iam-access":
+- modules/eks-iam-access/**/*
+
 ":floppy_disk: eks-max-pods":
 - modules/eks-max-pods/**/*
 
