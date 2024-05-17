@@ -12,6 +12,7 @@ Terraform module which creates resources for container services on AWS.
 - [eks-aws-auth](./modules/eks-aws-auth)
 - [eks-cluster](./modules/eks-cluster)
 - [eks-fargate-profile](./modules/eks-fargate-profile)
+- [eks-iam-access](./modules/eks-iam-access)
 - [eks-max-pods](./modules/eks-max-pods)
 
 
@@ -31,6 +32,7 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
   - Add-on
   - Self-Managed Node Group (with ASG)
   - Fargate Profile
+  - Access Entry & Access Policy
 
 
 ## Self Promotion
@@ -42,4 +44,4 @@ Like this project? Follow the repository on [GitHub](https://github.com/tedilabs
 
 Provided under the terms of the [Apache License](LICENSE).
 
-Copyright © 2021-2023, [Byungjin Park](https://www.posquit0.com).
+Copyright © 2021-2024, [Byungjin Park](https://www.posquit0.com).
