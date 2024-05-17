@@ -10,13 +10,13 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.47 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.42 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.50.0 |
 
 ## Modules
 
@@ -39,7 +39,7 @@ This module creates following resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | (Required) The name of the Amazon EKS cluster to add the EKS add-on to. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) The name of the EKS add-on. | `string` | n/a | yes |
-| <a name="input_addon_version"></a> [addon\_version](#input\_addon\_version) | (Optional) The version of the add-on. | `string` | `null` | no |
+| <a name="input_addon_version"></a> [addon\_version](#input\_addon\_version) | (Optional) The version of the add-on. If not provided, this is configured with default compatibile version for the respective EKS cluster version. | `string` | `null` | no |
 | <a name="input_configuration"></a> [configuration](#input\_configuration) | (Optional) The set of configuration values for the add-on. This JSON string value must match the JSON schema derived from `describe-addon-configuration`. | `string` | `null` | no |
 | <a name="input_conflict_resolution_strategy_on_create"></a> [conflict\_resolution\_strategy\_on\_create](#input\_conflict\_resolution\_strategy\_on\_create) | (Optional) How to resolve field value conflicts when migrating a self-managed add-on to an EKS add-on. Valid values are `NONE` and `OVERWRITE`. Defaults to `OVERWRITE`.<br>    `NONE` - If the self-managed version of the add-on is installed on the cluster, Amazon EKS doesn't change the value. Creation of the add-on might fail.<br>    `OVERWRITE` - If the self-managed version of the add-on is installed on your cluster and the Amazon EKS default value is different than the existing value, Amazon EKS changes the value to the Amazon EKS default value. | `string` | `"OVERWRITE"` | no |
 | <a name="input_conflict_resolution_strategy_on_update"></a> [conflict\_resolution\_strategy\_on\_update](#input\_conflict\_resolution\_strategy\_on\_update) | (Optional) How to resolve field value conflicts for an EKS add-on if you've changed a value from the EKS default value. Valid values are `NONE`, `OVERWRITE` and `PRESERVE`. Defaults to `OVERWRITE`.<br>    `NONE` - Amazon EKS doesn't change the value. The update might fail.<br>    `OVERWRITE` - Amazon EKS overwrites the changed value back to the Amazon EKS default value.<br>    `PRESERVE` - Amazon EKS preserves the value. If you choose this option, we recommend that you test any field and value changes on a non-production cluster before updating the add-on on the production cluster. | `string` | `"OVERWRITE"` | no |
