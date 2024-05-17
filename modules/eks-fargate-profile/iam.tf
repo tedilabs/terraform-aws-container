@@ -6,7 +6,7 @@ module "role" {
   count = var.default_pod_execution_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.30.0"
 
   name = coalesce(
     var.default_pod_execution_role.name,
