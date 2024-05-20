@@ -20,17 +20,23 @@ locals {
 ###################################################
 
 # INFO: Not supported attributes
-# - `user_name`
+# - `kubernetes_username`
 # - `kubernetes_groups`
-resource "aws_eks_access_entry" "node" {
+module "node" {
   for_each = {
     for entry in var.node_access_entries :
     entry.name => entry
   }
 
-  cluster_name  = var.cluster_name
-  type          = each.value.type
-  principal_arn = each.value.principal
+  source = "../eks-access-entry"
+
+  name         = each.key
+  cluster_name = var.cluster_name
+  type         = each.value.type
+  principal    = each.value.principal
+
+  resource_group_enabled = false
+  module_tags_enabled    = false
 
   tags = merge(
     {
@@ -46,18 +52,31 @@ resource "aws_eks_access_entry" "node" {
 # User Access Entries
 ###################################################
 
-resource "aws_eks_access_entry" "user" {
+module "user" {
   for_each = {
     for entry in var.user_access_entries :
     entry.name => entry
   }
 
-  cluster_name  = var.cluster_name
-  type          = "STANDARD"
-  principal_arn = each.value.principal
+  source = "../eks-access-entry"
 
-  user_name         = each.value.username
-  kubernetes_groups = each.value.groups
+  name         = each.key
+  cluster_name = var.cluster_name
+  type         = "STANDARD"
+  principal    = each.value.principal
+
+  kubernetes_username = each.value.kubernetes_username
+  kubernetes_groups   = each.value.kubernetes_groups
+  kubernetes_permissions = [
+    for permission in each.value.kubernetes_permissions : {
+      policy     = permission.policy
+      scope      = permission.scope
+      namespaces = permission.namespaces
+    }
+  ]
+
+  resource_group_enabled = false
+  module_tags_enabled    = false
 
   tags = merge(
     {

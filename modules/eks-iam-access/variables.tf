@@ -33,14 +33,23 @@ variable "user_access_entries" {
   (Optional) A list of configurations for EKS access entries for users (IAM roles, users) that are allowed to access the EKS cluster. Each item of `user_access_entries` block as defined below.
     (Required) `name` - A unique name for the access entry. This value is only used internally within Terraform code.
     (Required) `principal` - The ARN of one, and only one, existing IAM principal to grant access to Kubernetes objects on the cluster. An IAM principal can't be included in more than one access entry.
-    (Optional) `username` - The username to authenticate to Kubernetes with. We recommend not specifying a username and letting Amazon EKS specify it for you. Defaults to the IAM principal ARN.
-    (Optional) `groups` - A set of groups within the Kubernetes cluster.
+    (Optional) `kubernetes_username` - The username to authenticate to Kubernetes with. We recommend not specifying a username and letting Amazon EKS specify it for you. Defaults to the IAM principal ARN.
+    (Optional) `kubernetes_groups` - A set of groups within the Kubernetes cluster.
+    (Optional) `kubernetes_permissions` - A list of permissions for EKS access entry to the EKS cluster. Each item of `kubernetes_permissions` block as defined below.
+      (Required) `policy` - The ARN of the access policy that you're associating.
+      (Optional) `scope` - The type of access scope that you're associating. Valid values are `NAMESPACE`, `CLUSTER`. Defaults to `CLUSTER`.
+      (Optional) `namespaces` - A set of namespaces to which the access scope applies. You can enter plain text namespaces, or wildcard namespaces such as `dev-*`.
   EOF
   type = list(object({
-    name      = string
-    principal = string
-    username  = optional(string)
-    groups    = optional(set(string), [])
+    name                = string
+    principal           = string
+    kubernetes_username = optional(string)
+    kubernetes_groups   = optional(set(string), [])
+    kubernetes_permissions = optional(list(object({
+      policy     = string
+      scope      = optional(string, "CLUSTER")
+      namespaces = optional(set(string), [])
+    })), [])
   }))
   default  = []
   nullable = false
