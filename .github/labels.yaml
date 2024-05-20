@@ -70,3 +70,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to eks-node-group module."
   name: ":floppy_disk: eks-node-group"
+- color: "fbca04"
+  description: "This issue or pull request is related to eks-official-image module."
+  name: ":floppy_disk: eks-official-image"

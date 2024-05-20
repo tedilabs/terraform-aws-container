@@ -28,3 +28,6 @@
 
 ":floppy_disk: eks-node-group":
 - modules/eks-node-group/**/*
+
+":floppy_disk: eks-official-image":
+- modules/eks-official-image/**/*
