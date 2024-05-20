@@ -5,6 +5,9 @@
 ":floppy_disk: ecr-repository":
 - modules/ecr-repository/**/*
 
+":floppy_disk: eks-access-entry":
+- modules/eks-access-entry/**/*
+
 ":floppy_disk: eks-addon":
 - modules/eks-addon/**/*
 
