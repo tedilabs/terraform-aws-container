@@ -30,7 +30,7 @@ resource "aws_eks_access_entry" "this" {
   )
   kubernetes_groups = (var.type == "STANDARD"
     ? var.kubernetes_groups
-    : []
+    : null
   )
 
   timeouts {
