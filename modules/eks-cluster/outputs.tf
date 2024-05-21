@@ -149,7 +149,7 @@ output "irsa_oidc_provider" {
   value = {
     arn       = module.oidc_provider.arn
     url       = aws_eks_cluster.this.identity[0].oidc[0].issuer
-    urn       = module.oidc_provider.url
+    urn       = module.oidc_provider.urn
     audiences = module.oidc_provider.audiences
   }
 }
