@@ -1,33 +1,55 @@
 # Modules
 ":floppy_disk: ecr-registry":
-- modules/ecr-registry/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/ecr-registry/**/*
 
 ":floppy_disk: ecr-repository":
-- modules/ecr-repository/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/ecr-repository/**/*
 
 ":floppy_disk: eks-access-entry":
-- modules/eks-access-entry/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-access-entry/**/*
 
 ":floppy_disk: eks-addon":
-- modules/eks-addon/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-addon/**/*
 
 ":floppy_disk: eks-aws-auth":
-- modules/eks-aws-auth/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-aws-auth/**/*
 
 ":floppy_disk: eks-cluster":
-- modules/eks-cluster/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-cluster/**/*
 
 ":floppy_disk: eks-fargate-profile":
-- modules/eks-fargate-profile/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-fargate-profile/**/*
 
 ":floppy_disk: eks-iam-access":
-- modules/eks-iam-access/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-iam-access/**/*
 
 ":floppy_disk: eks-max-pods":
-- modules/eks-max-pods/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-max-pods/**/*
 
 ":floppy_disk: eks-node-group":
-- modules/eks-node-group/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-node-group/**/*
 
 ":floppy_disk: eks-official-image":
-- modules/eks-official-image/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/eks-official-image/**/*
