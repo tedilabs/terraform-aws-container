@@ -54,7 +54,7 @@ resource "aws_eks_addon" "this" {
 ###################################################
 
 data "aws_eks_cluster" "this" {
-  name = var.cluster_name
+  name = aws_eks_addon.this.cluster_name
 }
 
 data "aws_eks_addon_version" "default" {

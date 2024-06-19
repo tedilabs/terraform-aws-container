@@ -62,3 +62,11 @@ output "updated_at" {
   description = "Date and time in RFC3339 format that the EKS add-on was updated."
   value       = aws_eks_addon.this.modified_at
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_eks_addon.this :
+#     k => v
+#     if !contains(["id", "arn", "cluster_name", "addon_name", "addon_version", "service_account_role_arn", "resolve_conflicts_on_create", "resolve_conflicts_on_update", "created_at", "modified_at", "tags", "tags_all"], k)
+#   }
+# }
