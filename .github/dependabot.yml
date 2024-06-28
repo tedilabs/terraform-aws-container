@@ -7,15 +7,6 @@ updates:
 
 - package-ecosystem: terraform
   directories:
-  - /modules/ecr-registry
-  - /modules/ecr-repository
-  - /modules/eks-access-entry
-  - /modules/eks-addon
-  - /modules/eks-aws-auth
-  - /modules/eks-cluster
-  - /modules/eks-fargate-profile
-  - /modules/eks-iam-access
-  - /modules/eks-max-pods
-  - /modules/eks-node-group
+  - /modules/*
   schedule:
     interval: weekly
