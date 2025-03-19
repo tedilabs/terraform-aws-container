@@ -27,6 +27,11 @@ locals {
 # Registry Policy
 ###################################################
 
+resource "aws_ecr_account_setting" "registry_policy_scope" {
+  name  = "REGISTRY_POLICY_SCOPE"
+  value = var.policy_version
+}
+
 data "aws_iam_policy_document" "this" {
   source_policy_documents = compact([
     one(data.aws_iam_policy_document.replication[*].json),

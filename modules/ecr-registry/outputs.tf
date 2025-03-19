@@ -8,6 +8,11 @@ output "id" {
   value       = aws_ecr_registry_scanning_configuration.this.registry_id
 }
 
+output "policy_version" {
+  description = "The policy version of ECR registry."
+  value       = aws_ecr_account_setting.registry_policy_scope.value
+}
+
 output "policy" {
   description = "The registry policy."
   value       = one(aws_ecr_registry_policy.this[*].policy)
@@ -36,6 +41,11 @@ output "pull_through_cache_rules" {
 output "scanning_type" {
   description = "The scanning type to set for the registry."
   value       = aws_ecr_registry_scanning_configuration.this.scan_type
+}
+
+output "scanning_basic_version" {
+  description = "The version of basic scanning for the registry."
+  value       = aws_ecr_account_setting.basic_scan_type_version.value
 }
 
 output "scanning_rules" {

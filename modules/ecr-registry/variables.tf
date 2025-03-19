@@ -1,3 +1,19 @@
+variable "policy_version" {
+  description = <<EOF
+  (Optional) The policy version of ECR registry. Valid values are `V1` or `V2`. Defaults to `V2`.
+    `V1` - Only support three actions: `ReplicateImage`, `BatchImportUpstreamImage`, and `CreateRepository`
+    `V2` - Support all ECR actions in the policy and enforce the registry policy in all ECR requests
+  EOF
+  type        = string
+  default     = "V2"
+  nullable    = false
+
+  validation {
+    condition     = contains(["V1", "V2"], var.policy_version)
+    error_message = "Valid values for `policy_version` are `V1`, `V2`."
+  }
+}
+
 variable "policy" {
   description = "(Optional) The policy document for ECR registry. This is a JSON formatted string."
   type        = string
@@ -102,6 +118,20 @@ variable "scanning_type" {
   validation {
     condition     = contains(["ENHANCED", "BASIC"], var.scanning_type)
     error_message = "Valid values for `scanning_type` are `ENHANCED`, `BASIC`."
+  }
+}
+
+variable "scanning_basic_version" {
+  description = <<EOF
+  (Optional) The version of basic scanning for the registry. Valid values are `AWS_NATIVE` or `CLAIR`. Defaults to `AWS_NATIVE`. `CLAIR` was deprecated.
+  EOF
+  type        = string
+  default     = "AWS_NATIVE"
+  nullable    = false
+
+  validation {
+    condition     = contains(["AWS_NATIVE", "CLAIR"], var.scanning_basic_version)
+    error_message = "Valid values for `scanning_basic_version` are `AWS_NATIVE`, `CLAIR`."
   }
 }
 
