@@ -8,7 +8,7 @@ This module creates following resources.
 - `aws_ecr_pull_through_cache_rule` (optional)
 - `aws_ecr_registry_scanning_configuration`
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -71,4 +71,4 @@ No modules.
 | <a name="output_scanning_basic_version"></a> [scanning\_basic\_version](#output\_scanning\_basic\_version) | The version of basic scanning for the registry. |
 | <a name="output_scanning_rules"></a> [scanning\_rules](#output\_scanning\_rules) | A list of scanning rules to determine which repository filters are used and at what frequency scanning will occur. |
 | <a name="output_scanning_type"></a> [scanning\_type](#output\_scanning\_type) | The scanning type to set for the registry. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

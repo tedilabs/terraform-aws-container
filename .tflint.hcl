@@ -70,7 +70,7 @@ rule "terraform_unused_required_providers" {
 
 plugin "aws" {
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
-  version = "0.21.1"
+  version = "0.38.0"
 
   enabled = true
   deep_check = false
