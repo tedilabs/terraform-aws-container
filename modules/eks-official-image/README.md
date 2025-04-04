@@ -7,7 +7,7 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.10 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.42 |
 
 ## Providers
@@ -31,7 +31,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | (Required) Desired Kubernetes version to search the official EKS AMIs for the EKS cluster. | `string` | n/a | yes |
-| <a name="input_os"></a> [os](#input\_os) | (Required) A configuration of OS (Operating System) to search EKS official AMIs. `os` block as defined below.<br/>    (Required) `name` - A name of the OS (Operating System). Valid values are `amazon-linux`, `ubuntu`, `ubuntu-pro`.<br/>    (Required) `release` - A release name of the OS.<br/>      `amazon-linux` - Valid values are `2`, `2023`.<br/>      `ubuntu` - Valid values are `18.04`, `20.04`, `22.04`, `24.04`.<br/>      `ubuntu-pro` - Same with `ubuntu`. | <pre>object({<br/>    name    = string<br/>    release = string<br/>  })</pre> | n/a | yes |
+| <a name="input_os"></a> [os](#input\_os) | (Required) A configuration of OS (Operating System) to search EKS official AMIs. `os` block as defined below.<br/>    (Required) `name` - A name of the OS (Operating System). Valid values are `amazon-linux`, `ubuntu`, `ubuntu-pro`.<br/>    (Required) `release` - A release name of the OS.<br/>      `amazon-linux` - Valid values are `2`, `2023`.<br/>      `ubuntu` - Valid values are `18.04`, `20.04`, `22.04`, `24.04`, `26.04`.<br/>      `ubuntu-pro` - Same with `ubuntu`. | <pre>object({<br/>    name    = string<br/>    release = string<br/>  })</pre> | n/a | yes |
 | <a name="input_arch"></a> [arch](#input\_arch) | (Optional) The type of the CPU architecture. Valid values are `amd64`, `arm64`. Defaults to `amd64`. | `string` | `"amd64"` | no |
 
 ## Outputs

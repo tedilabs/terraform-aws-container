@@ -23,6 +23,17 @@ locals {
       "ubuntu-pro" = "/aws/service/canonical/ubuntu/eks-pro"
     }
   }
+  ubuntu_ebs_volume_type = {
+    "18.04"  = "ebs-gp2"
+    "bionic" = "ebs-gp2"
+    "20.04"  = "ebs-gp2"
+    "focal"  = "ebs-gp2"
+    "22.04"  = "ebs-gp2"
+    "jammy"  = "ebs-gp2"
+    "24.04"  = "ebs-gp3"
+    "noble"  = "ebs-gp3"
+    "26.04"  = "ebs-gp3"
+  }
   parameter_name = (var.os.name == "amazon-linux"
     ? join("/", [
       "/aws/service/eks/optimized-ami/${var.kubernetes_version}",
@@ -36,7 +47,7 @@ locals {
         var.kubernetes_version,
         "stable/current",
         var.arch,
-        "hvm/ebs-gp2/ami-id",
+        "hvm/${local.ubuntu_ebs_volume_type[var.os.release]}/ami-id",
       ])
       : null
     )

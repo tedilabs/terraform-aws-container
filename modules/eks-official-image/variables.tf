@@ -10,7 +10,7 @@ variable "os" {
     (Required) `name` - A name of the OS (Operating System). Valid values are `amazon-linux`, `ubuntu`, `ubuntu-pro`.
     (Required) `release` - A release name of the OS.
       `amazon-linux` - Valid values are `2`, `2023`.
-      `ubuntu` - Valid values are `18.04`, `20.04`, `22.04`, `24.04`.
+      `ubuntu` - Valid values are `18.04`, `20.04`, `22.04`, `24.04`, `26.04`.
       `ubuntu-pro` - Same with `ubuntu`.
   EOF
   type = object({
@@ -26,9 +26,9 @@ variable "os" {
   validation {
     condition = anytrue([
       var.os.name == "amazon-linux" && contains(["2", "2023"], var.os.release),
-      contains(["ubuntu", "ubuntu-pro"], var.os.name) && contains(["18.04", "20.04", "22.04", "24.04"], var.os.release),
+      contains(["ubuntu", "ubuntu-pro"], var.os.name) && contains(["18.04", "20.04", "22.04", "24.04", "26.04"], var.os.release),
     ])
-    error_message = "Valid values for `os.release` are `2`, `2023` when `os.name` is `amazon-linux`. Valid values for `os.release` are `18.04`, `20.04`, `22.04`, `24.04` when `os.name` is `ubuntu` or `ubuntu-pro`."
+    error_message = "Valid values for `os.release` are `2`, `2023` when `os.name` is `amazon-linux`. Valid values for `os.release` are `18.04`, `20.04`, `22.04`, `24.04`, `26.04` when `os.name` is `ubuntu` or `ubuntu-pro`."
   }
 }
 
