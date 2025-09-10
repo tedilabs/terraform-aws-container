@@ -35,8 +35,10 @@ module "node" {
   type         = each.value.type
   principal    = each.value.principal
 
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     {
@@ -75,8 +77,10 @@ module "user" {
     }
   ]
 
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     {
