@@ -197,3 +197,19 @@ output "created_at" {
 #     if !contains(["arn", "access_config", "certificate_authority", "tags", "tags_all", "created_at", "role_arn", "name", "status", "version", "timeouts", "platform_version", "kubernetes_network_config", "id", "endpoint", "encryption_config", "outpost_config", "identity", "vpc_config", "enabled_cluster_log_types", "cluster_id"], k)
 #   }
 # }
+
+output "resource_group" {
+  description = "The resource group created to manage resources in this module."
+  value = merge(
+    {
+      enabled = var.resource_group.enabled && var.module_tags_enabled
+    },
+    (var.resource_group.enabled && var.module_tags_enabled
+      ? {
+        arn  = module.resource_group[0].arn
+        name = module.resource_group[0].name
+      }
+      : {}
+    )
+  )
+}
