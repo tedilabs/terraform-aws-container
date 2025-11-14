@@ -39,6 +39,8 @@ data "aws_iam_policy_document" "replication" {
 resource "aws_ecr_replication_configuration" "this" {
   count = length(var.replication_rules) > 0 ? 1 : 0
 
+  region = var.region
+
   replication_configuration {
     dynamic "rule" {
       for_each = var.replication_rules

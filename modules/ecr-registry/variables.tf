@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "policy_version" {
   description = <<EOF
   (Optional) The policy version of ECR registry. Valid values are `V1` or `V2`. Defaults to `V2`.
@@ -91,16 +98,20 @@ variable "pull_through_cache_policies" {
 variable "pull_through_cache_rules" {
   description = <<EOF
   (Optional) A list of Pull Through Cache Rules for ECR registry. A `pull_through_cache_rules` block as defined below.
-    (Required) `upstream_url` - The registry URL of the upstream public registry to use as the source.
+    (Required) `upstream_url` - The registry URL of the upstream registry to use as the source.
+    (Optional) `upstream_prefix` - The upstream repository prefix associated with the pull through cache rule. Used if the upstream registry is an ECR private registry. Defaults to `ROOT`.
     (Optional) `namespace` - The repository name prefix to use when caching images from the source registry. Default value is used if not provided.
     (Optional) `credential` - The configuration for credential to use to authenticate against the registry. A `credential` block as defined below.
       (Required) `secretsmanager_secret` - The ARN of the Secrets Manager secret to use for authentication.
+      (Optional) `iam_role` - The ARN of the IAM role associated with the pull through cache rule. Must be specified if the upstream registry is a cross-account ECR private registry.
   EOF
   type = list(object({
-    upstream_url = string
-    namespace    = optional(string)
+    upstream_url    = string
+    upstream_prefix = optional(string, "ROOT")
+    namespace       = optional(string)
     credential = optional(object({
       secretsmanager_secret = string
+      iam_role              = optional(string)
     }))
   }))
   default  = []
@@ -138,7 +149,10 @@ variable "scanning_basic_version" {
 variable "scanning_rules" {
   description = <<EOF
   (Optional) A list of scanning rules to determine which repository filters are used and at what frequency scanning will occur. Each block of `scanning_rules` as defined below.
-    (Required) `frequency` - The frequency that scans are performed at for a private registry. Valid values are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN`.
+    (Required) `frequency` - The frequency that scans are performed at for a private registry. Valid values are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN` and `MANUAL`.
+
+      - When the `ENHANCED` scan type is specified, the supported scan frequencies are `CONTINUOUS_SCAN` and `SCAN_ON_PUSH`.
+      - When the `BASIC` scan type is specified, the `SCAN_ON_PUSH` scan frequency is supported. If scan on push is not specified, then the `MANUAL` scan frequency is set by default.
     (Optional) `filters` - The configuration of repository filters for image scanning.
       (Optional) `type` - The repository filter type. The only supported value is `WILDCARD`. A filter with no wildcard will match all repository names that contain the filter. A filter with a wildcard (*) matches on any repository name where the wildcard replaces zero or more characters in the repository name. Defaults to `WILDCARD`.
       (Required) `value` - The repository filter value.
@@ -156,9 +170,20 @@ variable "scanning_rules" {
   validation {
     condition = alltrue([
       for rule in var.scanning_rules :
-      contains(["SCAN_ON_PUSH", "CONTINUOUS_SCAN"], rule.frequency)
+      contains(["SCAN_ON_PUSH", "CONTINUOUS_SCAN", "MANUAL"], rule.frequency)
     ])
-    error_message = "Valid values for `frequency` are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN`."
+    error_message = "Valid values for `frequency` are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN` and `MANUAL."
+  }
+
+  validation {
+    condition = alltrue([
+      for rule in var.scanning_rules :
+      (
+        (var.scanning_type == "ENHANCED" && contains(["CONTINUOUS_SCAN", "SCAN_ON_PUSH"], rule.frequency)) ||
+        (var.scanning_type == "BASIC" && contains(["SCAN_ON_PUSH", "MANUAL"], rule.frequency))
+      )
+    ])
+    error_message = "For `ENHANCED` scanning_type, valid frequencies are `CONTINUOUS_SCAN` and `SCAN_ON_PUSH`. For `BASIC` scanning_type, valid frequencies are `SCAN_ON_PUSH` and `MANUAL`."
   }
 
   validation {

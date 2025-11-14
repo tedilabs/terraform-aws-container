@@ -15,11 +15,13 @@ locals {
 }
 
 data "aws_caller_identity" "this" {}
-data "aws_region" "this" {}
+data "aws_region" "this" {
+  region = var.region
+}
 
 locals {
   account_id = data.aws_caller_identity.this.id
-  region     = data.aws_region.this.name
+  region     = data.aws_region.this.region
 }
 
 
@@ -28,6 +30,8 @@ locals {
 ###################################################
 
 resource "aws_ecr_account_setting" "registry_policy_scope" {
+  region = var.region
+
   name  = "REGISTRY_POLICY_SCOPE"
   value = var.policy_version
 }
@@ -47,6 +51,8 @@ resource "aws_ecr_registry_policy" "this" {
     length(var.pull_through_cache_policies) > 0,
     var.policy != null,
   ]) ? 1 : 0
+
+  region = var.region
 
   policy = data.aws_iam_policy_document.this.json
 }

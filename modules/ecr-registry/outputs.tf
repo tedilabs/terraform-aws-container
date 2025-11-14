@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_ecr_account_setting.registry_policy_scope.region
+}
+
 output "name" {
   description = "The name of the registry."
   value       = local.metadata.name

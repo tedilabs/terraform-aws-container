@@ -52,11 +52,21 @@ resource "aws_ecr_pull_through_cache_rule" "this" {
     coalesce(rule.namespace, local.default_namespaces[rule.upstream_url]) => rule
   }
 
+  region = var.region
+
   ecr_repository_prefix = each.key
   upstream_registry_url = each.value.upstream_url
+  upstream_repository_prefix = (endswith(each.value.upstream_url, "amazonaws.com")
+    ? each.value.upstream_prefix
+    : null
+  )
 
   credential_arn = (each.value.credential != null
     ? each.value.credential.secretsmanager_secret
+    : null
+  )
+  custom_role_arn = (each.value.credential != null
+    ? each.value.credential.iam_role
     : null
   )
 }

@@ -3,11 +3,15 @@
 ###################################################
 
 resource "aws_ecr_account_setting" "basic_scan_type_version" {
+  region = var.region
+
   name  = "BASIC_SCAN_TYPE_VERSION"
   value = var.scanning_basic_version
 }
 
 resource "aws_ecr_registry_scanning_configuration" "this" {
+  region = var.region
+
   scan_type = var.scanning_type
 
   dynamic "rule" {
