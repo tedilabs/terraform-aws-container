@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) Desired name for the repository."
   type        = string
@@ -18,11 +25,27 @@ variable "policy" {
   nullable    = false
 }
 
-variable "image_tag_immutable_enabled" {
-  description = "(Optional) Whether to enable the image tag immutability setting for the repository. Enable tag immutability to prevent image tags from being overwritten by subsequent image pushes using the same tag. Disable tag immutability to allow image tags to be overwritten. Defaults to `false`."
-  type        = bool
-  default     = false
-  nullable    = false
+variable "image_tag_mutability" {
+  description = <<EOF
+  (Optional) The image tag mutability setting for the repository. `image_tag_mutability` as defined below.
+    (Optional) `mode` - The tag mutability setting for the repository. Valid values are `MUTABLE`, `IMMUTABLE`, `MUTABLE_WITH_EXCLUSION` and `IMMUTABLE_WITH_EXCLUSION`. Defaults to `MUTABLE`.
+    (Optional) `exclusion_filters` - A list of tag exclusion filters for the repository. Each block of `exclusion_filters` as defined below.
+      (Optional) `type` - The type of filter to use. The only supported value is `WILDCARD`. Defaults to `WILDCARD`.
+
+      (Required) `value` - The filter pattern to use for excluding image tags from the mutability setting.
+  EOF
+  type = object({
+    mode = optional(string, "MUTABLE")
+    exclusion_filters = optional(list(object({
+      type  = optional(string, "WILDCARD")
+      value = string
+    })), [])
+  })
+
+  validation {
+    condition     = contains(["MUTABLE", "IMMUTABLE", "MUTABLE_WITH_EXCLUSION", "IMMUTABLE_WITH_EXCLUSION"], var.image_tag_mutability.mode)
+    error_message = "Valid values for `mode` are `MUTABLE`, `IMMUTABLE`, `MUTABLE_WITH_EXCLUSION`, `IMMUTABLE_WITH_EXCLUSION`."
+  }
 }
 
 variable "image_scan_on_push_enabled" {
@@ -110,9 +133,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

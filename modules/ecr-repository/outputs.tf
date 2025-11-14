@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_ecr_repository.this.region
+}
+
 output "name" {
   description = "The name of the repository."
   value       = var.name

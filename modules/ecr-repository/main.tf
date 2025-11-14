@@ -20,10 +20,22 @@ locals {
 ###################################################
 
 resource "aws_ecr_repository" "this" {
+  region = var.region
+
   name = local.metadata.name
 
   force_delete         = var.force_delete
-  image_tag_mutability = var.image_tag_immutable_enabled ? "IMMUTABLE" : "MUTABLE"
+  image_tag_mutability = var.image_tag_mutability.mode
+
+  dynamic "image_tag_mutability_exclusion_filter" {
+    for_each = var.image_tag_mutability.exclusion_filters
+    iterator = filter
+
+    content {
+      filter_type = filter.value.type
+      filter      = filter.value.value
+    }
+  }
 
   image_scanning_configuration {
     scan_on_push = var.image_scan_on_push_enabled
@@ -31,7 +43,10 @@ resource "aws_ecr_repository" "this" {
 
   encryption_configuration {
     encryption_type = var.encryption.type
-    kms_key         = var.encryption.kms_key
+    kms_key = (var.encryption.type == "KMS"
+      ? var.encryption.kms_key
+      : null
+    )
   }
 
   tags = merge(
@@ -50,6 +65,8 @@ resource "aws_ecr_repository" "this" {
 
 resource "aws_ecr_repository_policy" "this" {
   count = length(var.policy) > 0 ? 1 : 0
+
+  region = var.region
 
   repository = aws_ecr_repository.this.name
   policy     = var.policy
@@ -105,6 +122,8 @@ locals {
 
 resource "aws_ecr_lifecycle_policy" "this" {
   count = length(local.lifecycle_policy) >= 100 ? 1 : 0
+
+  region = var.region
 
   repository = aws_ecr_repository.this.name
   policy     = local.lifecycle_policy
