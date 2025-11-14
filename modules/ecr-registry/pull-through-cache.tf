@@ -17,9 +17,17 @@ data "aws_iam_policy_document" "pull_through_cache" {
         type        = "AWS"
         identifiers = policy.value.iam_entities
       }
-      actions = (policy.value.allow_create_repository
-        ? ["ecr:CreateRepository", "ecr:BatchImportUpstreamImage"]
-        : ["ecr:BatchImportUpstreamImage"]
+      actions = concat(
+        policy.value.allow_create_repository ? ["ecr:CreateRepository"] : [],
+        (policy.value.allow_cross_account_pull_through_cache
+          ? [
+            "ecr:BatchGetImage",
+            "ecr:BatchImportUpstreamImage",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:GetImageCopyStatus",
+          ]
+          : ["ecr:BatchImportUpstreamImage"]
+        )
       )
       resources = [
         for repository in policy.value.repositories :
@@ -36,13 +44,14 @@ data "aws_iam_policy_document" "pull_through_cache" {
 
 locals {
   default_namespaces = {
-    "ghcr.io"               = "github"
-    "myregistry.azurecr.io" = "azure"
-    "public.ecr.aws"        = "ecr-public"
-    "quay.io"               = "quay"
-    "registry-1.docker.io"  = "docker-hub"
-    "registry.gitlab.com"   = "gitlab"
-    "registry.k8s.io"       = "kubernetes"
+    "ghcr.io"              = "github"
+    "public.ecr.aws"       = "ecr-public"
+    "quay.io"              = "quay"
+    "registry-1.docker.io" = "docker-hub"
+    "registry.gitlab.com"  = "gitlab"
+    "registry.k8s.io"      = "kubernetes"
+    # "<my-registry>.azurecr.io" = "azure"
+    # "<aws_account_id>.dkr.ecr.<region>.amazonaws.com" = "ecr"
   }
 }
 

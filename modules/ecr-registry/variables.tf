@@ -84,12 +84,14 @@ variable "pull_through_cache_policies" {
   (Optional) A list of ECR Registry Policies for Pull Through Cache. Each block of `pull_through_cache_policies` as defined below.
     (Required) `iam_entities` - One or more IAM principals to grant permission. Support the ARN of IAM entities, or AWS account ID.
     (Optional) `allow_create_repository` - Whether to auto-create the cached repositories with the same name within the current registry. Defaults to `false`.
+    (Optional) `allow_cross_account_pull_through_cache` - Whether to allow cross-account pull through cache. Defaults to `false`.
     (Required) `repositories` - A list of target repositories. Support glob expressions for `repositories` like `*`.
   EOF
   type = list(object({
-    iam_entities            = list(string)
-    allow_create_repository = optional(bool, false)
-    repositories            = list(string)
+    iam_entities                           = list(string)
+    allow_create_repository                = optional(bool, false)
+    allow_cross_account_pull_through_cache = optional(bool, false)
+    repositories                           = list(string)
   }))
   default  = []
   nullable = false
