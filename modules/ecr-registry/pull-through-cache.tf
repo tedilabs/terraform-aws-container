@@ -75,7 +75,9 @@ resource "aws_ecr_pull_through_cache_rule" "this" {
     : null
   )
   custom_role_arn = (each.value.credential != null
-    ? each.value.credential.iam_role
-    : null
+    ? (endswith(each.value.upstream_url, "amazonaws.com") && var.default_pull_through_cache_role.enabled
+      ? module.role__pull_through_cache[0].arn
+      : each.value.credential.iam_role
+    ) : null
   )
 }

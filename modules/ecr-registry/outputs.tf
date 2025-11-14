@@ -40,7 +40,19 @@ output "pull_through_cache_policies" {
 
 output "pull_through_cache_rules" {
   description = "A list of Pull Through Cache Rules for ECR registry."
-  value       = var.pull_through_cache_rules
+  value = [
+    for rule in aws_ecr_pull_through_cache_rule.this :
+    {
+      upstream_url    = rule.upstream_registry_url
+      upstream_prefix = rule.upstream_repository_prefix
+      namespace       = rule.ecr_repository_prefix
+
+      credential = {
+        secretsmanager_secret = rule.credential_arn
+        iam_role              = rule.custom_role_arn
+      }
+    }
+  ]
 }
 
 output "scanning_type" {
@@ -56,6 +68,22 @@ output "scanning_basic_version" {
 output "scanning_rules" {
   description = "A list of scanning rules to determine which repository filters are used and at what frequency scanning will occur."
   value       = var.scanning_rules
+}
+
+output "resource_group" {
+  description = "The resource group created to manage resources in this module."
+  value = merge(
+    {
+      enabled = var.resource_group.enabled && var.module_tags_enabled
+    },
+    (var.resource_group.enabled && var.module_tags_enabled
+      ? {
+        arn  = module.resource_group[0].arn
+        name = module.resource_group[0].name
+      }
+      : {}
+    )
+  )
 }
 
 # output "debug" {

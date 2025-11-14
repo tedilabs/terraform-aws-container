@@ -79,6 +79,29 @@ variable "replication_rules" {
   }
 }
 
+variable "default_pull_through_cache_role" {
+  description = <<EOF
+  (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.
+    (Optional) `enabled` - Whether to create the default IAM role. Defaults to `true`.
+    (Optional) `name` - The name of the default IAM role. Defaults to `ecr-pull-through-cache-$${account-id}`.
+    (Optional) `path` - The path of the default IAM role. Defaults to `/`.
+    (Optional) `description` - The description of the default IAM role.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the default IAM role. Defaults to `[]`.
+    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default IAM role. (`name` => `policy`).
+  EOF
+  type = object({
+    enabled     = optional(bool, true)
+    name        = optional(string)
+    path        = optional(string, "/")
+    description = optional(string, "Managed by Terraform.")
+
+    policies        = optional(list(string), [])
+    inline_policies = optional(map(string), {})
+  })
+  default  = {}
+  nullable = false
+}
+
 variable "pull_through_cache_policies" {
   description = <<EOF
   (Optional) A list of ECR Registry Policies for Pull Through Cache. Each block of `pull_through_cache_policies` as defined below.
@@ -198,4 +221,39 @@ variable "scanning_rules" {
     ])
     error_message = "Valid values for `type` are `WILDCARD`."
   }
+}
+
+variable "tags" {
+  description = "(Optional) A map of tags to add to all resources."
+  type        = map(string)
+  default     = {}
+  nullable    = false
+}
+
+variable "module_tags_enabled" {
+  description = "(Optional) Whether to create AWS Resource Tags for the module informations."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
+
+###################################################
+# Resource Group
+###################################################
+
+variable "resource_group" {
+  description = <<EOF
+  (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.
+    (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.
+    (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.
+    (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`.
+  EOF
+  type = object({
+    enabled     = optional(bool, true)
+    name        = optional(string, "")
+    description = optional(string, "Managed by Terraform.")
+  })
+  default  = {}
+  nullable = false
 }
