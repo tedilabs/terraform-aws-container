@@ -77,54 +77,50 @@ resource "aws_ecr_repository_policy" "this" {
 # Lifecycle Policy
 ###################################################
 
-locals {
-  lifecycle_rules = [
-    for rule in var.lifecycle_rules : {
-      rulePriority = rule.priority
-      description  = rule.description
-      selection = {
-        for k, v in {
-          tagStatus = rule.target.status
-          tagPatternList = (rule.target.status == "tagged" && length(rule.target.tag_patterns) > 0
-            ? rule.target.tag_patterns
-            : null
-          )
-          tagPrefixList = (rule.target.status == "tagged" && length(rule.target.tag_prefixes) > 0
-            ? rule.target.tag_prefixes
-            : null
-          )
+data "aws_ecr_lifecycle_policy_document" "this" {
+  dynamic "rule" {
+    for_each = var.lifecycle_rules
 
-          countType = (rule.expiration.count != null
-            ? "imageCountMoreThan"
-            : "sinceImagePushed"
-          )
-          countUnit = (rule.expiration.count != null
-            ? null
-            : "days"
-          )
-          countNumber = (rule.expiration.count != null
-            ? rule.expiration.count
-            : rule.expiration.days
-          )
-        } :
-        k => v
-        if v != null
+    content {
+      priority    = rule.value.priority
+      description = rule.value.description
+
+      selection {
+        tag_status = rule.value.target.status
+        tag_pattern_list = (rule.value.target.status == "tagged" && length(rule.value.target.tag_patterns) > 0
+          ? rule.value.target.tag_patterns
+          : null
+        )
+        tag_prefix_list = (rule.value.target.status == "tagged" && length(rule.value.target.tag_prefixes) > 0
+          ? rule.value.target.tag_prefixes
+          : null
+        )
+        count_type = (rule.value.expiration.count != null
+          ? "imageCountMoreThan"
+          : "sinceImagePushed"
+        )
+        count_unit = (rule.value.expiration.count != null
+          ? null
+          : "days"
+        )
+        count_number = (rule.value.expiration.count != null
+          ? rule.value.expiration.count
+          : rule.value.expiration.days
+        )
       }
-      action = {
+
+      action {
         type = "expire"
       }
     }
-  ]
-  lifecycle_policy = jsonencode({
-    rules = local.lifecycle_rules
-  })
+  }
 }
 
 resource "aws_ecr_lifecycle_policy" "this" {
-  count = length(local.lifecycle_policy) >= 100 ? 1 : 0
+  count = length(var.lifecycle_rules) > 0 ? 1 : 0
 
   region = var.region
 
   repository = aws_ecr_repository.this.name
-  policy     = local.lifecycle_policy
+  policy     = data.aws_ecr_lifecycle_policy_document.this.json
 }
