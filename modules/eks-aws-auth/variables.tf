@@ -17,7 +17,7 @@ variable "map_roles" {
   type = list(object({
     iam_role = string
     username = string
-    groups   = list(string)
+    groups   = optional(list(string), [])
   }))
   default  = []
   nullable = false
@@ -28,7 +28,7 @@ variable "map_users" {
   type = list(object({
     iam_user = string
     username = string
-    groups   = list(string)
+    groups   = optional(list(string), [])
   }))
   default  = []
   nullable = false

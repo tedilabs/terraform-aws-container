@@ -18,7 +18,7 @@ locals {
       for map_role in var.map_roles : {
         rolearn  = map_role.iam_role
         username = map_role.username
-        groups   = try(map_role.groups, [])
+        groups   = map_role.groups
       }
     ]
   )
@@ -26,7 +26,7 @@ locals {
     for map_user in var.map_users : {
       userarn  = map_user.iam_user
       username = map_user.username
-      groups   = try(map_user.groups, [])
+      groups   = map_user.groups
     }
   ]
   map_accounts = var.map_accounts
