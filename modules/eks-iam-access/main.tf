@@ -30,10 +30,14 @@ module "node" {
 
   source = "../eks-access-entry"
 
+  region = var.region
+
   name         = each.key
   cluster_name = var.cluster_name
   type         = each.value.type
   principal    = each.value.principal
+
+  timeouts = var.timeouts
 
   resource_group = {
     enabled = false
@@ -62,6 +66,8 @@ module "user" {
 
   source = "../eks-access-entry"
 
+  region = var.region
+
   name         = each.key
   cluster_name = var.cluster_name
   type         = "STANDARD"
@@ -76,6 +82,8 @@ module "user" {
       namespaces = permission.namespaces
     }
   ]
+
+  timeouts = var.timeouts
 
   resource_group = {
     enabled = false

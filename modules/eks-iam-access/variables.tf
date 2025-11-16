@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "cluster_name" {
   description = "(Required) The name of the Amazon EKS cluster to create IAM access entries."
   type        = string
@@ -8,7 +15,7 @@ variable "node_access_entries" {
   description = <<EOF
   (Optional) A list of configurations for EKS access entries for nodes (EC2 instances, Fargate) that are allowed to access the EKS cluster. Each item of `node_access_entries` block as defined below.
     (Required) `name` - A unique name for the access entry. This value is only used internally within Terraform code.
-    (Required) `type` - The type of the access entry. Valid values are `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`.
+    (Required) `type` - The type of the access entry. Valid values are `EC2`, `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `HYBRID_LINUX`, `HYPERPOD_LINUX`.
     (Required) `principal` - The ARN of one, and only one, existing IAM principal to grant access to Kubernetes objects on the cluster. An IAM principal can't be included in more than one access entry.
   EOF
   type = list(object({
@@ -22,9 +29,9 @@ variable "node_access_entries" {
   validation {
     condition = alltrue([
       for entry in var.node_access_entries :
-      contains(["EC2_LINUX", "EC2_WINDOWS", "FARGATE_LINUX"], entry.type)
+      contains(["EC2", "EC2_LINUX", "EC2_WINDOWS", "FARGATE_LINUX", "HYBRID_LINUX", "HYPERPOD_LINUX"], entry.type)
     ])
-    error_message = "Valid values for `type` are `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`."
+    error_message = "Valid values for `type` are `EC2`, `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `HYBRID_LINUX`, `HYPERPOD_LINUX`."
   }
 }
 
@@ -56,11 +63,10 @@ variable "user_access_entries" {
 }
 
 variable "timeouts" {
-  description = "(Optional) How long to wait for the EKS Cluster to be created/updated/deleted."
+  description = "(Optional) How long to wait for the EKS access entry to be created/deleted."
   type = object({
-    create = optional(string, "30m")
-    update = optional(string, "60m")
-    delete = optional(string, "15m")
+    create = optional(string, "20m")
+    delete = optional(string, "40m")
   })
   default  = {}
   nullable = false
@@ -84,9 +90,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

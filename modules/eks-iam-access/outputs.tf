@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = var.region
+}
+
 output "cluster_name" {
   description = "The name of the EKS cluster."
   value       = var.cluster_name
@@ -17,6 +22,7 @@ output "node_access_entries" {
       kubernetes_groups   = entry.kubernetes_groups
       created_at          = entry.created_at
       updated_at          = entry.updated_at
+      debug               = entry.debug
     }
   }
 }
@@ -36,6 +42,7 @@ output "user_access_entries" {
       kubernetes_permissions = entry.kubernetes_permissions
       created_at             = entry.created_at
       updated_at             = entry.updated_at
+      debug                  = entry.debug
     }
   }
 }
