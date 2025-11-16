@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) The name of the Amazon EKS access entry."
   type        = string
@@ -11,14 +18,14 @@ variable "cluster_name" {
 }
 
 variable "type" {
-  description = "(Optional) The type of the access entry. Valid values are `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `STANDARD`. Defaults to `STANDARD`."
+  description = "(Optional) The type of the access entry. Valid values are `EC2` (for EKS Auto Mode), `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `HYBRID_LINUX`, `HYPERPOD_LINUX`, `STANDARD`. Defaults to `STANDARD`."
   type        = string
   default     = "STANDARD"
   nullable    = false
 
   validation {
-    condition     = contains(["EC2_LINUX", "EC2_WINDOWS", "FARGATE_LINUX", "STANDARD"], var.type)
-    error_message = "Valid values for `type` are `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `STANDARD`."
+    condition     = contains(["EC2", "EC2_LINUX", "EC2_WINDOWS", "FARGATE_LINUX", "HYBRID_LINUX", "HYPERPOD_LINUX", "STANDARD"], var.type)
+    error_message = "Valid values for `type` are `EC2`, `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `HYBRID_LINUX`, `HYPERPOD_LINUX`, `STANDARD`."
   }
 }
 
@@ -101,9 +108,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

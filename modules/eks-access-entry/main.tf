@@ -20,6 +20,8 @@ locals {
 ###################################################
 
 resource "aws_eks_access_entry" "this" {
+  region = var.region
+
   cluster_name  = var.cluster_name
   type          = var.type
   principal_arn = var.principal
@@ -58,6 +60,8 @@ resource "aws_eks_access_policy_association" "this" {
     trimprefix("arn:aws:eks::aws:cluster-access-policy/", permission.policy) => permission
   }
 
+  region = var.region
+
   cluster_name  = aws_eks_access_entry.this.cluster_name
   principal_arn = aws_eks_access_entry.this.principal_arn
 
@@ -73,4 +77,3 @@ resource "aws_eks_access_policy_association" "this" {
     delete = var.timeouts.delete
   }
 }
-
