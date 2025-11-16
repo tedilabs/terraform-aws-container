@@ -22,7 +22,6 @@ output "node_access_entries" {
       kubernetes_groups   = entry.kubernetes_groups
       created_at          = entry.created_at
       updated_at          = entry.updated_at
-      debug               = entry.debug
     }
   }
 }
@@ -42,7 +41,6 @@ output "user_access_entries" {
       kubernetes_permissions = entry.kubernetes_permissions
       created_at             = entry.created_at
       updated_at             = entry.updated_at
-      debug                  = entry.debug
     }
   }
 }
