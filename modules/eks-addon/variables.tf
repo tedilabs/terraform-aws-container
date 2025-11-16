@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "cluster_name" {
   description = "(Required) The name of the Amazon EKS cluster to add the EKS add-on to."
   type        = string
@@ -19,15 +26,6 @@ variable "addon_version" {
 
 variable "configuration" {
   description = "(Optional) The set of configuration values for the add-on. This JSON string value must match the JSON schema derived from `describe-addon-configuration`."
-  type        = string
-  default     = null
-  nullable    = true
-}
-
-variable "service_account_role" {
-  description = <<EOF
-  (Optional) The ARN (Amazon Resource Name) of the IAM Role to bind to the add-on's service account. The role must be assigned the IAM permissions required by the add-on. If you don't specify an existing IAM role, then the add-on uses the permissions assigned to the node IAM role.
-  EOF
   type        = string
   default     = null
   nullable    = true
@@ -76,6 +74,29 @@ variable "preserve_on_delete" {
   nullable    = false
 }
 
+variable "service_account_role" {
+  description = <<EOF
+  (Optional) The ARN (Amazon Resource Name) of the IAM Role to bind to the add-on's service account. The role must be assigned the IAM permissions required by the add-on. If you don't specify an existing IAM role, then the add-on uses the permissions assigned to the node IAM role.
+  EOF
+  type        = string
+  default     = null
+  nullable    = true
+}
+
+variable "pod_identity_associations" {
+  description = <<EOF
+  (Optional) A list of configurations for EKS Pod Identity associations for the add-on. Each block of `pod_identity_association` as defined below.
+    (Required) `service_account` - The name of the Kubernetes service account to associate with the IAM role.
+    (Required) `iam_role` - The ARN (Amazon Resource Name) of the IAM role to associate with the Kubernetes service account. The EKS Pod Identity agent manages credentials to assume this role for applications in the containers in the pods that use this service account.
+  EOF
+  type = list(object({
+    service_account = string
+    iam_role        = string
+  }))
+  default  = []
+  nullable = false
+}
+
 variable "timeouts" {
   description = "(Optional) How long to wait for the EKS Fargate Profile to be created/updated/deleted."
   type = object({
@@ -105,9 +126,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF
