@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_autoscaling_group.this.region
+}
+
 output "name" {
   description = "The name of the node group."
   value       = var.name

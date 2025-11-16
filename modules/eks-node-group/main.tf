@@ -39,6 +39,8 @@ locals {
 ###################################################
 
 resource "aws_launch_template" "this" {
+  region = var.region
+
   name_prefix = "${var.name}-"
   description = "Managed by Terraform."
 
@@ -96,6 +98,8 @@ resource "aws_launch_template" "this" {
 }
 
 resource "aws_autoscaling_group" "this" {
+  region = var.region
+
   name_prefix = "${var.name}-"
 
   min_size         = var.min_size

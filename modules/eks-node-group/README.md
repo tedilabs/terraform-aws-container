@@ -10,22 +10,22 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.10 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.47 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.91.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_eks_max_pods"></a> [eks\_max\_pods](#module\_eks\_max\_pods) | ../eks-max-pods | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 0.31.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.0.0 |
 
 ## Resources
 
@@ -63,9 +63,8 @@ This module creates following resources.
 | <a name="input_monitoring_enabled"></a> [monitoring\_enabled](#input\_monitoring\_enabled) | (Optional) If true, the launched EC2 instance will have detailed monitoring enabled. | `bool` | `false` | no |
 | <a name="input_node_labels"></a> [node\_labels](#input\_node\_labels) | (Optional) A map of labels to add to the EKS cluster node group. | `map(string)` | `{}` | no |
 | <a name="input_node_taints"></a> [node\_taints](#input\_node\_taints) | (Optional) A list of taints to add to the EKS cluster node group. | `list(string)` | `[]` | no |
-| <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
-| <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Optional) The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.<br/>    (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.<br/>    (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.<br/>    (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string, "")<br/>    description = optional(string, "Managed by Terraform.")<br/>  })</pre> | `{}` | no |
 | <a name="input_root_volume_encryption_enabled"></a> [root\_volume\_encryption\_enabled](#input\_root\_volume\_encryption\_enabled) | (Optional) Enables EBS encryption on the root volume. | `bool` | `false` | no |
 | <a name="input_root_volume_encryption_kms_key_id"></a> [root\_volume\_encryption\_kms\_key\_id](#input\_root\_volume\_encryption\_kms\_key\_id) | (Optional) The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted volume. `root_volume_encryption_enabled` must be set to true when this is set. | `string` | `null` | no |
 | <a name="input_root_volume_iops"></a> [root\_volume\_iops](#input\_root\_volume\_iops) | (Optional) The amount of provisioned IOPS for the root volume. | `number` | `null` | no |
@@ -92,5 +91,7 @@ This module creates following resources.
 | <a name="output_max_size"></a> [max\_size](#output\_max\_size) | The maximum number of instances in the EKS cluster node group. |
 | <a name="output_min_size"></a> [min\_size](#output\_min\_size) | The minimum number of instances in the EKS cluster node group. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the node group. |
+| <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
+| <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group created to manage resources in this module. |
 | <a name="output_security_groups"></a> [security\_groups](#output\_security\_groups) | A set of security group IDs which is assigned to the load balancer. |
 <!-- END_TF_DOCS -->
