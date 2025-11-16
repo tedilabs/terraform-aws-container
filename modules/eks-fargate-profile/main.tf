@@ -20,6 +20,8 @@ locals {
 ###################################################
 
 resource "aws_eks_fargate_profile" "this" {
+  region = var.region
+
   cluster_name         = var.cluster_name
   fargate_profile_name = var.name
 

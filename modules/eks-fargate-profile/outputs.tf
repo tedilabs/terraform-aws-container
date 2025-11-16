@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_eks_fargate_profile.this.region
+}
+
 output "cluster_name" {
   description = "The name of the EKS cluster."
   value       = aws_eks_fargate_profile.this.cluster_name
