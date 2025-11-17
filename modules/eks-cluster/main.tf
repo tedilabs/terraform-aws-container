@@ -26,15 +26,35 @@ locals {
 # EKS Control Plane
 ###################################################
 
+# INFO: EKS Auto-mode Only
+# - `compute_config`
+# - `kubernetes_network_config[].elastic_load_balancing.enabled`
+# - `storage_config`
 resource "aws_eks_cluster" "this" {
-  name    = var.name
-  version = var.kubernetes_version
+  region = var.region
+
+  name                          = var.name
+  deletion_protection           = var.deletion_protection_enabled
+  bootstrap_self_managed_addons = var.bootstrap_self_managed_addons
+
   role_arn = (var.default_cluster_role.enabled
     ? module.role[0].arn
     : var.cluster_role
   )
 
-  enabled_cluster_log_types = var.log_types
+  enabled_cluster_log_types = var.logging.enabled ? var.logging.log_types : []
+
+  zonal_shift_config {
+    enabled = var.arc_zonal_shift.enabled
+  }
+
+  ## Versioning
+  version              = var.kubernetes_version
+  force_update_version = var.upgrade_policy.force_upgrade
+
+  upgrade_policy {
+    support_type = var.upgrade_policy.support_type
+  }
 
 
   ## Network
@@ -56,10 +76,10 @@ resource "aws_eks_cluster" "this" {
     content {
       outpost_arns = outpost_config.value.outposts
 
-      control_plane_instance_type = outpost_config.value.control_plane_instance_type
+      control_plane_instance_type = outpost_config.value.control_plane.instance_type
 
       dynamic "control_plane_placement" {
-        for_each = outpost_config.value.control_plane_placement_group != null ? [outpost_config.value.control_plane_placement_group] : []
+        for_each = outpost_config.value.control.plane_placement_group != null ? [outpost_config.value.control_plane.placement_group] : []
 
         content {
           group_name = control_plane_placement.value
@@ -71,6 +91,38 @@ resource "aws_eks_cluster" "this" {
   kubernetes_network_config {
     service_ipv4_cidr = var.kubernetes_network_config.service_ipv4_cidr
     ip_family         = local.ip_family[var.kubernetes_network_config.ip_family]
+
+    dynamic "elastic_load_balancing" {
+      for_each = var.auto_mode.network.elastic_load_balancing.enabled ? [var.auto_mode.network.elastic_load_balancing] : []
+
+      content {
+        enabled = elastic_load_balancing.value.enabled
+      }
+    }
+  }
+
+  dynamic "remote_network_config" {
+    for_each = (length(var.remote_network_config.node_ipv4_cidrs) > 0 || length(var.remote_network_config.pod_ipv4_cidrs) > 0
+      ? [var.remote_network_config]
+      : []
+    )
+
+    content {
+      dynamic "remote_node_networks" {
+        for_each = length(remote_network_config.value.node_ipv4_cidrs) > 0 ? ["go"] : []
+
+        content {
+          cidrs = remote_network_config.value.node_ipv4_cidrs
+        }
+      }
+      dynamic "remote_pod_networks" {
+        for_each = length(remote_network_config.value.pod_ipv4_cidrs) > 0 ? ["go"] : []
+
+        content {
+          cidrs = remote_network_config.value.pod_ipv4_cidrs
+        }
+      }
+    }
   }
 
 
@@ -92,6 +144,38 @@ resource "aws_eks_cluster" "this" {
       resources = ["secrets"]
     }
   }
+
+
+  ## Auto-mode Only
+  dynamic "compute_config" {
+    for_each = var.auto_mode.compute.enabled ? [var.auto_mode.compute] : []
+
+    content {
+      enabled    = compute_config.value.enabled
+      node_pools = compute_config.value.builtin_node_pools
+      node_role_arn = (compute_config.value.enabled
+        ? (compute_config.value.node_role != null
+          ? compute_config.value.node_role
+          : one(module.role__node[*].arn)
+        ) : null
+      )
+    }
+  }
+
+  dynamic "storage_config" {
+    for_each = var.auto_mode.storage.block_storage.enabled ? [var.auto_mode.storage] : []
+
+    content {
+      dynamic "block_storage" {
+        for_each = storage_config.value.block_storage.enabled ? [storage_config.value.block_storage] : []
+
+        content {
+          enabled = block_storage.value.enabled
+        }
+      }
+    }
+  }
+
 
   timeouts {
     create = var.timeouts.create

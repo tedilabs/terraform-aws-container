@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_eks_cluster.this.region
+}
+
 output "name" {
   description = "The name of the cluster."
   value       = aws_eks_cluster.this.name
@@ -23,9 +28,45 @@ output "platform_version" {
   value       = aws_eks_cluster.this.platform_version
 }
 
+output "upgrade_policy" {
+  description = "The upgrade policy for the cluster."
+  value = {
+    force_upgrade = aws_eks_cluster.this.force_update_version
+    support_type  = aws_eks_cluster.this.upgrade_policy[0].support_type
+  }
+}
+
 output "status" {
   description = "The status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`."
   value       = aws_eks_cluster.this.status
+}
+
+output "arc_zonal_shift" {
+  description = "The configurations of ARC zonal shift for the EKS cluster."
+  value = {
+    enabled = try(aws_eks_cluster.this.zonal_shift_config[0].enabled, false)
+  }
+}
+
+output "auto_mode" {
+  description = "The configuration for Auto-mode of the EKS cluster."
+  value = {
+    compute = {
+      enabled            = try(aws_eks_cluster.this.compute_config[0].enabled, false)
+      builtin_node_pools = try(aws_eks_cluster.this.compute_config[0].node_pools, [])
+      node_role          = try(aws_eks_cluster.this.compute_config[0].node_role_arn, null)
+    }
+    network = {
+      elastic_load_balancing = {
+        enabled = try(aws_eks_cluster.this.kubernetes_network_config[0].elastic_load_balancing[0].enabled, false)
+      }
+    }
+    storage = {
+      block_storage = {
+        enabled = try(aws_eks_cluster.this.storage_config[0].block_storage[0].enabled, false)
+      }
+    }
+  }
 }
 
 output "vpc_id" {
@@ -75,15 +116,18 @@ output "outpost_config" {
   description = <<EOF
   The configurations of the outpost for the EKS cluster.
     `outposts` - The list of the Outposts ARNs.
-    `control_plane_instance_type` - The EC2 instance type of the local EKS control plane node on Outposts.
-    `control_plane_placement_group` - The name of the placement group for the EKS control plane node on Outposts.
+    `control_plane` - The configurations of the local EKS control plane node on Outposts.
+      `instance_type` - The EC2 instance type of the local EKS control plane node on Outposts.
+      `placement_group` - The name of the placement group for the EKS control plane node on Outposts.
   EOF
   value = (var.outpost_config != null
     ? {
-      outposts                      = aws_eks_cluster.this.outpost_config[0].outpost_arns
-      cluster_id                    = aws_eks_cluster.this.cluster_id
-      control_plane_instance_type   = aws_eks_cluster.this.outpost_config[0].control_plane_instance_type
-      control_plane_placement_group = one(aws_eks_cluster.this.outpost_config[0].control_plane_placement[*].group_name)
+      outposts   = aws_eks_cluster.this.outpost_config[0].outpost_arns
+      cluster_id = aws_eks_cluster.this.cluster_id
+      control_plane = {
+        instance_type   = aws_eks_cluster.this.outpost_config[0].control_plane_instance_type
+        placement_group = one(aws_eks_cluster.this.outpost_config[0].control_plane_placement[*].group_name)
+      }
     }
     : null
   )
@@ -100,6 +144,18 @@ output "kubernetes_network_config" {
     service_ipv4_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
     service_ipv6_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv6_cidr
     ip_family         = var.kubernetes_network_config.ip_family
+  }
+}
+
+output "remote_network_config" {
+  description = <<EOF
+  The configurations of remote network for the EKS Hybrid nodes.
+    `node_ipv4_cidrs` - A set of IPv4 CIDR blocks for remote nodes.
+    `pod_ipv4_cidrs` - A set of IPv4 CIDR blocks for remote pods.
+  EOF
+  value = {
+    node_ipv4_cidrs = try(aws_eks_cluster.this.remote_network_config[0].remote_node_networks[0].cidrs, [])
+    pod_ipv4_cidrs  = try(aws_eks_cluster.this.remote_network_config[0].remote_pod_networks[0].cidrs, [])
   }
 }
 
@@ -141,27 +197,33 @@ output "default_node_role" {
 output "irsa_oidc_provider" {
   description = <<EOF
   The configurations of the OIDC provider for IRSA (IAM Roles for Service Accounts).
+    `enabled` - Whether to create the IAM OIDC provider for the EKS cluster to use IAM Roles for Service Accounts (IRSA).
     `arn` - The ARN assigned by AWS for this provider.
     `url` - The URL of the identity provider.
     `urn` - The URN of the identity provider.
     `audiences` - A list of audiences (also known as client IDs) for the IAM OIDC provider.
   EOF
   value = {
-    arn       = module.oidc_provider.arn
+    enabled   = var.irsa_oidc_provider.enabled
     url       = aws_eks_cluster.this.identity[0].oidc[0].issuer
-    urn       = module.oidc_provider.urn
-    audiences = module.oidc_provider.audiences
+    arn       = one(module.oidc_provider[*].arn)
+    urn       = one(module.oidc_provider[*].urn)
+    audiences = one(module.oidc_provider[*].audiences)
   }
 }
 
 output "logging" {
   description = "The configurations of the control plane logging."
   value = {
+    enabled   = var.logging.enabled
     log_types = aws_eks_cluster.this.enabled_cluster_log_types
-    cloudwatch_log_group = {
-      arn  = data.aws_cloudwatch_log_group.this.arn
-      name = data.aws_cloudwatch_log_group.this.name
-    }
+    cloudwatch_log_group = (var.logging.enabled
+      ? {
+        arn  = data.aws_cloudwatch_log_group.this[0].arn
+        name = data.aws_cloudwatch_log_group.this[0].name
+      }
+      : null
+    )
   }
 }
 
@@ -190,14 +252,6 @@ output "created_at" {
   value       = aws_eks_cluster.this.created_at
 }
 
-# output "debug" {
-#   value = {
-#     for k, v in aws_eks_cluster.this :
-#     k => v
-#     if !contains(["arn", "access_config", "certificate_authority", "tags", "tags_all", "created_at", "role_arn", "name", "status", "version", "timeouts", "platform_version", "kubernetes_network_config", "id", "endpoint", "encryption_config", "outpost_config", "identity", "vpc_config", "enabled_cluster_log_types", "cluster_id"], k)
-#   }
-# }
-
 output "resource_group" {
   description = "The resource group created to manage resources in this module."
   value = merge(
@@ -213,3 +267,11 @@ output "resource_group" {
     )
   )
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_eks_cluster.this :
+#     k => v
+#     if !contains(["arn", "access_config", "certificate_authority", "tags", "tags_all", "created_at", "role_arn", "name", "status", "version", "timeouts", "platform_version", "kubernetes_network_config", "id", "endpoint", "encryption_config", "outpost_config", "identity", "vpc_config", "enabled_cluster_log_types", "cluster_id", "deletion_protection", "region", "upgrade_policy", "force_update_version", "oidc", "remote_network_config", "bootstrap_self_managed_addons", "storage_config", "compute_config", "zonal_shift_config"], k)
+#   }
+# }

@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) Name of the EKS cluster. Must be between 1-100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores."
   type        = string
@@ -9,11 +16,94 @@ variable "name" {
   }
 }
 
+variable "deletion_protection_enabled" {
+  description = "(Optional) Whether to enable deletion protection for the cluster. When deletion protection is enabled, the cluster cannot be deleted unless this property is set to `false`. Defaults to `false`."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "kubernetes_version" {
   description = "(Optional) Desired Kubernetes version to use for the EKS cluster. The value must be configured and increased to upgrade the version when desired. Downgrades are not supported by EKS. Defaults to `1.26`."
   type        = string
   default     = "1.26"
   nullable    = false
+}
+
+variable "upgrade_policy" {
+  description = <<EOF
+  (Optional) A configuration for the upgrade policy of the EKS cluster. `upgrade_policy` as defined below.
+    (Optional) `force_upgrade` - Whether to force version upgrade by overriding upgrade-blocking readiness checks when upgrading a cluster. Defaults to `false`.
+    (Optional) `support_type` - The support type for the EKS cluster. Valid values are `STANDARD` and `EXTENDED`. Defaults to `STANDARD`.
+      - `STANDARD` - This option supports the Kubernetes version for 14 months after the release date. There is no additional cost. When standard support ends, your cluster will be auto upgraded to the next version.
+      - `EXTENDED` - This option supports the Kubernetes version for 26 months after the release date. The extended support period has an additional hourly cost that begins after the standard support period ends. When extended support ends, your cluster will be auto upgraded to the next version.
+  EOF
+  type = object({
+    force_upgrade = optional(bool, false)
+    support_type  = optional(string, "STANDARD")
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition     = contains(["STANDARD", "EXTENDED"], var.upgrade_policy.support_type)
+    error_message = "Valid values for `upgrade_policy.support_type` are `STANDARD` and `EXTENDED`."
+  }
+}
+
+variable "auto_mode" {
+  description = <<EOF
+  (Optional) A configuration for the Auto-mode of the EKS cluster. `auto_mode` as defined below.
+    (Optional) `compute` - A configuration for the compute auto-mode. `compute` as defined below.
+      (Optional) `enabled` - Whether to enable compute capability on EKS Auto-mode cluster. If the compute capability is enabled, EKS Auto Mode will create and delete EC2 Managed Instances. Defaults to `false`.
+      (Optional) `builtin_node_pools` - A set of built-in node pools to enable on the EKS Auto-mode cluster. Valid values are `general-purpose` and `system`. Defaults to both `general-purpose` and `system`.
+      (Optional) `node_role` - The ARN of the IAM Role to use for the EKS Auto-mode cluster nodes. If not provided, the default node role will be used if `default_node_role.enabled` is `true`. This value cannot be changed after the compute capability of EKS Auto Mode is enabled.
+    (Optional) `network` - A configuration for the network auto-mode. `network` as defined below.
+      (Optional) `elastic_load_balancing` - A configuration for the elastic load balancing capability on EKS Auto-mode cluster. `elastic_load_balancing` as defined below.
+        (Optional) `enabled` - Whether to enable elastic load balancing capability on EKS auto-mode cluster. If the load balancing capability is enabled, EKS Auto Mode will create and delete load balancers. Defaults to `false`.
+    (Optional) `storage` - A configuration for the storage auto-mode. `storage` as defined below.
+      (Optional) `block_storage` - A configuration for the block storage of EKS auto-mode. `block_storage` as defined below.
+        (Optional) `enabled` - Whether to enable block storage capability on EKS Auto-mode cluster. If the block storage capability is enabled, EKS Auto Mode will create and delete block storage volumes. Defaults to `false`.
+  EOF
+  type = object({
+    compute = optional(object({
+      enabled            = optional(bool, false)
+      builtin_node_pools = optional(set(string), ["general-purpose", "system"])
+      node_role          = optional(string)
+    }), {})
+    network = optional(object({
+      elastic_load_balancing = optional(object({
+        enabled = optional(bool, false)
+      }), {})
+    }), {})
+    storage = optional(object({
+      block_storage = optional(object({
+        enabled = optional(bool, false)
+      }), {})
+    }), {})
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition = alltrue([
+      for node_pool in var.auto_mode.compute.builtin_node_pools :
+      contains(["general-purpose", "system"], node_pool)
+    ])
+    error_message = "Valid values for `auto_mode.compute.builtin_node_pools` are `general-purpose` and `system`."
+  }
+}
+
+variable "arc_zonal_shift" {
+  description = <<EOF
+  (Optional) A configuration for the ARC zonal shift for the EKS cluster. `arc_zonal_shift` as defined below.
+    (Optional) `enabled` - Whether to enable ARC zonal shift for the EKS cluster. Defaults to `false`.
+  EOF
+  type = object({
+    enabled = optional(bool, false)
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "subnets" {
@@ -58,17 +148,20 @@ variable "endpoint_access" {
 variable "outpost_config" {
   description = <<EOF
   (Optional) A configuration of the outpost for the EKS cluster. `outpost_config` as defined below.
-    (Required) `outposts` - A list of the Outpost ARNs that you want to use for your local Amazon EKS cluster on Outposts. This argument is a list of arns, but only a single Outpost ARN is supported currently.
-    (Required) `control_plane_instance_type` - The Amazon EC2 instance type that you want to use for your local Amazon EKS cluster on Outposts. The instance type that you specify is used for all Kubernetes control plane instances. The instance type can't be changed after cluster creation. Choose an instance type based on the number of nodes that your cluster will have.
-      - 1–20 nodes, then we recommend specifying a large instance type.
-      - 21–100 nodes, then we recommend specifying an xlarge instance type.
-      - 101–250 nodes, then we recommend specifying a 2xlarge instance type.
-    (Optional) `control_plane_placement_group` - The name of the placement group for the Kubernetes control plane instances. This setting can't be changed after cluster creation.
+    (Required) `outposts` - A set of the Outpost ARNs that you want to use for your local Amazon EKS cluster on Outposts.
+    (Required) `control_plane` - A configuration of the local EKS control plane node on Outposts. `control_plane` as defined below.
+      (Required) `instance_type` - The Amazon EC2 instance type that you want to use for your local Amazon EKS cluster on Outposts. The instance type that you specify is used for all Kubernetes control plane instances. The instance type can't be changed after cluster creation. Choose an instance type based on the number of nodes that your cluster will have.
+        - 1–20 nodes, then we recommend specifying a large instance type.
+        - 21–100 nodes, then we recommend specifying an xlarge instance type.
+        - 101–250 nodes, then we recommend specifying a 2xlarge instance type.
+      (Optional) `placement_group` - The name of the placement group for the Kubernetes control plane instances. This setting can't be changed after cluster creation.
   EOF
   type = object({
-    outposts                      = list(string)
-    control_plane_instance_type   = string
-    control_plane_placement_group = optional(string)
+    outposts = set(string)
+    control_plane = object({
+      instance_type   = string
+      placement_group = optional(string)
+    })
   })
   default  = null
   nullable = true
@@ -91,6 +184,20 @@ variable "kubernetes_network_config" {
     condition     = contains(["IPv4", "IPv6"], var.kubernetes_network_config.ip_family)
     error_message = "Valid values for `kubernetes_network_config.ip_family` are `IPv4` and `IPv6`."
   }
+}
+
+variable "remote_network_config" {
+  description = <<EOF
+  (Optional) A configuration of remote network for the EKS Hybrid nodes. `remote_network_config` as defined below.
+    (Optional) `node_ipv4_cidrs` - A set of IPv4 CIDR blocks for the EKS Hybrid nodes.
+    (Optional) `pod_ipv4_cidrs` - A set of IPv4 CIDR blocks for the pods running on the EKS Hybrid nodes.
+  EOF
+  type = object({
+    node_ipv4_cidrs = optional(set(string), [])
+    pod_ipv4_cidrs  = optional(set(string), [])
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "authentication_mode" {
@@ -116,11 +223,20 @@ variable "bootstrap_cluster_creator_admin_access" {
   nullable    = false
 }
 
+variable "bootstrap_self_managed_addons" {
+  description = <<EOF
+  (Optional) Whether to install the self-managed core add-ons (kube-proxy, CoreDNS, and VPC CNI) during cluster creation time. If false, you must manually install desired add-ons. Changing this value will force a new cluster to be created. Defaults to `true`.
+  EOF
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "secrets_encryption" {
   description = <<EOF
   (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.
     (Optional) `enabled` - Whether to enable envelope encryption of Kubernetes secrets. Defaults to `false`.
-    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets.
+    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets. The CMK must be symmetric, created in the same region as the cluster, and if the CMK was created in a different account, the user must have access to the CMK.
   EOF
   type = object({
     enabled = optional(bool, false)
@@ -185,19 +301,38 @@ variable "default_node_role" {
   nullable = false
 }
 
-variable "log_types" {
-  description = "(Optional) A set of the desired control plane logging to enable. Valid values are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`. Defaults to all."
-  type        = set(string)
-  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  nullable    = false
+variable "logging" {
+  description = <<EOF
+  (Optional) A configuration for the control plane logging. `logging` as defined below.
+    (Optional) `enabled` - Whether to enable control plane logging. Defaults to `false`.
+    (Optional) `log_types` - A set of the desired control plane logging to enable. Valid values are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`. Defaults to all.
+  EOF
+  type = object({
+    enabled   = optional(bool, false)
+    log_types = optional(set(string), ["api", "audit", "authenticator", "controllerManager", "scheduler"])
+  })
+  default  = {}
+  nullable = false
 
   validation {
     condition = alltrue([
-      for log_type in var.log_types :
+      for log_type in var.logging.log_types :
       contains(["api", "audit", "authenticator", "controllerManager", "scheduler"], log_type)
     ])
-    error_message = "Valid values for `log_types` are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`."
+    error_message = "Valid values for `logging.log_types` are `api`, `audit`, `authenticator`, `controllerManager`, `scheduler`."
   }
+}
+
+variable "irsa_oidc_provider" {
+  description = <<EOF
+  (Optional) A configuration for the IAM OIDC provider for the EKS cluster to use IAM Roles for Service Accounts (IRSA). `irsa_oidc_provider` as defined below.
+    (Optional) `enabled` - Whether to create the IAM OIDC provider for the EKS cluster. Defaults to `true`.
+  EOF
+  type = object({
+    enabled = optional(bool, true)
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "oidc_identity_providers" {
@@ -256,9 +391,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

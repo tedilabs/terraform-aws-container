@@ -1,6 +1,8 @@
 data "aws_default_tags" "this" {}
 
 data "aws_subnet" "selected" {
+  region = var.region
+
   id = var.subnets[0]
 }
 
@@ -25,12 +27,16 @@ resource "aws_ec2_tag" "cluster_security_group" {
     if !contains(["Name", "kubernetes.io/cluster/${local.metadata.name}"], k)
   }
 
+  region = var.region
+
   resource_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
   key         = each.key
   value       = each.value
 }
 
 resource "aws_vpc_security_group_ingress_rule" "node" {
+  region = var.region
+
   security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
   description       = "Allow nodes to communicate to the cluster security group(for fargate pods)."
 
@@ -50,6 +56,8 @@ resource "aws_vpc_security_group_ingress_rule" "node" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "pod" {
+  region = var.region
+
   security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
   description       = "Allow pods to communicate to the cluster security group(for fargate pods)."
 
@@ -75,7 +83,9 @@ resource "aws_vpc_security_group_ingress_rule" "pod" {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.32.0"
+  version = "~> 1.1.0"
+
+  region = var.region
 
   name        = "eks-${local.metadata.name}-control-plane"
   description = "Security Group for EKS Control Plane."
@@ -148,8 +158,10 @@ module "security_group__control_plane" {
   ]
 
   revoke_rules_on_delete = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     {
@@ -167,7 +179,9 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.32.0"
+  version = "~> 1.1.0"
+
+  region = var.region
 
   name        = "eks-${local.metadata.name}-node"
   description = "Security Group for all nodes in the EKS cluster."
@@ -252,8 +266,10 @@ module "security_group__node" {
   ]
 
   revoke_rules_on_delete = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     {
@@ -271,7 +287,9 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 0.32.0"
+  version = "~> 1.1.0"
+
+  region = var.region
 
   name        = "eks-${local.metadata.name}-pod"
   description = "Security Group for all pods in the EKS cluster."
@@ -338,8 +356,10 @@ module "security_group__pod" {
   ]
 
   revoke_rules_on_delete = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     {

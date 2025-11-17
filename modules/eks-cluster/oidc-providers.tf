@@ -8,6 +8,8 @@ resource "aws_eks_identity_provider_config" "this" {
     provider.name => provider
   }
 
+  region = var.region
+
   cluster_name = aws_eks_cluster.this.name
 
   oidc {

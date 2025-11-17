@@ -6,7 +6,7 @@ module "role" {
   count = var.default_cluster_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.30.0"
+  version = "~> 0.33.0"
 
   name = coalesce(
     var.default_cluster_role.name,
@@ -27,9 +27,11 @@ module "role" {
   )
   inline_policies = var.default_cluster_role.inline_policies
 
-  force_detach_policies  = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  force_detach_policies = true
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     local.module_tags,
@@ -46,7 +48,7 @@ module "role__node" {
   count = var.default_node_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.30.0"
+  version = "~> 0.33.0"
 
   name = coalesce(
     var.default_node_role.name,
@@ -74,9 +76,11 @@ module "role__node" {
     enabled = true
   }
 
-  force_detach_policies  = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  force_detach_policies = true
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     local.module_tags,
