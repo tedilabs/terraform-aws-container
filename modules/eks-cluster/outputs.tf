@@ -212,6 +212,22 @@ output "irsa_oidc_provider" {
   }
 }
 
+output "pod_identity_associations" {
+  description = "A map of all created Pod Identity Associations."
+  value = {
+    for key, assoc in aws_eks_pod_identity_association.this :
+    key => {
+      id                      = assoc.association_id
+      arn                     = assoc.association_arn
+      namespace               = assoc.namespace
+      service_account         = assoc.service_account
+      role                    = assoc.role_arn
+      target_role             = assoc.target_role_arn
+      session_tagging_enabled = !assoc.disable_session_tags
+    }
+  }
+}
+
 output "logging" {
   description = "The configurations of the control plane logging."
   value = {

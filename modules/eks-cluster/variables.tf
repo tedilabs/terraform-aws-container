@@ -335,6 +335,28 @@ variable "irsa_oidc_provider" {
   nullable = false
 }
 
+variable "pod_identity_associations" {
+  description = <<EOF
+  (Optional) A list of Pod Identity Associations to create for the EKS cluster. Each item of `pod_identity_associations` block as defined below.
+    (Required) `namespace` - The name of the Kubernetes namespace inside the cluster to create the association in. The service account and the pods that use the service account must be in this namespace.
+    (Required) `service_account` - The name of the Kubernetes service account inside the cluster to associate the IAM credentials with.
+    (Required) `role` - The ARN (Amazon Resource Name) of the IAM Role to associate with the service account. The EKS Pod Identity agent manages credentials to assume this role for applications in the containers in the pods that use this service account.
+    (Optional) `target_role` - The ARN (Amazon Resource Name) of the IAM Role to be chained to the the IAM role specified as `role`.
+    (Optional) `session_tagging_enabled` - Whether to enable the automatic sessions tags that are appended by EKS Pod Identity. EKS Pod Identity adds a pre-defined set of session tags when it assumes the role. You can use these tags to author a single role that can work across resources by allowing access to AWS resources based on matching tags. By default, EKS Pod Identity attaches six tags, including tags for cluster name, namespace, and service account name. Defaults to `true`.
+    (Optional) `tags` - A map of tags to add to the Pod Identity Association.
+  EOF
+  type = list(object({
+    namespace               = string
+    service_account         = string
+    role                    = string
+    target_role             = optional(string)
+    session_tagging_enabled = optional(bool, true)
+    tags                    = optional(map(string), {})
+  }))
+  default  = []
+  nullable = false
+}
+
 variable "oidc_identity_providers" {
   description = <<EOF
   (Optional) A list of OIDC Identity Providers to associate as an additional method for user authentication to your Kubernetes cluster. Each item of `oidc_identity_providers` block as defined below.
