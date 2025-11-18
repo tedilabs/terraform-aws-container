@@ -60,5 +60,7 @@ locals {
 ###################################################
 
 data "aws_ssm_parameter" "this" {
+  region = var.region
+
   name = local.parameter_name
 }

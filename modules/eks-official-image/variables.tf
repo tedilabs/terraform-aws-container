@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "kubernetes_version" {
   description = "(Required) Desired Kubernetes version to search the official EKS AMIs for the EKS cluster."
   type        = string

@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = data.aws_ssm_parameter.this.region
+}
+
 output "id" {
   description = "The ID of the EKS official AMI."
   value       = data.aws_ssm_parameter.this.insecure_value
