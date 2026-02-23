@@ -23,6 +23,20 @@ output "policy" {
   value       = one(aws_ecr_registry_policy.this[*].policy)
 }
 
+output "pull_time_update" {
+  description = "The configuration for pull time update in ECR registry."
+  value = {
+    excluded_principals = values(aws_ecr_pull_time_update_exclusion.this)[*].principal_arn
+  }
+}
+
+output "blob_mounting" {
+  description = "The configuration for blob mounting in ECR registry."
+  value = {
+    enabled = aws_ecr_account_setting.blob_mounting.value == "ENABLED"
+  }
+}
+
 output "replication_policies" {
   description = "A list of replication policies for ECR Registry."
   value       = var.replication_policies
