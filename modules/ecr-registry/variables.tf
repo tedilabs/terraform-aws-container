@@ -28,6 +28,30 @@ variable "policy" {
   nullable    = true
 }
 
+variable "pull_time_update" {
+  description = <<EOF
+  (Optional) A configuration for pull time update. `pull_time_update` as defined below.
+    (Optional) `excluded_principals` - One or more IAM principals to exclude from having image pull times recorded. Defaults to `[]`.
+  EOF
+  type = object({
+    excluded_principals = optional(set(string), [])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "blob_mounting" {
+  description = <<EOF
+  (Optional) A configuration for blob mounting. `blob_mounting` as defined below.
+    (Optional) `enabled` - Whether to enable blob mounting. Defaults to `false`. When enabled, repositories within a single registry can reference layers from other repositories within the same registry instead of storing duplicate copies. When registry blob mounting is enabled, Amazon ECR checks for existing layers in your registry during push operations when mounting parameters are included. If a layer already exists in another repository within the same registry, Amazon ECR will mount the existing layer instead of uploading a duplicate. Defaults to `false`.
+  EOF
+  type = object({
+    enabled = optional(bool, false)
+  })
+  default  = {}
+  nullable = false
+}
+
 variable "replication_policies" {
   description = <<EOF
   (Optional) A list of replication policies for ECR Registry. Each block of `replication_policies` as defined below.
