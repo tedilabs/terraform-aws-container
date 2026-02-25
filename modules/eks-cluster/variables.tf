@@ -264,6 +264,7 @@ variable "default_cluster_role" {
     (Optional) `description` - The description of the default cluster role.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default cluster role. `AmazonEKSClusterPolicy` is always attached. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default cluster role. (`name` => `policy`).
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default cluster role.
   EOF
   type = object({
     enabled     = optional(bool, true)
@@ -271,8 +272,9 @@ variable "default_cluster_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
-    policies        = optional(list(string), [])
-    inline_policies = optional(map(string), {})
+    policies             = optional(list(string), [])
+    inline_policies      = optional(map(string), {})
+    permissions_boundary = optional(string)
   })
   default  = {}
   nullable = false
@@ -287,6 +289,7 @@ variable "default_node_role" {
     (Optional) `description` - The description of the default node role.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`).
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default node role.
   EOF
   type = object({
     enabled     = optional(bool, false)
@@ -294,8 +297,9 @@ variable "default_node_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
-    policies        = optional(list(string), [])
-    inline_policies = optional(map(string), {})
+    policies             = optional(list(string), [])
+    inline_policies      = optional(map(string), {})
+    permissions_boundary = optional(string)
   })
   default  = {}
   nullable = false
