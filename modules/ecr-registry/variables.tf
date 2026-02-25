@@ -112,6 +112,7 @@ variable "default_pull_through_cache_role" {
     (Optional) `description` - The description of the default IAM role.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default IAM role. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default IAM role. (`name` => `policy`).
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default IAM role.
   EOF
   type = object({
     enabled     = optional(bool, true)
@@ -119,8 +120,9 @@ variable "default_pull_through_cache_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
-    policies        = optional(list(string), [])
-    inline_policies = optional(map(string), {})
+    policies             = optional(list(string), [])
+    inline_policies      = optional(map(string), {})
+    permissions_boundary = optional(string)
   })
   default  = {}
   nullable = false
