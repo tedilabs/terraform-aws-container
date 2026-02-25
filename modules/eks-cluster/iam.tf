@@ -27,6 +27,8 @@ module "role" {
   )
   inline_policies = var.default_cluster_role.inline_policies
 
+  permissions_boundary = var.default_cluster_role.permissions_boundary
+
   force_detach_policies = true
   resource_group = {
     enabled = false
@@ -71,6 +73,8 @@ module "role__node" {
     var.default_node_role.policies,
   )
   inline_policies = var.default_node_role.inline_policies
+
+  permissions_boundary = var.default_node_role.permissions_boundary
 
   instance_profile = {
     enabled = true

@@ -27,6 +27,8 @@ module "role" {
   )
   inline_policies = var.default_pod_execution_role.inline_policies
 
+  permissions_boundary = var.default_pod_execution_role.permissions_boundary
+
   force_detach_policies = true
   resource_group = {
     enabled = false

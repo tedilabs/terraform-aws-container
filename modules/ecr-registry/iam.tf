@@ -29,6 +29,8 @@ module "role__pull_through_cache" {
     var.default_pull_through_cache_role.inline_policies
   )
 
+  permissions_boundary = var.default_pull_through_cache_role.permissions_boundary
+
   force_detach_policies = true
   resource_group = {
     enabled = false
