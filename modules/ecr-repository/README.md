@@ -10,26 +10,26 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.50.0 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_ecr_lifecycle_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_lifecycle_policy) | resource |
 | [aws_ecr_repository.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) | resource |
 | [aws_ecr_repository_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository_policy) | resource |
@@ -38,7 +38,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_image_tag_mutability"></a> [image\_tag\_mutability](#input\_image\_tag\_mutability) | (Optional) The image tag mutability setting for the repository. `image_tag_mutability` as defined below.<br/>    (Optional) `mode` - The tag mutability setting for the repository. Valid values are `MUTABLE`, `IMMUTABLE`, `MUTABLE_WITH_EXCLUSION` and `IMMUTABLE_WITH_EXCLUSION`. Defaults to `MUTABLE`.<br/>    (Optional) `exclusion_filters` - A list of tag exclusion filters for the repository. Each block of `exclusion_filters` as defined below.<br/>      (Optional) `type` - The type of filter to use. The only supported value is `WILDCARD`. Defaults to `WILDCARD`.<br/><br/>      (Required) `value` - The filter pattern to use for excluding image tags from the mutability setting. | <pre>object({<br/>    mode = optional(string, "MUTABLE")<br/>    exclusion_filters = optional(list(object({<br/>      type  = optional(string, "WILDCARD")<br/>      value = string<br/>    })), [])<br/>  })</pre> | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) Desired name for the repository. | `string` | n/a | yes |
 | <a name="input_encryption"></a> [encryption](#input\_encryption) | (Optional) The encryption configuration of the repository. `encryption` as defined below.<br/>    (Optional) `type` - The encryption type to use for the repository. Valid values are `AES256` or `KMS`. Defaults to `AES256`.<br/>    (Optional) `kms_key` - The ARN of the KMS key to use for encryption of the repository when `type` is `KMS`. If not specified, uses the default AWS managed key for ECR. | <pre>object({<br/>    type    = optional(string, "AES256")<br/>    kms_key = optional(string)<br/>  })</pre> | `{}` | no |
@@ -54,7 +54,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the repository. |
 | <a name="output_encryption"></a> [encryption](#output\_encryption) | The encryption configuration of the repository. |
 | <a name="output_image_scan_on_push_enabled"></a> [image\_scan\_on\_push\_enabled](#output\_image\_scan\_on\_push\_enabled) | Whether to scan image on push. |

@@ -78,6 +78,8 @@ resource "aws_ecr_repository_policy" "this" {
 ###################################################
 
 data "aws_ecr_lifecycle_policy_document" "this" {
+  count = length(var.lifecycle_rules) > 0 ? 1 : 0
+
   dynamic "rule" {
     for_each = var.lifecycle_rules
 
@@ -122,5 +124,5 @@ resource "aws_ecr_lifecycle_policy" "this" {
   region = var.region
 
   repository = aws_ecr_repository.this.name
-  policy     = data.aws_ecr_lifecycle_policy_document.this.json
+  policy     = data.aws_ecr_lifecycle_policy_document.this[0].json
 }
