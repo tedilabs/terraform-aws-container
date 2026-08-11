@@ -41,6 +41,8 @@ variable "image_tag_mutability" {
       value = string
     })), [])
   })
+  default  = {}
+  nullable = false
 
   validation {
     condition     = contains(["MUTABLE", "IMMUTABLE", "MUTABLE_WITH_EXCLUSION", "IMMUTABLE_WITH_EXCLUSION"], var.image_tag_mutability.mode)
