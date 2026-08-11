@@ -12,7 +12,7 @@ data "aws_caller_identity" "this" {}
 module "registry" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.20.0"
+  # version = "~> 0.27.0"
 
   ## Replication
   replication_destinations = []

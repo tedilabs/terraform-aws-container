@@ -20,7 +20,7 @@ data "aws_caller_identity" "dst" {
 module "registry_src" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.20.0"
+  # version = "~> 0.27.0"
 
   replication_destinations = [
     {
@@ -33,7 +33,7 @@ module "registry_src" {
 module "registry_dst" {
   source = "../../modules/ecr-registry"
   # source  = "tedilabs/container/aws//modules/ecr-registry"
-  # version = "~> 0.20.0"
+  # version = "~> 0.27.0"
 
   providers = {
     aws = aws.dst
