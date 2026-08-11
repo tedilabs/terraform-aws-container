@@ -16,17 +16,27 @@ module "repository" {
 
   lifecycle_rules = [
     {
-      priority         = 10
-      description      = "Keep tagged 100 images."
-      type             = "tagged"
-      tag_prefixes     = ["v"]
-      expiration_count = 100
+      priority    = 10
+      description = "Keep tagged 100 images."
+
+      target = {
+        status       = "tagged"
+        tag_prefixes = ["v"]
+      }
+      expiration = {
+        count = 100
+      }
     },
     {
-      priority        = 20
-      description     = "Expire untagged images older than 1 days."
-      type            = "any"
-      expiration_days = 1
+      priority    = 20
+      description = "Expire untagged images older than 1 days."
+
+      target = {
+        status = "any"
+      }
+      expiration = {
+        days = 1
+      }
     },
   ]
 

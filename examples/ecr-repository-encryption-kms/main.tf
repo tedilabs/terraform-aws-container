@@ -15,8 +15,10 @@ module "repository" {
   name = "examples/simple"
 
   # Use default AWS-managed KMS key `aws/ecr`
-  encryption_type    = "KMS"
-  encryption_kms_key = null
+  encryption = {
+    type    = "KMS"
+    kms_key = null
+  }
 
   tags = {
     "project" = "terraform-aws-container-examples"

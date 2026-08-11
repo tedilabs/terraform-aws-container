@@ -22,10 +22,14 @@ module "registry_src" {
   # source  = "tedilabs/container/aws//modules/ecr-registry"
   # version = "~> 0.27.0"
 
-  replication_destinations = [
+  replication_rules = [
     {
-      registry_id = module.registry_dst.id
-      region      = "us-east-2"
+      destinations = [
+        {
+          account = module.registry_dst.id
+          region  = "us-east-2"
+        }
+      ]
     }
   ]
 }
@@ -41,7 +45,7 @@ module "registry_dst" {
 
   replication_policies = [
     {
-      account_id              = data.aws_caller_identity.src.account_id
+      account                 = data.aws_caller_identity.src.account_id
       allow_create_repository = true
       repositories            = ["allowed/*"]
     }

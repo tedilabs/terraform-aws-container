@@ -15,10 +15,10 @@ module "registry" {
   # version = "~> 0.27.0"
 
   ## Replication
-  replication_destinations = []
+  replication_rules = []
   replication_policies = [
     {
-      account_id              = data.aws_caller_identity.this.account_id
+      account                 = data.aws_caller_identity.this.account_id
       allow_create_repository = true
       repositories            = ["allowed/*"]
     }
@@ -50,7 +50,20 @@ module "registry" {
   ]
 
   ## Scanning
-  scanning_type               = "ENHANCED"
-  scanning_on_push_filters    = ["quay/*", "sre/*"]
-  scanning_continuous_filters = ["example/example"]
+  scanning_type = "ENHANCED"
+  scanning_rules = [
+    {
+      frequency = "SCAN_ON_PUSH"
+      filters = [
+        { value = "quay/*" },
+        { value = "sre/*" },
+      ]
+    },
+    {
+      frequency = "CONTINUOUS_SCAN"
+      filters = [
+        { value = "example/example" },
+      ]
+    },
+  ]
 }

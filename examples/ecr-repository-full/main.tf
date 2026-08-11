@@ -42,27 +42,42 @@ module "repository" {
 
   name = "examples/simple"
 
-  force_delete                = true
-  image_tag_immutable_enabled = true
-  image_scan_on_push_enabled  = false
+  force_delete               = true
+  image_scan_on_push_enabled = false
 
-  encryption_type    = "KMS"
-  encryption_kms_key = null
+  image_tag_mutability = {
+    mode = "IMMUTABLE"
+  }
 
-  repository_policy = data.aws_iam_policy_document.ecr_repository_policy.json
+  encryption = {
+    type    = "KMS"
+    kms_key = null
+  }
+
+  policy = data.aws_iam_policy_document.ecr_repository_policy.json
   lifecycle_rules = [
     {
-      priority         = 10
-      description      = "Keep tagged 100 images."
-      type             = "tagged"
-      tag_prefixes     = ["v"]
-      expiration_count = 100
+      priority    = 10
+      description = "Keep tagged 100 images."
+
+      target = {
+        status       = "tagged"
+        tag_prefixes = ["v"]
+      }
+      expiration = {
+        count = 100
+      }
     },
     {
-      priority        = 20
-      description     = "Expire untagged images older than 1 days."
-      type            = "any"
-      expiration_days = 1
+      priority    = 20
+      description = "Expire untagged images older than 1 days."
+
+      target = {
+        status = "any"
+      }
+      expiration = {
+        days = 1
+      }
     },
   ]
 

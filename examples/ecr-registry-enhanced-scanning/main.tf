@@ -12,7 +12,20 @@ module "registry" {
   # source  = "tedilabs/container/aws//modules/ecr-registry"
   # version = "~> 0.27.0"
 
-  scanning_type               = "ENHANCED"
-  scanning_on_push_filters    = ["quay/*", "sre/*"]
-  scanning_continuous_filters = ["example/example"]
+  scanning_type = "ENHANCED"
+  scanning_rules = [
+    {
+      frequency = "SCAN_ON_PUSH"
+      filters = [
+        { value = "quay/*" },
+        { value = "sre/*" },
+      ]
+    },
+    {
+      frequency = "CONTINUOUS_SCAN"
+      filters = [
+        { value = "example/example" },
+      ]
+    },
+  ]
 }
