@@ -9,33 +9,33 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_eks_access_entry.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_entry) | resource |
 | [aws_eks_access_policy_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_policy_association) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | (Required) The name of the Amazon EKS cluster to create IAM access entries. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) The name of the Amazon EKS access entry. | `string` | n/a | yes |
 | <a name="input_principal"></a> [principal](#input\_principal) | (Required) The ARN of one, and only one, existing IAM principal to grant access to Kubernetes objects on the cluster. An IAM principal can't be included in more than one access entry. | `string` | n/a | yes |
@@ -52,7 +52,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of the EKS access entry. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the EKS cluster. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Date and time in RFC3339 format that the EKS access entry was created. |

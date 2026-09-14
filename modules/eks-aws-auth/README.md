@@ -8,15 +8,15 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.38.0 |
+| ---- | ------- |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0 |
 
 ## Modules
 
@@ -25,13 +25,13 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [kubernetes_config_map.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_fargate_profile_roles"></a> [fargate\_profile\_roles](#input\_fargate\_profile\_roles) | (Optional) A list of ARNs of AWS IAM Roles for EKS fargate profiles. | `list(string)` | `[]` | no |
 | <a name="input_map_accounts"></a> [map\_accounts](#input\_map\_accounts) | (Optional) AWS account numbers to automatically map IAM ARNs from. | `list(string)` | `[]` | no |
 | <a name="input_map_roles"></a> [map\_roles](#input\_map\_roles) | (Optional) Additional mapping for IAM roles and Kubernetes RBAC. | <pre>list(object({<br/>    iam_role = string<br/>    username = string<br/>    groups   = optional(list(string), [])<br/>  }))</pre> | `[]` | no |
@@ -41,6 +41,6 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_config_map"></a> [config\_map](#output\_config\_map) | The data of `kube-system/aws-auth` ConfigMap. |
 <!-- END_TF_DOCS -->

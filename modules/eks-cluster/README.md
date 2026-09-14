@@ -18,7 +18,7 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.15 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.1 |
@@ -26,25 +26,25 @@ This module creates following resources.
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.15 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_oidc_provider"></a> [oidc\_provider](#module\_oidc\_provider) | tedilabs/account/aws//modules/iam-oidc-identity-provider | ~> 0.33.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_role"></a> [role](#module\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 | <a name="module_role__node"></a> [role\_\_node](#module\_role\_\_node) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
-| <a name="module_security_group__control_plane"></a> [security\_group\_\_control\_plane](#module\_security\_group\_\_control\_plane) | tedilabs/network/aws//modules/security-group | ~> 1.1.0 |
-| <a name="module_security_group__node"></a> [security\_group\_\_node](#module\_security\_group\_\_node) | tedilabs/network/aws//modules/security-group | ~> 1.1.0 |
-| <a name="module_security_group__pod"></a> [security\_group\_\_pod](#module\_security\_group\_\_pod) | tedilabs/network/aws//modules/security-group | ~> 1.1.0 |
+| <a name="module_security_group__control_plane"></a> [security\_group\_\_control\_plane](#module\_security\_group\_\_control\_plane) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
+| <a name="module_security_group__node"></a> [security\_group\_\_node](#module\_security\_group\_\_node) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
+| <a name="module_security_group__pod"></a> [security\_group\_\_pod](#module\_security\_group\_\_pod) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_ec2_tag.cluster_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_tag) | resource |
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster) | resource |
 | [aws_eks_identity_provider_config.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_identity_provider_config) | resource |
@@ -58,7 +58,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) Name of the EKS cluster. Must be between 1-100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores. | `string` | n/a | yes |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | (Required) A list of subnet IDs. Must be in at least two different availability zones. Amazon EKS creates cross-account elastic network interfaces in these subnets to allow communication between your worker nodes and the Kubernetes control plane. | `list(string)` | n/a | yes |
 | <a name="input_additional_security_groups"></a> [additional\_security\_groups](#input\_additional\_security\_groups) | (Optional) A list of additional security group IDs to associate with the Kubernetes API server endpoint. The cluster security group always attached to the endpoint. You can specify additional security groups to use for the endpoint using this argument. Defaults to `[]`. | `list(string)` | `[]` | no |
@@ -68,8 +68,8 @@ This module creates following resources.
 | <a name="input_bootstrap_cluster_creator_admin_access"></a> [bootstrap\_cluster\_creator\_admin\_access](#input\_bootstrap\_cluster\_creator\_admin\_access) | (Optional) Whether to set the cluster creator IAM principal as a cluster admin access entry during cluster creation time. Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_bootstrap_self_managed_addons"></a> [bootstrap\_self\_managed\_addons](#input\_bootstrap\_self\_managed\_addons) | (Optional) Whether to install the self-managed core add-ons (kube-proxy, CoreDNS, and VPC CNI) during cluster creation time. If false, you must manually install desired add-ons. Changing this value will force a new cluster to be created. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_cluster_role"></a> [cluster\_role](#input\_cluster\_role) | (Optional) The ARN (Amazon Resource Name) of the IAM Role for the EKS cluster role. Only required if `default_cluster_role.enabled` is `false`. | `string` | `null` | no |
-| <a name="input_default_cluster_role"></a> [default\_cluster\_role](#input\_default\_cluster\_role) | (Optional) A configuration for the default IAM role for EKS cluster. Use `cluster_role` if `default_cluster_role.enabled` is `false`. `default_cluster_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default cluster role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default cluster role. Defaults to `eks-${var.name}-cluster`.<br/>    (Optional) `path` - The path of the default cluster role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default cluster role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default cluster role. `AmazonEKSClusterPolicy` is always attached. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default cluster role. (`name` => `policy`). | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies        = optional(list(string), [])<br/>    inline_policies = optional(map(string), {})<br/>  })</pre> | `{}` | no |
-| <a name="input_default_node_role"></a> [default\_node\_role](#input\_default\_node\_role) | (Optional) A configuration for the default IAM role for EKS nodes. `default_node_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default node role. Defaults to `false`.<br/>    (Optional) `name` - The name of the default node role. Defaults to `eks-${var.name}-node`.<br/>    (Optional) `path` - The path of the default node role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default node role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`). | <pre>object({<br/>    enabled     = optional(bool, false)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies        = optional(list(string), [])<br/>    inline_policies = optional(map(string), {})<br/>  })</pre> | `{}` | no |
+| <a name="input_default_cluster_role"></a> [default\_cluster\_role](#input\_default\_cluster\_role) | (Optional) A configuration for the default IAM role for EKS cluster. Use `cluster_role` if `default_cluster_role.enabled` is `false`. `default_cluster_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default cluster role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default cluster role. Defaults to `eks-${var.name}-cluster`.<br/>    (Optional) `path` - The path of the default cluster role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default cluster role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default cluster role. `AmazonEKSClusterPolicy` is always attached. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default cluster role. (`name` => `policy`).<br/>    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default cluster role. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies             = optional(list(string), [])<br/>    inline_policies      = optional(map(string), {})<br/>    permissions_boundary = optional(string)<br/>  })</pre> | `{}` | no |
+| <a name="input_default_node_role"></a> [default\_node\_role](#input\_default\_node\_role) | (Optional) A configuration for the default IAM role for EKS nodes. `default_node_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default node role. Defaults to `false`.<br/>    (Optional) `name` - The name of the default node role. Defaults to `eks-${var.name}-node`.<br/>    (Optional) `path` - The path of the default node role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default node role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`).<br/>    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default node role. | <pre>object({<br/>    enabled     = optional(bool, false)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies             = optional(list(string), [])<br/>    inline_policies      = optional(map(string), {})<br/>    permissions_boundary = optional(string)<br/>  })</pre> | `{}` | no |
 | <a name="input_deletion_protection_enabled"></a> [deletion\_protection\_enabled](#input\_deletion\_protection\_enabled) | (Optional) Whether to enable deletion protection for the cluster. When deletion protection is enabled, the cluster cannot be deleted unless this property is set to `false`. Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_endpoint_access"></a> [endpoint\_access](#input\_endpoint\_access) | (Optional) A configuration for the endpoint access to the Kubernetes API server endpoint. `endpoint_access` as defined below.<br/>    (Optional) `private_access_enabled` - Whether to enable private access for your cluster's Kubernetes API server endpoint. If you enable private access, Kubernetes API requests from within your cluster's VPC use the private VPC endpoint. Defaults to `true`. If you disable private access and you have nodes or Fargate pods in the cluster, then ensure that `public_access_cidrs` includes the necessary CIDR blocks for communication with the nodes or Fargate pods.<br/>    (Optional) `private_access_cidrs` - A list of allowed CIDR to communicate to the Amazon EKS private API server endpoint.<br/>    (Optional) `private_access_security_groups` - A list of allowed source security group to communicate to the Amazon EKS private API server endpoint.<br/>    (Optional) `public_access_enabled` - Whether to enable public access to your cluster's Kubernetes API server endpoint. If you disable public access, your cluster's Kubernetes API server can only receive requests from within the cluster VPC. Defaults to `false`.<br/>    (Optional) `public_access_cidrs` - A list of CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint. Defaults to `0.0.0.0/0` . | <pre>object({<br/>    private_access_enabled         = optional(bool, true)<br/>    private_access_cidrs           = optional(list(string), [])<br/>    private_access_security_groups = optional(list(string), [])<br/><br/>    public_access_enabled = optional(bool, false)<br/>    public_access_cidrs   = optional(list(string), ["0.0.0.0/0"])<br/>  })</pre> | `{}` | no |
 | <a name="input_irsa_oidc_provider"></a> [irsa\_oidc\_provider](#input\_irsa\_oidc\_provider) | (Optional) A configuration for the IAM OIDC provider for the EKS cluster to use IAM Roles for Service Accounts (IRSA). `irsa_oidc_provider` as defined below.<br/>    (Optional) `enabled` - Whether to create the IAM OIDC provider for the EKS cluster. Defaults to `true`. | <pre>object({<br/>    enabled = optional(bool, true)<br/>  })</pre> | `{}` | no |
@@ -91,7 +91,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_additional_security_groups"></a> [additional\_security\_groups](#output\_additional\_security\_groups) | The list of additional security groups for the EKS control plane. |
 | <a name="output_arc_zonal_shift"></a> [arc\_zonal\_shift](#output\_arc\_zonal\_shift) | The configurations of ARC zonal shift for the EKS cluster. |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the cluster. |

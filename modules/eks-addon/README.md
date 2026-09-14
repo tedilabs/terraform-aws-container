@@ -8,26 +8,26 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_eks_addon.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
 | [aws_eks_addon_version.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.latest](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
@@ -36,7 +36,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | (Required) The name of the Amazon EKS cluster to add the EKS add-on to. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) The name of the EKS add-on. | `string` | n/a | yes |
 | <a name="input_addon_version"></a> [addon\_version](#input\_addon\_version) | (Optional) The version of the add-on. If not provided, this is configured with default compatibile version for the respective EKS cluster version. | `string` | `null` | no |
@@ -55,7 +55,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the EKS add-on. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the EKS cluster. |
 | <a name="output_configuration"></a> [configuration](#output\_configuration) | The set of configuration values for the add-on. |
