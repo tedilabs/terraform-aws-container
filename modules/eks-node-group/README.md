@@ -9,28 +9,28 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_eks_max_pods"></a> [eks\_max\_pods](#module\_eks\_max\_pods) | ../eks-max-pods | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.0.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_autoscaling_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
 | [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_default_tags.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
@@ -39,7 +39,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | (Required) Name of the EKS cluster. | `string` | n/a | yes |
 | <a name="input_instance_ami"></a> [instance\_ami](#input\_instance\_ami) | (Required) The AMI to run on each instance in the EKS cluster node group. | `string` | n/a | yes |
 | <a name="input_instance_profile"></a> [instance\_profile](#input\_instance\_profile) | (Required) The name attribute of the IAM instance profile to associate with launched instances. | `string` | n/a | yes |
@@ -78,7 +78,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_asg_arn"></a> [asg\_arn](#output\_asg\_arn) | The ARN of ASG(Auto-Scaling Group). |
 | <a name="output_asg_id"></a> [asg\_id](#output\_asg\_id) | The ID of ASG(Auto-Scaling Group). |
 | <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | The name of ASG(Auto-Scaling Group). |

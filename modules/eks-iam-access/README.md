@@ -9,7 +9,7 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
@@ -20,7 +20,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_node"></a> [node](#module\_node) | ../eks-access-entry | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_user"></a> [user](#module\_user) | ../eks-access-entry | n/a |
@@ -32,7 +32,7 @@ No resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | (Required) The name of the Amazon EKS cluster to create IAM access entries. | `string` | n/a | yes |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_node_access_entries"></a> [node\_access\_entries](#input\_node\_access\_entries) | (Optional) A list of configurations for EKS access entries for nodes (EC2 instances, Fargate) that are allowed to access the EKS cluster. Each item of `node_access_entries` block as defined below.<br/>    (Required) `name` - A unique name for the access entry. This value is only used internally within Terraform code.<br/>    (Required) `type` - The type of the access entry. Valid values are `EC2`, `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, `HYBRID_LINUX`, `HYPERPOD_LINUX`.<br/>    (Required) `principal` - The ARN of one, and only one, existing IAM principal to grant access to Kubernetes objects on the cluster. An IAM principal can't be included in more than one access entry. | <pre>list(object({<br/>    name      = string<br/>    type      = string<br/>    principal = string<br/>  }))</pre> | `[]` | no |
@@ -45,7 +45,7 @@ No resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the EKS cluster. |
 | <a name="output_node_access_entries"></a> [node\_access\_entries](#output\_node\_access\_entries) | The list of configurations for EKS access entries for nodes (EC2 instances, Fargate). |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |

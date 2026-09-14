@@ -12,27 +12,27 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.32 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.33.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.32 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_role__pull_through_cache"></a> [role\_\_pull\_through\_cache](#module\_role\_\_pull\_through\_cache) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_ecr_account_setting.basic_scan_type_version](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_account_setting) | resource |
 | [aws_ecr_account_setting.blob_mounting](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_account_setting) | resource |
 | [aws_ecr_account_setting.registry_policy_scope](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_account_setting) | resource |
@@ -51,9 +51,9 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_blob_mounting"></a> [blob\_mounting](#input\_blob\_mounting) | (Optional) A configuration for blob mounting. `blob_mounting` as defined below.<br/>    (Optional) `enabled` - Whether to enable blob mounting. Defaults to `false`. When enabled, repositories within a single registry can reference layers from other repositories within the same registry instead of storing duplicate copies. When registry blob mounting is enabled, Amazon ECR checks for existing layers in your registry during push operations when mounting parameters are included. If a layer already exists in another repository within the same registry, Amazon ECR will mount the existing layer instead of uploading a duplicate. Defaults to `false`. | <pre>object({<br/>    enabled = optional(bool, false)<br/>  })</pre> | `{}` | no |
-| <a name="input_default_pull_through_cache_role"></a> [default\_pull\_through\_cache\_role](#input\_default\_pull\_through\_cache\_role) | (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default IAM role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default IAM role. Defaults to `ecr-pull-through-cache-${account-id}`.<br/>    (Optional) `path` - The path of the default IAM role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default IAM role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default IAM role. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default IAM role. (`name` => `policy`). | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies        = optional(list(string), [])<br/>    inline_policies = optional(map(string), {})<br/>  })</pre> | `{}` | no |
+| <a name="input_default_pull_through_cache_role"></a> [default\_pull\_through\_cache\_role](#input\_default\_pull\_through\_cache\_role) | (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default IAM role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default IAM role. Defaults to `ecr-pull-through-cache-${account-id}`.<br/>    (Optional) `path` - The path of the default IAM role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default IAM role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default IAM role. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default IAM role. (`name` => `policy`).<br/>    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default IAM role. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies             = optional(list(string), [])<br/>    inline_policies      = optional(map(string), {})<br/>    permissions_boundary = optional(string)<br/>  })</pre> | `{}` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | (Optional) The policy document for ECR registry. This is a JSON formatted string. | `string` | `null` | no |
 | <a name="input_policy_version"></a> [policy\_version](#input\_policy\_version) | (Optional) The policy version of ECR registry. Valid values are `V1` or `V2`. Defaults to `V2`.<br/>    `V1` - Only support three actions: `ReplicateImage`, `BatchImportUpstreamImage`, and `CreateRepository`<br/>    `V2` - Support all ECR actions in the policy and enforce the registry policy in all ECR requests | `string` | `"V2"` | no |
@@ -72,7 +72,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_blob_mounting"></a> [blob\_mounting](#output\_blob\_mounting) | The configuration for blob mounting in ECR registry. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the registry. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the registry. |
