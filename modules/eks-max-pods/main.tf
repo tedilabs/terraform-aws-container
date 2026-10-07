@@ -1,3 +1,13 @@
+locals {
+  metadata = {
+    package = "terraform-aws-container"
+    version = trimspace(file("${path.module}/../../VERSION"))
+    module  = basename(path.module)
+    name    = null
+  }
+}
+
+
 # Maximum number of pods per instance type. See the docs and calculations below.
 # https://docs.aws.amazon.com/eks/latest/userguide/pod-networking.html
 # https://docs.aws.amazon.com/eks/latest/userguide/cni-custom-network.html
