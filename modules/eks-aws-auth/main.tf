@@ -1,4 +1,11 @@
 locals {
+  metadata = {
+    package = "terraform-aws-container"
+    version = trimspace(file("${path.module}/../../VERSION"))
+    module  = basename(path.module)
+    name    = null
+  }
+
   map_roles = concat(
     [
       for role in var.node_roles : {
