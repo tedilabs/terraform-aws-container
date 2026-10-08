@@ -10,7 +10,6 @@ Terraform module which creates resources for container services on AWS.
 - [ecr-repository](./modules/ecr-repository)
 - [eks-access-entry](./modules/eks-access-entry)
 - [eks-addon](./modules/eks-addon)
-- [eks-aws-auth](./modules/eks-aws-auth)
 - [eks-cluster](./modules/eks-cluster)
 - [eks-fargate-profile](./modules/eks-fargate-profile)
 - [eks-iam-access](./modules/eks-iam-access)
