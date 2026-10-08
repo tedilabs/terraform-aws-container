@@ -3,7 +3,7 @@ locals {
     package = "terraform-aws-container"
     version = trimspace(file("${path.module}/../../VERSION"))
     module  = basename(path.module)
-    name    = var.name
+    name    = "${var.cluster_name}/${var.name}"
   }
   module_tags = var.module_tags_enabled ? {
     "module.terraform.io/package"   = local.metadata.package
@@ -19,7 +19,7 @@ data "aws_default_tags" "this" {}
 locals {
   tags = merge(
     {
-      "Name"                                      = local.metadata.name
+      "Name"                                      = var.name
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     },
     local.module_tags,
