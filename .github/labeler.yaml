@@ -19,11 +19,6 @@
   - any-glob-to-any-file:
     - modules/eks-addon/**/*
 
-":floppy_disk: eks-aws-auth":
-- changed-files:
-  - any-glob-to-any-file:
-    - modules/eks-aws-auth/**/*
-
 ":floppy_disk: eks-cluster":
 - changed-files:
   - any-glob-to-any-file:
