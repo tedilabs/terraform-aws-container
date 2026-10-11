@@ -4,7 +4,7 @@
 
 module "oidc_provider" {
   source  = "tedilabs/account/aws//modules/iam-oidc-identity-provider"
-  version = "~> 0.33.0"
+  version = "~> 0.34.0"
 
   count = var.irsa_oidc_provider.enabled ? 1 : 0
 
@@ -22,4 +22,8 @@ module "oidc_provider" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }
