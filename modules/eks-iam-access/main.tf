@@ -51,6 +51,10 @@ module "node" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }
 
 
@@ -97,4 +101,8 @@ module "user" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }

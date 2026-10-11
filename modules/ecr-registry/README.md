@@ -27,8 +27,8 @@ This module creates following resources.
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
-| <a name="module_role__pull_through_cache"></a> [role\_\_pull\_through\_cache](#module\_role\_\_pull\_through\_cache) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.13.0 |
+| <a name="module_role__pull_through_cache"></a> [role\_\_pull\_through\_cache](#module\_role\_\_pull\_through\_cache) | tedilabs/account/aws//modules/iam-role | ~> 0.34.0 |
 
 ## Resources
 

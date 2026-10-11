@@ -17,7 +17,7 @@ locals {
 
 module "security_group" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 1.2.0"
+  version = "~> 1.3.0"
 
   count = var.default_security_group.enabled ? 1 : 0
 
@@ -50,4 +50,8 @@ module "security_group" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }

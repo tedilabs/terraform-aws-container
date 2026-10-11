@@ -83,7 +83,7 @@ resource "aws_vpc_security_group_ingress_rule" "pod" {
 
 module "security_group__control_plane" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 1.2.0"
+  version = "~> 1.3.0"
 
   region = var.region
 
@@ -170,6 +170,10 @@ module "security_group__control_plane" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }
 
 
@@ -179,7 +183,7 @@ module "security_group__control_plane" {
 
 module "security_group__node" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 1.2.0"
+  version = "~> 1.3.0"
 
   region = var.region
 
@@ -278,6 +282,10 @@ module "security_group__node" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }
 
 
@@ -287,7 +295,7 @@ module "security_group__node" {
 
 module "security_group__pod" {
   source  = "tedilabs/network/aws//modules/security-group"
-  version = "~> 1.2.0"
+  version = "~> 1.3.0"
 
   region = var.region
 
@@ -368,4 +376,8 @@ module "security_group__pod" {
     local.module_tags,
     var.tags,
   )
+
+  telemetry = {
+    enabled = false
+  }
 }

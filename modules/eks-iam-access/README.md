@@ -23,7 +23,7 @@ No providers.
 | Name | Source | Version |
 | ---- | ------ | ------- |
 | <a name="module_node"></a> [node](#module\_node) | ../eks-access-entry | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.13.0 |
 | <a name="module_user"></a> [user](#module\_user) | ../eks-access-entry | n/a |
 
 ## Resources
