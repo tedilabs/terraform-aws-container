@@ -21,6 +21,8 @@ module "role__pull_through_cache" {
     },
   ]
 
+  assumable_roles = var.default_pull_through_cache_role.assumable_roles
+
   policies = var.default_pull_through_cache_role.policies
   inline_policies = merge(
     {
