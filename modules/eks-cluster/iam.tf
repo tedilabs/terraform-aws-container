@@ -21,6 +21,8 @@ module "role" {
     }
   ]
 
+  assumable_roles = var.default_cluster_role.assumable_roles
+
   policies = concat(
     ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"],
     var.default_cluster_role.policies,
@@ -68,6 +70,8 @@ module "role__node" {
       services = ["ec2.amazonaws.com"]
     }
   ]
+
+  assumable_roles = var.default_node_role.assumable_roles
 
   policies = concat(
     [

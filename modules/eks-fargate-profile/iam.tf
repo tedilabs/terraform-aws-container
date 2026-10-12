@@ -21,6 +21,8 @@ module "role" {
     }
   ]
 
+  assumable_roles = var.default_pod_execution_role.assumable_roles
+
   policies = concat(
     ["arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"],
     var.default_pod_execution_role.policies,

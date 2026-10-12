@@ -262,6 +262,7 @@ variable "default_cluster_role" {
     (Optional) `name` - The name of the default cluster role. Defaults to `eks-$${var.name}-cluster`.
     (Optional) `path` - The path of the default cluster role. Defaults to `/`.
     (Optional) `description` - The description of the default cluster role.
+    (Optional) `assumable_roles` - A set of IAM role ARNs that can be assumed by this role. Defaults to `[]`.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default cluster role. `AmazonEKSClusterPolicy` is always attached. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default cluster role. (`name` => `policy`).
     (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default cluster role.
@@ -272,6 +273,7 @@ variable "default_cluster_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
+    assumable_roles      = optional(set(string), [])
     policies             = optional(list(string), [])
     inline_policies      = optional(map(string), {})
     permissions_boundary = optional(string)
@@ -287,6 +289,7 @@ variable "default_node_role" {
     (Optional) `name` - The name of the default node role. Defaults to `eks-$${var.name}-node`.
     (Optional) `path` - The path of the default node role. Defaults to `/`.
     (Optional) `description` - The description of the default node role.
+    (Optional) `assumable_roles` - A set of IAM role ARNs that can be assumed by this role. Defaults to `[]`.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default node role. `AmazonEKSWorkerNodePolicy`, `AmazonEC2ContainerRegistryReadOnly` are always attached. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default node role. (`name` => `policy`).
     (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default node role.
@@ -297,6 +300,7 @@ variable "default_node_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
+    assumable_roles      = optional(set(string), [])
     policies             = optional(list(string), [])
     inline_policies      = optional(map(string), {})
     permissions_boundary = optional(string)
