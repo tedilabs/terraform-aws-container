@@ -3,11 +3,8 @@ data "aws_subnet" "this" {
 }
 
 locals {
-  vpc_id = data.aws_subnet.this.vpc_id
-  security_groups = (var.default_security_group.enabled
-    ? concat(module.security_group[*].id, var.security_groups)
-    : var.security_groups
-  )
+  vpc_id          = data.aws_subnet.this.vpc_id
+  security_groups = concat(module.security_group[*].id, var.security_groups)
 }
 
 
