@@ -1,4 +1,6 @@
 data "aws_subnet" "this" {
+  region = var.region
+
   id = var.subnet_ids[0]
 }
 
