@@ -58,7 +58,7 @@ locals {
 resource "aws_ecr_pull_through_cache_rule" "this" {
   for_each = {
     for rule in var.pull_through_cache_rules :
-    coalesce(rule.namespace, local.default_namespaces[rule.upstream_url]) => rule
+    coalesce(rule.namespace, lookup(local.default_namespaces, rule.upstream_url, null)) => rule
   }
 
   region = var.region
