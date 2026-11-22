@@ -74,7 +74,7 @@ variable "selectors" {
 }
 
 variable "timeouts" {
-  description = "(Optional) How long to wait for the EKS Fargate Profile to be created/updated/deleted."
+  description = "(Optional) How long to wait for the EKS Fargate Profile to be created/deleted."
   type = object({
     create = optional(string, "10m")
     delete = optional(string, "10m")

@@ -95,5 +95,5 @@ This module creates following resources.
 | <a name="output_name"></a> [name](#output\_name) | The name of the node group. |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
 | <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group created to manage resources in this module. |
-| <a name="output_security_groups"></a> [security\_groups](#output\_security\_groups) | A set of security group IDs which is assigned to the load balancer. |
+| <a name="output_security_groups"></a> [security\_groups](#output\_security\_groups) | A set of security group IDs which is assigned to the node group instances. |
 <!-- END_TF_DOCS -->

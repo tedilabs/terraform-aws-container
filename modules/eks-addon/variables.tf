@@ -98,7 +98,7 @@ variable "pod_identity_associations" {
 }
 
 variable "timeouts" {
-  description = "(Optional) How long to wait for the EKS Fargate Profile to be created/updated/deleted."
+  description = "(Optional) How long to wait for the EKS add-on to be created/updated/deleted."
   type = object({
     create = optional(string, "20m")
     update = optional(string, "20m")

@@ -105,7 +105,7 @@ variable "replication_rules" {
 
 variable "default_pull_through_cache_role" {
   description = <<EOF
-  (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.
+  (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].credential.iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.
     (Optional) `enabled` - Whether to create the default IAM role. Defaults to `true`.
     (Optional) `name` - The name of the default IAM role. Defaults to `ecr-pull-through-cache-$${account-id}`.
     (Optional) `path` - The path of the default IAM role. Defaults to `/`.
