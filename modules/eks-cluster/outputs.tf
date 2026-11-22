@@ -135,16 +135,19 @@ output "outpost_config" {
 
 output "kubernetes_network_config" {
   description = <<EOF
-  The configurations of Kubernetes network.
+  The configurations of Kubernetes network. `null` if `outpost_config` is configured.
     `service_ipv4_cidr` - The IPv4 CIDR block which is assigned to Kubernetes service IP addresses.
     `service_ipv6_cidr` - The IPv6 CIDR block that Kubernetes pod and service IP addresses are assigned from if you specified `IPV6` for `ip_family` when you created the cluster. Kubernetes assigns service addresses from the unique local address range (fc00::/7) because you can't specify a custom IPv6 CIDR block when you create the cluster.
     `ip_family` - The IP family used to assign Kubernetes pod and service addresses.
   EOF
-  value = {
-    service_ipv4_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
-    service_ipv6_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv6_cidr
-    ip_family         = var.kubernetes_network_config.ip_family
-  }
+  value = (var.outpost_config == null
+    ? {
+      service_ipv4_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv4_cidr
+      service_ipv6_cidr = aws_eks_cluster.this.kubernetes_network_config[0].service_ipv6_cidr
+      ip_family         = var.kubernetes_network_config.ip_family
+    }
+    : null
+  )
 }
 
 output "remote_network_config" {

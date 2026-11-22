@@ -169,7 +169,7 @@ variable "outpost_config" {
 
 variable "kubernetes_network_config" {
   description = <<EOF
-  (Optional) A configuration of Kubernetes network. `kubernetes_network_config` as defined below.
+  (Optional) A configuration of Kubernetes network. Ignored if `outpost_config` is configured because it conflicts with `outpost_config`. `kubernetes_network_config` as defined below.
     (Optional) `service_ipv4_cidr` - The CIDR block to assign Kubernetes pod and service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the `10.100.0.0/16` or `172.20.0.0/16` CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. You can only specify a custom CIDR block when you create a cluster, changing this value will force a new cluster to be created.
     (Optional) `ip_family` - The IP family used to assign Kubernetes pod and service addresses. Valid values are `IPv4` and `IPv6`. Defaults to `IPv4`. You can only specify an IP family when you create a cluster, changing this value will force a new cluster to be created.
   EOF
