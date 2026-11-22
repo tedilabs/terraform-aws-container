@@ -51,7 +51,7 @@ resource "aws_eks_access_entry" "this" {
 
 
 ###################################################
-# Access Poilcy for Standard Access Entry
+# Access Policy for Standard Access Entry
 ###################################################
 
 resource "aws_eks_access_policy_association" "this" {
