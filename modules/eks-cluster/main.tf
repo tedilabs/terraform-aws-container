@@ -79,7 +79,7 @@ resource "aws_eks_cluster" "this" {
       control_plane_instance_type = outpost_config.value.control_plane.instance_type
 
       dynamic "control_plane_placement" {
-        for_each = outpost_config.value.control.plane_placement_group != null ? [outpost_config.value.control_plane.placement_group] : []
+        for_each = outpost_config.value.control_plane.placement_group != null ? [outpost_config.value.control_plane.placement_group] : []
 
         content {
           group_name = control_plane_placement.value
@@ -88,15 +88,20 @@ resource "aws_eks_cluster" "this" {
     }
   }
 
-  kubernetes_network_config {
-    service_ipv4_cidr = var.kubernetes_network_config.service_ipv4_cidr
-    ip_family         = local.ip_family[var.kubernetes_network_config.ip_family]
+  # INFO: `kubernetes_network_config` conflicts with `outpost_config`
+  dynamic "kubernetes_network_config" {
+    for_each = var.outpost_config == null ? [var.kubernetes_network_config] : []
 
-    dynamic "elastic_load_balancing" {
-      for_each = var.auto_mode.network.elastic_load_balancing.enabled ? [var.auto_mode.network.elastic_load_balancing] : []
+    content {
+      service_ipv4_cidr = kubernetes_network_config.value.service_ipv4_cidr
+      ip_family         = local.ip_family[kubernetes_network_config.value.ip_family]
 
-      content {
-        enabled = elastic_load_balancing.value.enabled
+      dynamic "elastic_load_balancing" {
+        for_each = var.auto_mode.network.elastic_load_balancing.enabled ? [var.auto_mode.network.elastic_load_balancing] : []
+
+        content {
+          enabled = elastic_load_balancing.value.enabled
+        }
       }
     }
   }
