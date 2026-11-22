@@ -44,6 +44,7 @@ data "aws_iam_policy_document" "pull_through_cache" {
 
 locals {
   default_namespaces = {
+    "cgr.dev"              = "chainguard"
     "ghcr.io"              = "github"
     "public.ecr.aws"       = "ecr-public"
     "quay.io"              = "quay"
