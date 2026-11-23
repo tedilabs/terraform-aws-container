@@ -18,7 +18,7 @@ variable "name" {
 }
 
 variable "addon_version" {
-  description = "(Optional) The version of the add-on. If not provided, this is configured with default compatibile version for the respective EKS cluster version."
+  description = "(Optional) The version of the add-on. If not provided, this is configured with default compatible version for the respective EKS cluster version."
   type        = string
   default     = null
   nullable    = true

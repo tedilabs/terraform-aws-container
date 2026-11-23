@@ -80,7 +80,7 @@ variable "lifecycle_rules" {
   description = <<EOF
   (Optional) A list of Lifecycle rules for ECR repository. Each block of `lifecycle_rules` as defined below.
     (Required) `priority` - The order in which rules are applied, lowest to highest. A lifecycle policy rule with a priority of `1` will be applied first, a rule with priority of `2` will be next, and so on. Must be unique and do not need to be sequential across rules.
-    (Optional) `descriptoin` - The description of the rule to describe the purpose of a rule within a lifecycle policy.
+    (Optional) `description` - The description of the rule to describe the purpose of a rule within a lifecycle policy.
     (Required) `target` - The configuration of target images for the rule. `target` as defined below.
 
       (Required) `status` - Valid values are `tagged`, `untagged`, or `any`. When you specify `tagged` status, either `tag_patterns` or `tag_prefixes` are required, but not both.
