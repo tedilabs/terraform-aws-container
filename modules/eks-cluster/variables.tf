@@ -236,7 +236,7 @@ variable "secrets_encryption" {
   description = <<EOF
   (Optional) A configuration to encrypt Kubernetes secrets. Envelope encryption provides an additional layer of encryption for your Kubernetes secrets. Once turned on, secrets encryption cannot be modified or removed. `secrets_encryption` as defined below.
     (Optional) `enabled` - Whether to enable envelope encryption of Kubernetes secrets. Defaults to `false`.
-    (Optional) `kms_key` - The ID of AWS KMS key to use for envelope encryption of Kubernetes secrets. The CMK must be symmetric, created in the same region as the cluster, and if the CMK was created in a different account, the user must have access to the CMK.
+    (Optional) `kms_key` - The ARN of AWS KMS key to use for envelope encryption of Kubernetes secrets. Required if `enabled` is `true`. The CMK must be symmetric, created in the same region as the cluster, and if the CMK was created in a different account, the user must have access to the CMK.
   EOF
   type = object({
     enabled = optional(bool, false)
@@ -244,6 +244,11 @@ variable "secrets_encryption" {
   })
   default  = {}
   nullable = false
+
+  validation {
+    condition     = !var.secrets_encryption.enabled || var.secrets_encryption.kms_key != null
+    error_message = "`secrets_encryption.kms_key` is required when `secrets_encryption.enabled` is `true`."
+  }
 }
 
 variable "cluster_role" {

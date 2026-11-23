@@ -71,6 +71,11 @@ variable "selectors" {
   }))
   default  = []
   nullable = false
+
+  validation {
+    condition     = length(var.selectors) > 0
+    error_message = "At least one selector is required for `selectors`."
+  }
 }
 
 variable "timeouts" {
