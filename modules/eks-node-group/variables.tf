@@ -162,10 +162,10 @@ variable "default_security_group" {
   (Optional) The configuration of the default security group for the EKS node group. `default_security_group` block as defined below.
     (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.
     (Optional) `name` - The name of the default security group. If not provided, the node group name is used for the name of security group.
-    (Optional) `description` - The description of the default security group.
+    (Optional) `description` - The description of the default security group. Defaults to `Managed by Terraform.`.
     (Optional) `ingress_rules` - A list of ingress rules in a security group. Defaults to `[]`. Each block of `ingress_rules` as defined below.
       (Optional) `id` - The ID of the ingress rule. This value is only used internally within Terraform code.
-      (Optional) `description` - The description of the rule.
+      (Optional) `description` - The description of the rule. Defaults to `Managed by Terraform.`.
       (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.
       (Required) `from_port` - The start of port range for the protocols.
       (Required) `to_port` - The end of port range for the protocols.
@@ -175,8 +175,8 @@ variable "default_security_group" {
       (Optional) `security_groups` - The source security group IDs to allow.
       (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule.
     (Optional) `egress_rules` - A list of egress rules in a security group. Defaults to `[{ id = "default", protocol = -1, from_port = 1, to_port=65535, ipv4_cidrs = ["0.0.0.0/0"] }]`. Each block of `egress_rules` as defined below.
-      (Optional) `id` - The ID of the egress rule. This value is only used internally within Terraform code.
-      (Optional) `description` - The description of the rule.
+      (Required) `id` - The ID of the egress rule. This value is only used internally within Terraform code.
+      (Optional) `description` - The description of the rule. Defaults to `Managed by Terraform.`.
       (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.
       (Required) `from_port` - The start of port range for the protocols.
       (Required) `to_port` - The end of port range for the protocols.
@@ -303,7 +303,7 @@ variable "tags" {
 }
 
 variable "module_tags_enabled" {
-  description = "(Optional) Whether to create AWS Resource Tags for the module informations."
+  description = "(Optional) Whether to create AWS Resource Tags for the module information."
   type        = bool
   default     = true
   nullable    = false
@@ -316,7 +316,7 @@ variable "module_tags_enabled" {
 
 variable "resource_group" {
   description = <<EOF
-  (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.
+  (Optional) A configuration of Resource Group for this module. `resource_group` as defined below.
     (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.
     (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.
     (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`.
