@@ -107,7 +107,7 @@ variable "default_pull_through_cache_role" {
   description = <<EOF
   (Optional) A configuration for the default IAM role to use for Pull Through Cache rules. Use `pull_through_cache_rules[].credential.iam_role` if `default_pull_through_cache_role.enabled` is `false`. `default_pull_through_cache_role` as defined below.
     (Optional) `enabled` - Whether to create the default IAM role. Defaults to `true`.
-    (Optional) `name` - The name of the default IAM role. Defaults to `ecr-pull-through-cache-$${account-id}`.
+    (Optional) `name` - The name of the default IAM role. Defaults to `ecr-registry-pull-through-cache-$${account-id}`.
     (Optional) `path` - The path of the default IAM role. Defaults to `/`.
     (Optional) `description` - The description of the default IAM role. Defaults to `Managed by Terraform.`.
     (Optional) `assumable_roles` - A set of IAM role ARNs that can be assumed by this role. Defaults to `[]`.
