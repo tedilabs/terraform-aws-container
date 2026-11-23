@@ -225,7 +225,7 @@ variable "scanning_rules" {
       for rule in var.scanning_rules :
       contains(["SCAN_ON_PUSH", "CONTINUOUS_SCAN", "MANUAL"], rule.frequency)
     ])
-    error_message = "Valid values for `frequency` are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN` and `MANUAL."
+    error_message = "Valid values for `frequency` are `SCAN_ON_PUSH`, `CONTINUOUS_SCAN` and `MANUAL`."
   }
 
   validation {
