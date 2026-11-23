@@ -49,7 +49,7 @@ output "default_security_group" {
 }
 
 output "security_groups" {
-  description = "A set of security group IDs which is assigned to the load balancer."
+  description = "A set of security group IDs which is assigned to the node group instances."
   value       = aws_launch_template.this.network_interfaces[0].security_groups
 }
 
