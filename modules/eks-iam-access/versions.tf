@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.12"
+  required_version = ">= 1.16"
 
   required_providers {
     # tflint-ignore: terraform_unused_required_providers
