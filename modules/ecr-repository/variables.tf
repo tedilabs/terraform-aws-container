@@ -115,6 +115,20 @@ variable "lifecycle_rules" {
     ])
     error_message = "Valid values for `status` are `tagged`, `untagged`, `any`."
   }
+  validation {
+    condition = alltrue([
+      for rule in var.lifecycle_rules :
+      rule.target.status != "tagged" || length(rule.target.tag_patterns) > 0 || length(rule.target.tag_prefixes) > 0
+    ])
+    error_message = "Either `tag_patterns` or `tag_prefixes` is required when `status` is `tagged`."
+  }
+  validation {
+    condition = alltrue([
+      for rule in var.lifecycle_rules :
+      rule.expiration.count != null || rule.expiration.days != null
+    ])
+    error_message = "Either `expiration.count` or `expiration.days` is required for each lifecycle rule."
+  }
 }
 
 variable "tags" {
